@@ -34,7 +34,6 @@ function Equipment() {
                         <div className="ajust">
                             <img src={equip.pictureUrl} className="pictureUrl"/>
                             <div>{equip.name}</div>
-                            
                             <div>{equip.price} &#8362;</div>
                             <div className="brand">{equip.brand.name}</div>
 

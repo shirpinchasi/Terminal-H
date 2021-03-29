@@ -33,8 +33,8 @@ console.log(shoes);
                    <div className="shoes">
                        {shoes.map((product) =>(
                             <div className="ajust1" >
-                                <div>{product.name}</div>
                                 <img src={product.pictureUrl} className="pictureUrl"/>
+                                <div>{product.name}</div>
                                 <div>{product.price} &#8362;</div>
                                 <div src={`https://terminal-h.herokuapp.com/api/products/${product.id}/brand/name`}> </div>
                                 {/* <div>{shoe.description}</div> */}

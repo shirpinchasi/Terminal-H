@@ -10,7 +10,7 @@ function Clothing() {
     useEffect(()=>{
         async function getClothing() {
             try{
-                const res = await fetch("https://terminal-h.herokuapp.com/api/categories/5/products",{
+                const res = await fetch("https://terminal-h.herokuapp.com/api/categories/5/products?projection=detailedProduct",{
                     method : "GET"
                 });
                 const fetchedClothing = await res.json();
@@ -31,10 +31,10 @@ function Clothing() {
                 <div className="clothing">
                     {clothing.map(clothes =>(
                         <div className="ajust">
-                            <div>{clothes.name}</div>
                             <img src={clothes.pictureUrl} className="pictureUrl"/>
+                            <div>{clothes.name}</div>
                             <div>{clothes.price} &#8362; </div>
-
+                            <div className="brand">{clothes.brand.name}</div>
                         </div>
                     ))}
                 </div>
