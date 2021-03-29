@@ -1,0 +1,20 @@
+.equipment{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 5%;
+    justify-content: space-evenly;
+}
+.ajust{
+    width: 400px;
+    margin-bottom: 10%;
+    
+    // box-shadow: 1px 1px 1px 1px rgba(4, 5, 75, 0.2), 0 6px 20px 0 rgba(49, 23, 23, 0.19);
+}
+.brand{
+    font-weight: 500;
+    font-size:13px;
+}
+.pictureUrl{
+    border:2px solid rgba(235, 232, 232, 0.5);
+    
+}

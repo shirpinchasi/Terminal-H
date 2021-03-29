@@ -1,23 +1,54 @@
-import logo from './logo.svg';
+import React from "react";
+import "./App.css"
+import Feed from "./Feed/Feed";
+import { BrowserRouter, BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Menu from "./Menu/Menu";
+import Accessories from "./Shop/Accessories/Accessories";
+
+import Clothing from "./Shop/Clothing/Clothing";
+import Shoes from "./Shop/Shoes/Shoes";
+import Equipment from "./Shop/Equipment/Equipment";
+import SportBrands from "./Shop/SportBrands/SportBrands";
+import Games from "./Shop/Games/Games";
 import './App.css';
+import Beauty from "./Shop/Beauty/Beauty";
+import Bags from "./Shop/Bags/Bags";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Menu/>
+      <BrowserRouter>
+            <Switch>
+            <Route exact path="/Bags">
+                    <Bags />
+                </Route>
+            <Route exact path="/Beauty">
+                    <Beauty />
+                </Route>
+            <Route exact path="/Accessories">
+                    <Accessories />
+                </Route>
+            <Route exact path="/Games">
+                    <Games />
+                </Route>
+            <Route exact path="/SportBrands">
+                    <SportBrands />
+                </Route>
+            <Route exact path="/Equipment">
+                    <Equipment />
+                </Route>
+            <Route exact path="/Shoes">
+                    <Shoes />
+                </Route>
+                <Route exact path="/Clothing">
+                    <Clothing />
+                </Route>
+                <Route exact path="/">
+                  <Feed Component={Feed}/>
+                </Route>
+          </Switch>
+      </BrowserRouter>
     </div>
   );
 }
