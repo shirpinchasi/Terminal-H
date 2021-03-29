@@ -6,7 +6,7 @@ function Shoes() {
 
     const [shoes, setShoes] = useState([]);
     const [isLoading , setLoading] = useState(true);
-    const apiShoes = "https://terminal-h.herokuapp.com/api/categories/4/products?size=1";
+    const apiShoes = "https://terminal-h.herokuapp.com/api/categories/4/products?projection=detailedProduct";
 
     useEffect(()=>{
         async function getShoes() {
