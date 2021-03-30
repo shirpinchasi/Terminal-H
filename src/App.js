@@ -4,7 +4,6 @@ import Feed from "./Feed/Feed";
 import { BrowserRouter, BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Menu from "./Menu/Menu";
 import Accessories from "./Shop/Accessories/Accessories";
-
 import Clothing from "./Shop/Clothing/Clothing";
 import Shoes from "./Shop/Shoes/Shoes";
 import Equipment from "./Shop/Equipment/Equipment";
