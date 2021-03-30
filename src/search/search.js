@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Loading from "../Loader/Loader";
-import "./Search.scss";
+import "./search.scss";
 import { Link } from "react-router-dom";
 
 function Search() {
@@ -43,11 +43,10 @@ function Search() {
         } catch (err) {
             console.log(err);
         }
-        console.log(product);
     }
-    function hasNoResults() {
-        return query && product.length === 0;
-    }
+    // function hasNoResults() {
+    //     return query && product.length === 0;
+    // }
 
     return (
         <div id="Search">
