@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Loading from "../Loader/Loader";
-import "./search.scss";
+import Loading from "../../Loader/Loader";
+import "./Search.scss";
 import { Link } from "react-router-dom";
 
 function Search() {

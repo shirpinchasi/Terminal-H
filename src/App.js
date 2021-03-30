@@ -13,7 +13,7 @@ import './App.css';
 import Beauty from "./Shop/Beauty/Beauty";
 import Bags from "./Shop/Bags/Bags";
 import ProductPage from "./Shop/ProductPage/productPage"
-import Search from "./search/search"
+import Search from "./Menu/Search/Search"
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
       <Menu/>
       <BrowserRouter>
             <Switch>
-            <Route exact path="/search">
+            <Route exact path="/Search">
                     <Search />
                 </Route>
             <Route exact path="/Bags">
