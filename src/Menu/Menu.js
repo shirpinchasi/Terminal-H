@@ -16,6 +16,7 @@ function Menu() {
                 <a href="/Beauty" alt="Beauty">ביוטי ולייף סטייל</a>
                 <a href="/Accessories" alt="Accessories">אקססוריז</a>
                 <a href="/Bags" alt="Bags">תיקים</a>
+                <a href="/Search">חיפוש</a>
                
 
 

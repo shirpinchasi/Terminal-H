@@ -4,12 +4,17 @@
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
-.pictureUrl{
-    width: 300px;
+.pictureUrlBags{
+    border:2px solid rgba(235, 232, 232, 0.5);
+    width: 200px;
     margin-top: 5%;
     margin-bottom: 5%;
 }
-.ajust{
-    width: 400px;
+.ajustBags{
+    width: 350px;
     margin-bottom: 10%;
+}
+.brandBags{
+    font-weight: 500;
+    font-size:15px;
 }

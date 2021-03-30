@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Loading from "../../Loader/Loader";
 import "./SportBrands.scss";
+import { Link } from "react-router-dom";
 
 
 function SportBrands() {
@@ -8,42 +9,46 @@ function SportBrands() {
     const [sportBrands, setSportBrands] = useState([]);
     const [isLoading, setLoading] = useState(true);
 
-    useEffect(()=>{
+    useEffect(() => {
         async function getSportBrands() {
-            try{
-                const res = await fetch("https://terminal-h.herokuapp.com/api/categories/9/products?projection=detailedProduct",{
-                    method:"GET"
+            try {
+                const res = await fetch("https://terminal-h.herokuapp.com/api/categories/9/products?projection=detailedProduct", {
+                    method: "GET"
                 })
                 const fetchedSportBrands = await res.json();
                 setSportBrands(fetchedSportBrands._embedded.products)
                 setLoading(false)
-            }catch(err){
+            } catch (err) {
                 console.log(sportBrands);
             }
-            
+
         }
         getSportBrands();
-    },[])
+    }, [])
 
-    return(
+    return (
         <div>
             {isLoading ? (
-                <Loading/>
+                <Loading />
             ) : (
                 <div className="sportBrands">
-                    {sportBrands.map(sportbrand=>(
-                        <div className="ajust">
-                            <img src={sportbrand.pictureUrl} className="pictureUrl"/>
-                            <div>{sportbrand.name}</div>
-                            <div>{sportbrand.price} &#8362;</div>
-                            <div className="brand">{sportbrand.brand.name}</div>
+                    {sportBrands.map(sportbrand => (
+                        <div>
+                            <Link to={`/ProductPage/${sportbrand.id}`} id="Link">
+                                <div className="ajust">
+                                    <img src={sportbrand.pictureUrl} className="pictureUrl" />
+                                    <div>{sportbrand.name}</div>
+                                    <div>{sportbrand.price} &#8362;</div>
+                                    <div className="brand">{sportbrand.brand.name}</div>
+                                </div>
+                            </Link>
                         </div>
                     ))}
                 </div>
             )}
         </div>
     )
-    
+
 }
 
 export default SportBrands;

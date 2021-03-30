@@ -1,51 +1,55 @@
 import React, { useEffect, useState } from "react";
 import Loading from "../../Loader/Loader";
-import "./Equipment.scss"
-// https://terminal-h.herokuapp.com/api/categories/8/products{?projection}
+import "./Equipment.scss";
+import { Link } from "react-router-dom";
+
 function Equipment() {
 
-    const [equipment , setEquipment] = useState([]);
+    const [equipment, setEquipment] = useState([]);
     const [isLoading, setLoading] = useState(true);
 
-    useEffect(()=>{
+    useEffect(() => {
         async function getEquipment() {
-            try{
+            try {
                 const res = await fetch("https://terminal-h.herokuapp.com/api/categories/8/products?projection=detailedProduct", {
-                    method:"GET"
+                    method: "GET"
                 });
                 const fetchedEquipment = await res.json();
                 setEquipment(fetchedEquipment._embedded.products);
                 setLoading(false)
-            }catch(err){
+            } catch (err) {
                 console.log(equipment);
             }
-            
+
         }
         getEquipment();
-    },[])
+    }, [])
 
-    return(
+    return (
         <div>
             {isLoading ? (
-                <Loading/>
+                <Loading />
             ) : (
                 <div className="equipment">
-                    {equipment.map(equip =>(
-                        <div className="ajust">
-                            <img src={equip.pictureUrl} className="pictureUrl"/>
-                            <div>{equip.name}</div>
-                            <div>{equip.price} &#8362;</div>
-                            <div className="brand">{equip.brand.name}</div>
-
+                    {equipment.map(equip => (
+                        <div>
+                            <Link to={`/ProductPage/${equip.id}`} id="Link">
+                                <div className="ajustEquipment">
+                                    <img src={equip.pictureUrl} className="pictureUrlEquipment" />
+                                    <div>{equip.name}</div>
+                                    <div>{equip.price} &#8362;</div>
+                                    <div className="brandEquipment">{equip.brand.name}</div>
+                                </div>
+                            </Link>
                         </div>
                     ))}
 
                 </div>
             )}
-            
+
         </div>
     )
-    
+
 }
 
 export default Equipment;

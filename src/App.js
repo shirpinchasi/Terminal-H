@@ -13,6 +13,8 @@ import Games from "./Shop/Games/Games";
 import './App.css';
 import Beauty from "./Shop/Beauty/Beauty";
 import Bags from "./Shop/Bags/Bags";
+import ProductPage from "./Shop/ProductPage/productPage"
+import Search from "./Search/Search";
 
 function App() {
   return (
@@ -20,8 +22,14 @@ function App() {
       <Menu/>
       <BrowserRouter>
             <Switch>
+            <Route exact path="/Search">
+                    <Search />
+                </Route>
             <Route exact path="/Bags">
                     <Bags />
+                </Route>
+                <Route exact path="/ProductPage/:id?">
+                    <ProductPage/>
                 </Route>
             <Route exact path="/Beauty">
                     <Beauty />
