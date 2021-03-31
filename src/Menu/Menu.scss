@@ -11,6 +11,7 @@
     background-color: white;
     
 }
+
 .d-flex{
     margin-right: 5%;
     margin-bottom: 20px;
@@ -20,7 +21,10 @@
         color: black;
         font-weight: 700;
         margin-left: 5%;
+        justify-content: space-evenly;
+        margin-right: 1%;
         font-size: 13px;   
+
     }
     a:hover{
         text-decoration: underline;
@@ -29,7 +33,7 @@
     
 }
 .terminalH{
-    font-size: 25px;
+    font-size: 30px;
     text-decoration: none;
     color: black;
     font-family: 'Courier New', Courier, monospace;

@@ -19,3 +19,21 @@
     font-size: 15px;
 
 }
+// #Search{
+//     height: 31px;
+    
+// }
+.searchInput{
+    border: none;
+}
+.searchInput:focus{
+    border-bottom: solid;
+}
+input:focus{
+    outline: none;
+}
+.submit{
+    border-radius: 50px;
+    border: none;
+}    
+
