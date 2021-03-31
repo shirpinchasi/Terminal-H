@@ -12,8 +12,9 @@ import Games from "./Shop/Games/Games";
 import './App.css';
 import Beauty from "./Shop/Beauty/Beauty";
 import Bags from "./Shop/Bags/Bags";
-import ProductPage from "./Shop/ProductPage/productPage"
-import Search from "./Menu/Search/Search"
+import ProductPage from "./Shop/ProductPage/productPage";
+import Brands from "./Shop/Brands/Brands";
+import BrandPage from "./Shop/Brands/BrandPage";
 
 function App() {
   return (
@@ -21,8 +22,11 @@ function App() {
       <Menu/>
       <BrowserRouter>
             <Switch>
-            <Route exact path="/Search">
-                    <Search />
+            <Route exact path="/BrandPage/:id?">
+                    <BrandPage />
+                </Route>
+            <Route exact path="/Brands">
+                    <Brands />
                 </Route>
             <Route exact path="/Bags">
                     <Bags />

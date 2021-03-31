@@ -1,0 +1,21 @@
+.Brands{
+    width: 90%;
+   
+    margin-top: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+li{
+    list-style: none;
+    color: #000;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 30px;
+    text-transform: uppercase;
+    width: 200px;
+    text-decoration: none;
+}
+ul{
+    width: 200px;
+}
