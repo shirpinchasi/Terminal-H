@@ -25,6 +25,7 @@ function Brands() {
         }
         getBrands();
     },[])
+    console.log(brands);
 
     
     return(

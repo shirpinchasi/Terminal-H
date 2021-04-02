@@ -1,21 +1,27 @@
-.games{
+.shop{
     margin-top: 5%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
-.pictureUrlGames{
+.pictureUrlShop{
     border:2px solid rgba(235, 232, 232, 0.5);
-    width: 300px;
+    width: 200px;
     margin-top: 5%;
     margin-bottom: 5%;
 }
-.ajustGames{
-    width: 400px;
+.ajustShop{
+    width: 350px;
     margin-bottom: 10%;
 }
-.brandGames{
+.brandShop{
     font-weight: 500;
-    font-size: 15px;
-
+    font-size:15px;
+}
+#Link{
+    color: black;
+    text-decoration: none;
+}
+.shopName:hover{
+    text-decoration: underline;
 }

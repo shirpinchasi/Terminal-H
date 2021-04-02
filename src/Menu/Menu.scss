@@ -1,6 +1,5 @@
-.hotBrand{
-    width: 1260px;
-    padding-top: 2%;
+.center{
+    text-align: center;
 }
 .menu{
     position: sticky;
@@ -9,13 +8,37 @@
 	z-index: 1;
 	overflow: hidden;
     background-color: white;
-    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    text-align: center;
+}
+.mutagim{
+    height: 21px;
+    margin-top: 24px;
+    padding-right: 10px;
+    font-size: 12px; 
+    text-decoration: none;
+    color: black;
+    font-weight: 700;
+    font-size: 12px; 
+}
+.mutagim:hover{
+    text-decoration: underline;
 }
 
-.d-flex{
-    margin-right: 5%;
-    margin-bottom: 20px;
+.terminalH{
+    font-size: 35px;
+    text-decoration: none;
+    font-weight: lighter;
+    color: black;
+    text-decoration: none;
+    font-family: 'Courier New', Courier, monospace;
+}
+.ajustSections{
     margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100px;
     a{
         text-decoration: none;
         color: black;
@@ -24,17 +47,10 @@
         justify-content: space-evenly;
         margin-right: 1%;
         font-size: 12px;   
-
+    
     }
     a:hover{
         text-decoration: underline;
         
     }
-    
-}
-.terminalH{
-    font-size: 30px;
-    text-decoration: none;
-    color: black;
-    font-family: 'Courier New', Courier, monospace;
 }

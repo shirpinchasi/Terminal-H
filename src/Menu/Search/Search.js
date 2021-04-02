@@ -51,6 +51,7 @@ function Search() {
 
     }
     function onLoadProducts() {
+        setLoading(true);
         <Loading/>
     }
 

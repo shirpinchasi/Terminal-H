@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import config from "../config/config"
+import Menu from "../Menu/Menu";
 
 
 
@@ -9,7 +11,7 @@ function Feed() {
     useEffect(()=>{
         async function getData() {
             try{
-                const res = await fetch("https://terminal-h.herokuapp.com/api/categories",{
+                const res = await fetch(config.apiCategories,{
                     method : "GET"
                 });
                 const fetchedData = await res.json();
@@ -25,6 +27,7 @@ function Feed() {
 
 return(
     <div>
+        
         {categories.map(category =>(
             <div>
             <div key="catt.so">{console.log(category.name)}</div>
