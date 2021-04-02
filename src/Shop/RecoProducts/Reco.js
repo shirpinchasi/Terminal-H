@@ -1,28 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router";
 import "./Reco.scss"
 
 function RecommendedProducts() {
-
+    const { id } = useParams();
     const [recoProducts, setRecoProducts] = useState([]);
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
-        async function getRecommProducts() {
-            try {
-                const res = await fetch("http://terminal-h.herokuapp.com/api/brands/24/products?projection=detailedProduct", {
+        if(!id) {
+            return;
+        }
+        getRecommProducts(id);
+    }, [id])
+
+
+        async function getRecommProducts(id) {
+            
+                const fetchedData = await (await fetch(`http://terminal-h.herokuapp.com/api/brands/2/products?projection=detailedProduct`, {
                     method: "GET"
-                });
-                const fetchedData = await res.json();
+                })).json();
                 setRecoProducts(fetchedData._embedded.products);
                 setLoading(false)
-            } catch (err) {
-                console.log(err);
-            }
-            console.log(recoProducts);
+            console.log(fetchedData._embedded.products);
         }
-        getRecommProducts();
-    }, [])
+     
+    
 
 
     return (

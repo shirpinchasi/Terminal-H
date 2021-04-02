@@ -62,6 +62,7 @@ function ProductPage() {
                     <div className="productDesc">
                         <div className="ajustDesc"> {product.description}</div>
                     </div>
+                    <div>{product.brand.id}</div>
 
 
                 </div>
