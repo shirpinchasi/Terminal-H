@@ -13,6 +13,12 @@
     justify-content: space-evenly;
     text-align: center;
 }
+.ASearch{
+    font-size: 15px;
+    font-weight: 700;
+    color: black;
+    text-decoration: none;
+}
 .mutagim{
     height: 21px;
     margin-top: 24px;
@@ -54,3 +60,11 @@
         
     }
 }
+@media screen and (max-width: 625px) {
+	.ajustSections {
+	  margin-top: 40%;
+	  margin-left: 17%;
+	}
+    
+	
+  }

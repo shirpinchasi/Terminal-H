@@ -1,42 +1,67 @@
-import React, { useEffect, useState,useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import Loading from "../Loader/Loader";
 import { Link } from "react-router-dom";
 import "./Shop.scss";
-import Menu from "../Menu/Menu";
+import ReactPaginate from "react-paginate"
 
-function BrandPage() {
+
+function Shop() {
     const { id } = useParams();
     const [shops, setShops] = useState([]);
+    const [pages, setPages] = useState([])
     const [isLoading, setLoading] = useState(true);
-    const [, updateState] = useState([]);
-    const forceUpdate = useCallback(() => updateState({}), []);
+    const [page , setPage] = useState(0);
+    const [itemsPerPage] = useState(30);
+    
+    
 
     useEffect(() => {
         if (!id) {
             return;
         }
-        getShop(id);
-    }, [id]);
+        
+        GetShop(id);
+        
+    }, [id,page]);
 
 
-    async function getShop(id) {
-        const fetchShop = await (await fetch(`https://terminal-h.herokuapp.com/api/products/search/findByCategorySectionId?sectionId=${id}&projection=detailedProduct`, {
+    async function GetShop(id) {
+        const fetchShop = await (await fetch(`https://terminal-h.herokuapp.com/api/products/search/findByCategorySectionId?sectionId=${id}&projection=detailedProduct&sort=price&page=${page}&size=${itemsPerPage}`,
+         {
             method: "GET",
         })).json();
+        const fetchPages = await (await fetch(`https://terminal-h.herokuapp.com/api/products/search/findByCategorySectionId?sectionId=${id}&projection=detailedProduct&sort=price&page=${page}&size=${itemsPerPage}`,{
+            method:"GET"
+        })).json();
+        console.log(page);
+        console.log(fetchPages);
         setShops(fetchShop._embedded.products);
+        setPages(fetchPages.page)
         setLoading(false)
-        console.log(fetchShop);
-
+        
     }
+  
+   const handlePageClick = (e) => {
+    const page = e.selected;
+    setPage(page)
+    console.log(page);
+};
 
+
+  
+    
+    
+   
+ 
 
     return (
         <div>
             
             {isLoading ? (
-                <Loading />
+                <Loading/>
             ) : (
+                <div>
                 <div className="shop">
                     {shops.map(shop => (
                         <div >
@@ -52,10 +77,27 @@ function BrandPage() {
                     ))}
 
                 </div>
+            <ReactPaginate
+                className="pagination"
+                previousLabel={"prev"}
+                nextLabel={"next"}
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={pages.totalPages}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={3}
+                onPageChange={handlePageClick}
+                containerClassName={"pagination"}
+                subContainerClassName={"pages pagination"}
+                activeClassName={"active"}
+                initialPage ={0}
+
+            />
+                </div>
             )}
 
         </div>
     )
 }
 
-export default BrandPage;
+export default Shop;

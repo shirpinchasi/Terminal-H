@@ -16,20 +16,16 @@ function Search() {
     const icon = <i class="fas fa-user"></i> 
 
     
-       const sortHigh= product.sort((a,b) => parseInt(a.price) - parseInt(b.price))
-    
-    
-        const sortLow= product.sort((a, b) => parseInt(b.price) - parseInt(a.price))
     
 
-    // const sortAscending = () => {
-    //     let sortedData = product.sort((a, b) => a - b)
-    //     setProducts(sortedData)
-    // }
-    // const sortDescending = () => {
-    //     let sortedData = product.sort((a, b) => b - a)
-    //     setProducts(sortedData)
-    // }
+    const sortAscending = () => {
+        let sortedData = product.sort((a, b) => a - b)
+        setProducts(sortedData)
+    }
+    const sortDescending = () => {
+        let sortedData = product.sort((a, b) => b - a)
+        setProducts(sortedData)
+    }
 
 
     const handleChangeInput = (e) => {
@@ -46,9 +42,7 @@ function Search() {
         e.preventDefault();
         reset();
         resetLoading();
-        
         setQuery(searchValue);
-
     }
     function onLoadProducts() {
         setLoading(true);
@@ -81,24 +75,19 @@ function Search() {
     function LoadingData() {
         return CallSearchFunction && product.length === 0;
     };
-    const options =[
-        {value : "main", label : "מיין לפי"},
-        {value : `${apiSearch}&sort=${sortHigh}`, label : "מחיר: מהגבוה לנמוך"},
-        {value : `${apiSearch}&sort=${sortLow}`, label : "מחיר: מהנמוך לגבוה"}
-    
-    ]
+   
 
     return (
-        <div id="Search">
+        <div >
             <div>
                 <form className="form" onSubmit={CallSearchFunction}>
-                <input
+                <input className="Search"
                     placeholder="search Product Here.."
                     value={searchValue}
                     onChange={handleChangeInput}
                     type="text"
                     className="searchInput"
-                // onKeyUp={dodelaySearch(this.val)}
+                   
                 />
                 <FontAwesomeIcon icon={faSearch} className="far fa-search fa-sm" onClick={CallSearchFunction} onLoad={onLoadProducts}/>
                 {/* <input onClick={CallSearchFunction} onLoad={onLoadProducts} type="submit" className="submit" value="SEARCH" /> */}
@@ -108,14 +97,14 @@ function Search() {
                 {/* {isLoading ? (
                     <Loading />
                 ) : ( */}
-                {LoadingData()
+                {isLoading
                 
                  ?<div></div>
                  
 
                         : 
                         <div>
-                            <Select options={options}/>
+                           <hr/>
                         <div className="products">
                             {product.map(prod => (
                                 <div>

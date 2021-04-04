@@ -18,7 +18,7 @@ function RecommendedProducts() {
 
         async function getRecommProducts(id) {
             
-                const fetchedData = await (await fetch(`http://terminal-h.herokuapp.com/api/brands/2/products?projection=detailedProduct`, {
+                const fetchedData = await (await fetch(`http://terminal-h.herokuapp.com/api/brands/${id}/products?projection=detailedProduct`, {
                     method: "GET"
                 })).json();
                 setRecoProducts(fetchedData._embedded.products);

@@ -25,3 +25,12 @@
 .shopName:hover{
     text-decoration: underline;
 }
+.pagination{
+    display: flex;
+    width: 600px;
+    .active{
+        background-color:lightblue;
+        border-radius: 50px;
+        width: 40px;
+    }   
+}

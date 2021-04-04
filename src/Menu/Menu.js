@@ -32,8 +32,11 @@ function Menu() {
         getSections();
     }, [])
     return(
+        <div>
+            
         <div className="center">
             <a className="terminalH" href="/" alt="Feed">Terminal H</a>
+            
         <div className="menu">
         <a href="?brands" className="mutagim">מותגים</a> 
             {sections.map(section =>(
@@ -45,11 +48,12 @@ function Menu() {
                     {/* </Link> */}
                 </div>
             ))}
-            
-            
+             
         </div>
+        <Search/>
         <hr/>
-        <Search className="search"/>
+       
+        </div>
         </div>
     )
 

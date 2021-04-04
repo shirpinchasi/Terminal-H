@@ -8,11 +8,13 @@ import BrandPage from "./Shop/Brands/BrandPage";
 import Shop from "./Shop/Shop";
 import ProductPage from "./Shop/ProductPage/productPage"
 import Brands from "./Shop/Brands/Brands";
+import Search from "./Menu/Search/Search"
 
 function App() {
   return (
       <div>
           <Menu/>
+          
     <div className="App">
       <BrowserRouter>
             <Switch>
