@@ -23,14 +23,14 @@ function Feed() {
         }
        getData();
     },[])
-    console.log(categories);
+    
 
 return(
     <div>
         
         {categories.map(category =>(
             <div>
-            <div key="catt.so">{console.log(category.name)}</div>
+            <div key="catt.so"></div>
             
             </div>
         ))}

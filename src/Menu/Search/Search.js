@@ -4,6 +4,7 @@ import "./Search.scss";
 import Select from 'react-select'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import ReactPaginate from "react-paginate";
 
 
 function Search() {
@@ -12,9 +13,9 @@ function Search() {
     const [product, setProducts] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const [searchValue, setSearchValue] = useState("");
-    const apiSearch = `https://terminal-h.herokuapp.com/api/products/search/findByNameContainingIgnoreCase?name=${query}&projection=detailedProduct&sort`
-    const icon = <i class="fas fa-user"></i> 
-
+    const [pageNum , setPageNum] = useState(0);
+    const [pages, setPages] = useState([])
+    const [itemsPerPage] = useState(30);
     
     
 
@@ -57,16 +58,23 @@ function Search() {
         }
 
         getProducts();
-    }, [query]);
+    }, [query,pageNum]);
 
     async function getProducts() {
         try {
-            const res = await fetch(apiSearch);
+            const res = await fetch(`https://terminal-h.herokuapp.com/api/products/search/findByNameContainingIgnoreCase?name=${query}&projection=detailedProduct&page=${pageNum}&size=${itemsPerPage}`);
             const product = await res.json();
+
+            const result = await fetch(`https://terminal-h.herokuapp.com/api/products/search/findByNameContainingIgnoreCase?name=${query}&projection=detailedProduct&page=${pageNum}&size=${itemsPerPage}`,{
+                method : "GET"
+            })
+            const pages = await result.json();
             setProducts(product._embedded.products)
+            setPages(pages.page)
             setLoading(false)
+            
         } catch (err) {
-            console.log(err);
+            console.log(product);
         }
     }
     // function hasNoResults() {
@@ -75,8 +83,14 @@ function Search() {
     function LoadingData() {
         return CallSearchFunction && product.length === 0;
     };
-   
 
+
+    const handlePageClick = (e) => {
+        const page = e.selected;
+        setPageNum(page)
+        console.log(page);
+    };
+   
     return (
         <div >
             <div>
@@ -120,6 +134,22 @@ function Search() {
                                 </div>
                             ))}
                         </div>
+                        <ReactPaginate
+                className="pagination"
+                previousLabel={"prev"}
+                nextLabel={"next"}
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={pages.totalPages}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={3}
+                onPageChange={handlePageClick}
+                containerClassName={"pagination"}
+                subContainerClassName={"pages pagination"}
+                activeClassName={"active"}
+                initialPage ={0}
+
+            />
 
 
 

@@ -38,7 +38,7 @@ function Menu() {
             <a className="terminalH" href="/" alt="Feed">Terminal H</a>
             
         <div className="menu">
-        <a href="?brands" className="mutagim">מותגים</a> 
+        <a href="/brands" className="mutagim">מותגים</a> 
             {sections.map(section =>(
                 <div >
                     {/* <Link to ={`/Shop/${section.id}`}> */}
