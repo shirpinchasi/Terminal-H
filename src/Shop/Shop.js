@@ -4,6 +4,8 @@ import Loading from "../Loader/Loader";
 import { Link } from "react-router-dom";
 import "./Shop.scss";
 import ReactPaginate from "react-paginate"
+import Menu from "../Menu/Menu";
+import Search from "../Search/Search"
 
 
 function Shop() {
@@ -14,8 +16,6 @@ function Shop() {
     const [page , setPage] = useState(0);
     const [itemsPerPage] = useState(30);
     
-    
-
     useEffect(() => {
         if (!id) {
             return;
@@ -24,7 +24,7 @@ function Shop() {
         GetShop(id);
         
     }, [id,page]);
-
+  
 
     async function GetShop(id) {
         const fetchShop = await (await fetch(`https://terminal-h.herokuapp.com/api/products/search/findByCategorySectionId?sectionId=${id}&projection=detailedProduct&sort=price&page=${page}&size=${itemsPerPage}`,
@@ -46,8 +46,16 @@ function Shop() {
     const page = e.selected;
     setPage(page)
     console.log(page);
+    scrollToTop();
+    
 };
-
+function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+  
 
   
     
@@ -62,6 +70,7 @@ function Shop() {
                 <Loading/>
             ) : (
                 <div>
+                    
                 <div className="shop">
                     {shops.map(shop => (
                         <div >
@@ -91,7 +100,7 @@ function Shop() {
                 subContainerClassName={"pages pagination"}
                 activeClassName={"active"}
                 initialPage ={0}
-
+               
             />
                 </div>
             )}

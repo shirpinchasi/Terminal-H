@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Loading from "../../Loader/Loader";
+import Loading from "../Loader/Loader";
 import "./Search.scss";
 import Select from 'react-select'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,17 +16,6 @@ function Search() {
     const [pageNum , setPageNum] = useState(0);
     const [pages, setPages] = useState([])
     const [itemsPerPage] = useState(30);
-    
-    
-
-    const sortAscending = () => {
-        let sortedData = product.sort((a, b) => a - b)
-        setProducts(sortedData)
-    }
-    const sortDescending = () => {
-        let sortedData = product.sort((a, b) => b - a)
-        setProducts(sortedData)
-    }
 
 
     const handleChangeInput = (e) => {
@@ -49,7 +38,7 @@ function Search() {
         setLoading(true);
         <Loading/>
     }
-
+  
 
     useEffect(() => {
 
@@ -71,25 +60,27 @@ function Search() {
             const pages = await result.json();
             setProducts(product._embedded.products)
             setPages(pages.page)
+            console.log(pages.page);
             setLoading(false)
             
         } catch (err) {
-            console.log(product);
+            console.log(err);
         }
     }
-    // function hasNoResults() {
-    //     return query && product.length === 0;
-    // }
-    function LoadingData() {
-        return CallSearchFunction && product.length === 0;
-    };
-
 
     const handlePageClick = (e) => {
         const page = e.selected;
         setPageNum(page)
         console.log(page);
+        scrollToTop();
     };
+
+    function scrollToTop() {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      }
    
     return (
         <div >
@@ -102,15 +93,14 @@ function Search() {
                     type="text"
                     className="searchInput"
                    
+                   
                 />
                 <FontAwesomeIcon icon={faSearch} className="far fa-search fa-sm" onClick={CallSearchFunction} onLoad={onLoadProducts}/>
-                {/* <input onClick={CallSearchFunction} onLoad={onLoadProducts} type="submit" className="submit" value="SEARCH" /> */}
+               
                 </form>
             </div>
             <div>
-                {/* {isLoading ? (
-                    <Loading />
-                ) : ( */}
+                
                 {isLoading
                 
                  ?<div></div>

@@ -12,7 +12,7 @@ function RecommendedProducts() {
         if(!id) {
             return;
         }
-        getRecommProducts(id);
+        getProducts(id);
     }, [id])
 
 
@@ -21,17 +21,20 @@ function RecommendedProducts() {
                 const fetchedData = await (await fetch(`http://terminal-h.herokuapp.com/api/brands`, {
                     method: "GET"
                 })).json();
+                setRecoProducts(fetchedData._embedded.brands)
                 console.log(fetchedData._embedded.brands);
+                recoProducts.map(reco=>(
+                    <div>{reco.id}</div>
+                ))
         }
-        // async function getProducts(id) {
-        //     const fetchedBrandId = await (await fetch(`http://terminal-h.herokuapp.com/api/brands/${id}/products?projection=detailedProduct`, {
-        //             method: "GET"
-        //         })).json();
-        //         setRecoProducts(fetchedBrandId._embedded.brands);
-        //         setLoading(false)
-        // }
+        async function getProducts(id) {
+            const fetchedBrandId = await (await fetch(`http://terminal-h.herokuapp.com/api/brands/${id}/products?projection=detailedProduct`, {
+                    method: "GET"
+                })).json();
+                setRecoProducts(fetchedBrandId._embedded.brands);
+                setLoading(false)
+        }
      
-    
 
 
     return (
@@ -40,8 +43,8 @@ function RecommendedProducts() {
                 <div className="flex"></div>
             ) : (
                 <div className="flex">
-                    
-                    {recoProducts.slice(0,4).map(recom => (
+                  {/* .slice(0,4)   */}
+                    {recoProducts.map(recom => (
                         <div >
                             {console.log(recom.id)}
                             <Link to={`/ProductPage/${recom.id}`} id="Link">
