@@ -5,6 +5,7 @@ import config from "../config/config";
 import Loading from "../Loader/Loader";
 import { Link, useParams } from "react-router-dom";
 
+
 function Menu() {
     const [sections, setSections] = useState([])
     const [isLoading, setLoading] = useState(true);
@@ -23,7 +24,9 @@ function Menu() {
                 const fetchedSections = await res.json();
                 setSections(fetchedSections._embedded.sections);
                 setLoading(callLoading)
-                sessionStorage.setItem('sections', JSON.stringify(sections), "name");
+                localStorage.setItem('sections', JSON.stringify(sections.map(section =>(
+                    {section}
+                ))), "name");
             } catch (err) {
                 console.log(err);
             }
@@ -34,8 +37,13 @@ function Menu() {
 
 
         <div className="center">
+            
+            <div className="genderCategories">
+                <a href="#">נשים</a>
+                <a href="#">גברים</a>
+            </div>
             <a className="terminalH" href="/" alt="Feed">Terminal H</a>
-
+            
             <div className="menu">
                 <a href="/brands" className="mutagim">מותגים</a>
                 {sections.map(section => (
@@ -51,7 +59,7 @@ function Menu() {
             </div>
             <Search />
             <hr />
-
+                    
         </div>
     )
 

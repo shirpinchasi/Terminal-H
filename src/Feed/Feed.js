@@ -17,7 +17,7 @@ function Feed() {
                 const fetchedData = await res.json();
                 setCategories(fetchedData._embedded.categories);
             }catch(err){
-                console.log(categories);
+                console.log(err);
             }
             
         }

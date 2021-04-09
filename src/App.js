@@ -8,6 +8,8 @@ import BrandPage from "./Shop/Brands/BrandPage";
 import Shop from "./Shop/Shop";
 import ProductPage from "./Shop/ProductPage/productPage"
 import Brands from "./Shop/Brands/Brands";
+import GetId from "./Shop/RecoProducts/getId";
+import RecommendedProducts from "./Shop/RecoProducts/Reco";
 
 
 
@@ -16,8 +18,11 @@ function App() {
         <div className="App">
             <Menu />
             <Router>
-                
+
                 <Switch>
+                   <Route path="Reco/:id?">
+                       <RecommendedProducts Component={RecommendedProducts}/>
+                   </Route>
                     <Route path="/Shop/:id?">
                         <Shop Component={Shop} />
                     </Route>
@@ -30,9 +35,9 @@ function App() {
                     <Route path="/Brands">
                         <Brands Component={Brands} />
                     </Route>
-                    <Route exact path="/">
+                    {/* <Route exact path="/">
                         <Feed Component={Feed} />
-                    </Route>
+                    </Route> */}
                 </Switch>
             </Router>
 

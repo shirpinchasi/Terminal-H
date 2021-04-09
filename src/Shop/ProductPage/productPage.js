@@ -19,6 +19,7 @@ function ProductPage() {
             return;
         }
         getProduct(id);
+        
     }, [id]);
 
     async function getProduct(id) {

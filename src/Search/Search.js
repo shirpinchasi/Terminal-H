@@ -16,6 +16,7 @@ function Search() {
     const [pageNum , setPageNum] = useState(0);
     const [pages, setPages] = useState([])
     const [itemsPerPage] = useState(30);
+    
 
 
     const handleChangeInput = (e) => {
@@ -32,6 +33,7 @@ function Search() {
         e.preventDefault();
         reset();
         resetLoading();
+        onLoadProducts();
         setQuery(searchValue);
     }
     function onLoadProducts() {
@@ -51,10 +53,9 @@ function Search() {
 
     async function getProducts() {
         try {
-            const res = await fetch(`https://terminal-h.herokuapp.com/api/products/search/findByNameContainingIgnoreCase?name=${query}&projection=detailedProduct&page=${pageNum}&size=${itemsPerPage}`);
+            const res = await fetch(`https://terminal-h.herokuapp.com/api/products?name=${query}&projection=detailedProduct&page=${pageNum}&size=${itemsPerPage}`);
             const product = await res.json();
-
-            const result = await fetch(`https://terminal-h.herokuapp.com/api/products/search/findByNameContainingIgnoreCase?name=${query}&projection=detailedProduct&page=${pageNum}&size=${itemsPerPage}`,{
+            const result = await fetch(`https://terminal-h.herokuapp.com/api/products?name=${query}&projection=detailedProduct&page=${pageNum}&size=${itemsPerPage}`,{
                 method : "GET"
             })
             const pages = await result.json();
@@ -92,20 +93,16 @@ function Search() {
                     onChange={handleChangeInput}
                     type="text"
                     className="searchInput"
-                   
-                   
                 />
-                <FontAwesomeIcon icon={faSearch} className="far fa-search fa-sm" onClick={CallSearchFunction} onLoad={onLoadProducts}/>
+                
+                <FontAwesomeIcon icon={faSearch} className="far fa-search fa-sm" onClick={CallSearchFunction} onClick={onLoadProducts}/>
                
                 </form>
             </div>
             <div>
-                
-                {isLoading
-                
-                 ?<div></div>
-                 
-
+            
+                {isLoading ?
+                <div></div>
                         : 
                         <div>
                            <hr/>

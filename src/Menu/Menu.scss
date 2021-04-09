@@ -19,6 +19,21 @@
     color: black;
     text-decoration: none;
 }
+.genderCategories{
+    margin-left: 80%;
+    position: absolute;
+    text-align: center;
+    a{
+        padding-left: 60%;
+        font-size: 16px; 
+        font-weight: 700;
+        text-decoration: none;
+        color: black;
+    }
+    a:hover{
+        text-decoration: underline;
+    }
+}
 .mutagim{
     height: 21px;
     margin-top: 24px;
@@ -27,7 +42,7 @@
     text-decoration: none;
     color: black;
     font-weight: 700;
-    font-size: 12px; 
+    
 }
 .mutagim:hover{
     text-decoration: underline;
@@ -45,6 +60,7 @@
     margin-top: 20px;
     margin-bottom: 20px;
     width: 100px;
+    height: 30px;
     a{
         text-decoration: none;
         color: black;
@@ -62,8 +78,25 @@
 }
 @media screen and (max-width: 625px) {
 	.ajustSections {
-	  margin-top: 40%;
+	  margin-top: 45%;
 	  margin-left: 17%;
+      width: 100px;
+      height: 30px;
+	}
+    
+	
+  }
+  @media screen and (max-width: 625px) {
+	.mutagim {
+        margin-top: 7%;
+	  margin-left: 17%;
+	}
+    
+	
+  }
+  @media screen and (max-width: 870px) {
+	.genderCategories {
+	  margin-top: 5%;
 	}
     
 	
