@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 import { useParams } from "react-router";
-import "./Reco.scss"
+import "./Reco.scss";
 import GetId from "./getId";
 
 function RecommendedProducts() {
-    const {id} = useParams()
+    const {id} = useParams();
     const [recoProducts, setRecoProducts] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const [brandId, setBrandId] = useState([]);
@@ -16,7 +16,7 @@ function RecommendedProducts() {
             return;
         }
         getProducts(id);
-    }, [id])
+    }, [id]);
 
     // async function getRecommProducts() {
 
@@ -31,7 +31,7 @@ function RecommendedProducts() {
         })).json();
         setRecoProducts(fetchedBrandId._embedded.products);
         setLoading(false)
-    }
+    };
 
 
 
@@ -61,8 +61,8 @@ function RecommendedProducts() {
 
             )}
         </div>
-    )
-}
+    );
+};
 export default RecommendedProducts;
 
 

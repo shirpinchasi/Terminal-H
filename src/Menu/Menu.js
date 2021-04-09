@@ -41,6 +41,7 @@ function Menu() {
             <div className="genderCategories">
                 <a href="#">נשים</a>
                 <a href="#">גברים</a>
+                <a href="#">ילדים</a>
             </div>
             <a className="terminalH" href="/" alt="Feed">Terminal H</a>
             

@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import Loading from "../Loader/Loader";
-import { Link } from "react-router-dom";
 import "./Shop.scss";
 import ReactPaginate from "react-paginate"
-import Menu from "../Menu/Menu";
-import Search from "../Search/Search";
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
@@ -16,12 +12,12 @@ import Select from '@material-ui/core/Select';
 function Shop() {
     const { id } = useParams();
     const [shops, setShops] = useState([]);
-    const [pages, setPages] = useState([])
+    const [pages, setPages] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const [page, setPage] = useState(0);
     const [itemsPerPage] = useState(30);
-    const [sort, setSort] = useState("")
-    
+    const [sort, setSort] = useState("");
+
 
     useEffect(() => {
         if (!id) {
@@ -30,9 +26,9 @@ function Shop() {
 
         GetShop(id);
 
-    }, [id, page,sort]);
+    }, [id, page, sort]);
 
-console.log();
+    console.log();
     async function GetShop(id) {
         const fetchShop = await (await fetch(`https://terminal-h.herokuapp.com/api/products?name&categorySectionId=${id}&projection=detailedProduct&page=${page}&size=${itemsPerPage}&sort=price,${sort}`,
             {
@@ -41,39 +37,30 @@ console.log();
         const fetchPages = await (await fetch(`https://terminal-h.herokuapp.com/api/products?name&categorySectionId=${id}&projection=detailedProduct&page=${page}&size=${itemsPerPage}&sort=price,${sort}`, {
             method: "GET"
         })).json();
-        console.log(page);
-        console.log(fetchPages);
         setShops(fetchShop._embedded.products);
-        setPages(fetchPages.page)
-        setLoading(false)
+        setPages(fetchPages.page);
+        setLoading(false);
 
-    }
+    };
 
     const handlePageClick = (e) => {
         const page = e.selected;
         setPage(page)
-        console.log(page);
         scrollToTop();
+        
     };
-    const handleChange = (e) =>{
+
+    const handleChange = (e) => {
         setSort(e.target.value)
         setLoading(true)
-    }
+    };
 
-    // const handleSort = (e) => {
-    //     const sort = e.selected;
-    //     setSort(sort)
-        
-        
-    // };
-    console.log(sort);
     function scrollToTop() {
         window.scrollTo({
             top: 0,
-            behavior: "smooth"
+            behavior: "smooth",
         });
-        
-    }
+    };
 
 
 
@@ -89,21 +76,20 @@ console.log();
                 <Loading />
             ) : (
                 <div>
-                   <FormControl>
-                       <InputLabel id="select">...הצג לפי</InputLabel>
-                       <Select 
-                        labelId="select"
-                        id="selectOption"
-                        value={sort}
-                        onChange={handleChange}
-                        setLoading={false}
-                        > 
-                        
+                    <FormControl>
+                        <InputLabel id="select">...הצג לפי</InputLabel>
+                        <Select
+                            labelId="select"
+                            id="selectOption"
+                            value={sort}
+                            onChange={handleChange}
+                            setLoading={false}
+                        >
                             <MenuItem value={""}>...הצג לפי</MenuItem>
                             <MenuItem value={"asc"}> מחיר: מהנמוך לגבוה</MenuItem>
                             <MenuItem value={"desc"}> מחיר: מהגבוה לנמוך</MenuItem>
-                       </Select>
-                   </FormControl>
+                        </Select>
+                    </FormControl>
                     <div className="shop">
                         {shops.map(shop => (
                             <div >
@@ -133,13 +119,13 @@ console.log();
                         subContainerClassName={"pages pagination"}
                         activeClassName={"active"}
                         initialPage={0}
-
+                        setLoading={false}
                     />
                 </div>
             )}
 
         </div>
-    )
-}
+    );
+};
 
 export default Shop;
