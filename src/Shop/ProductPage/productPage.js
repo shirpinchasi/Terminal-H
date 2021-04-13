@@ -4,13 +4,13 @@ import Loading from "../../Loader/Loader";
 import "./ProductPage.scss";
 import Select from 'react-select'
 import RecommendedProducts from "../RecoProducts/Reco";
+import GetId from '../RecoProducts/getId';
 
 
 function ProductPage() {
     const { id } = useParams();
     const [product, setProduct] = useState([]);
     const [isLoading, setLoading] = useState(true);
-
     
 
 
@@ -30,10 +30,8 @@ function ProductPage() {
         })).json();
         setProduct(fetchedProduct);
         setLoading(false);
-
-
     }
-
+   
 
     return (
         <div id="productPage" className="shadow-lg p-3 mb-2 bg-white rounded">
@@ -63,14 +61,12 @@ function ProductPage() {
                     <div className="productDesc">
                         <div className="ajustDesc"> {product.description}</div>
                     </div>
-                   
-
-
                 </div>
                 <div className="flex">
                 <div className="alsoLike">More From The Same Brand</div>
                 <div className="margin">
-                        <RecommendedProducts/>
+                <RecommendedProducts section={product.categorySection.id} brand={product.brand.id}  />
+                
                 </div>
                 </div>
                 </div>

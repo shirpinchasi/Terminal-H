@@ -13,7 +13,7 @@ function Brands() {
     useEffect(() => {
         async function getBrands() {
             try {
-                const res = await fetch("https://terminal-h.herokuapp.com/api/brands?projection=detailedBrand", {
+                const res = await fetch("https://terminal-h.herokuapp.com/api/brands?projection=detailedBrand&sort=name,asc", {
                     method: "GET",
                 })
                 const fetchedBrands = await res.json();

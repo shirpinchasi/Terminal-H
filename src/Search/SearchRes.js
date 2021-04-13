@@ -1,29 +1,29 @@
 // import React, { useEffect, useState } from "react";
-// import Loading from "../../Loader/Loader";
+// import Loading from "../Loader/Loader"
 // import "./SearchRes.scss";
-// import ReactPaginate from "react-paginate";
 
 
-// function SearchResults() {
+
+// function SearchResults(props) {
 
 //     return (
 //         <div>
 //                 <div>
 //                 <div className="products">
-//                 {product.map(prod => (
+                
 //                     <div>
-//                         <a href={`/ProductPage/${prod.id}`} id="Link">
+//                         <a href={`/ProductPage/${props.prod.id}`} id="Link">
 //                             <div className="ajustProducts">
-//                                 <img src={prod.pictureUrl} className="pictureUrlProducts" />
-//                                 <div className="brandProducts">{prod.brand.name}</div>
-//                                 <div>{prod.name}</div>
-//                                 <div>&#8362; {prod.price}</div>
+//                                 <img src={props.prod.pictureUrl} className="pictureUrlProducts" />
+//                                 <div className="brandProducts">{props.prod.brand.name}</div>
+//                                 <div>{props.prod.name}</div>
+//                                 <div>&#8362; {props.prod.price}</div>
 
 //                             </div>
 //                         </a>
 //                     </div>
-//                 ))}
-//                 <ReactPaginate
+               
+//                 {/* <ReactPaginate
 //                     className="pagination"
 //                     previousLabel={"prev"}
 //                     nextLabel={"next"}
@@ -38,7 +38,7 @@
 //                     activeClassName={"active"}
 //                     initialPage={0}
 
-//                 />
+//                 /> */}
 //             </div>
 //  </div>
 // </div>

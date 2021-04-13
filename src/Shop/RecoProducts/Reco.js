@@ -4,36 +4,27 @@ import { useParams } from "react-router";
 import "./Reco.scss";
 import GetId from "./getId";
 
-function RecommendedProducts() {
-    const {id} = useParams();
+function RecommendedProducts(section , brand) {
     const [recoProducts, setRecoProducts] = useState([]);
     const [isLoading, setLoading] = useState(true);
-    const [brandId, setBrandId] = useState([]);
 
 
     useEffect(() => {
-        if (!id) {
+        if (!brand, !section) {
             return;
         }
-        getProducts(id);
-    }, [id]);
-
-    // async function getRecommProducts() {
-
-    //     const fetchedData = await (await fetch(`http://terminal-h.herokuapp.com/api/brands`, {
-    //         method: "GET"
-    //     })).json();
-    //     setBrandId(fetchedData._embedded.brands) 
-    // }
-    async function getProducts(id) {
-        const fetchedBrandId = await (await fetch(`http://terminal-h.herokuapp.com/api/brands/2/products?projection=detailedProduct`, {
+        getProducts(section.brand , section.section);
+    }, [section.brand , section.section]);
+console.log(section.section);
+console.log(section.brand);
+    async function getProducts() {
+        const fetchedBrandId = await (await fetch(`https://terminal-h.herokuapp.com/api/products?projection=detailedProduct&brand=${section.brand}&categorySectionId=${section.section}&sort=id,desc`, {
             method: "GET"
         })).json();
         setRecoProducts(fetchedBrandId._embedded.products);
         setLoading(false)
     };
-
-
+ 
 
     return (
         <div >
@@ -45,6 +36,7 @@ function RecommendedProducts() {
                     
                     {recoProducts.slice(0, 4).map(recom => (
                         <div >
+                            
                             <Link to={`/ProductPage/${recom.id}`} id="Link">
                                 <div className="ajustRecomm">
 
@@ -52,6 +44,7 @@ function RecommendedProducts() {
                                     <div className="brandRecomm">{recom.brand.name}</div>
                                     <div>{recom.name}</div>
                                     <div>&#8362;{recom.price}</div>
+                                    
                                 </div>
                             </Link>
                         </div>
@@ -64,6 +57,3 @@ function RecommendedProducts() {
     );
 };
 export default RecommendedProducts;
-
-
-

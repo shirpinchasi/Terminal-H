@@ -4,7 +4,8 @@ import "./Search.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from "react-paginate";
-
+import {Redirect,useHistory, useLocation} from "react-router-dom";
+import history from "../history"
 
 function Search() {
 
@@ -15,7 +16,8 @@ function Search() {
     const [pageNum, setPageNum] = useState(0);
     const [pages, setPages] = useState([]);
     const [itemsPerPage] = useState(30);
-
+    let history = useHistory()
+ 
 
 
     const handleChangeInput = (e) => {
@@ -34,6 +36,7 @@ function Search() {
         resetLoading();
         onLoadProducts();
         setQuery(searchValue);
+        <Redirect to="/SearchResults"/>
     };
     function onLoadProducts() {
         setLoading(true);
@@ -46,7 +49,7 @@ function Search() {
         if (!query) {
             return;
         };
-
+        
         getProducts();
     }, [query, pageNum]);
 
@@ -118,7 +121,7 @@ function Search() {
                                         </div>
                                     </a>
                                 </div>
-                            ))};
+                            ))}
                         </div>
                         <ReactPaginate
                             className="pagination"
