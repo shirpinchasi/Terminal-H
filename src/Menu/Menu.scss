@@ -1,14 +1,38 @@
 .center{
     text-align: center;
+    // position: sticky;
+	// top: 0;
+	// margin-bottom: 0;
+	// z-index: 1;
+    // background-color: white;
     
 }
+@media screen and (max-width : 750px) {
+    #sidebar{
+        display: block;
+    }
+    .menu{
+        display: none  !important;
+    }
+    .genderCategories{
+        display: none  !important;
+    }
+    
+}
+.text{
+    color: black;
+    text-decoration: none;
+}
+.text:hover{
+    text-decoration: underline;
+}
+
 .menu{
     position: sticky;
 	top: 0;
 	margin-bottom: 0;
 	z-index: 1;
     background-color: white;
-	overflow: hidden;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
@@ -21,7 +45,7 @@
     text-decoration: none;
 }
 .genderCategories{
-    margin-left: 80%;
+    margin-left: 69%;
     position: absolute;
     text-align: center;
     justify-content: space-around;
@@ -97,9 +121,10 @@
     
 	
   }
-  @media screen and (max-width: 870px) {
+  @media screen and (max-width: 750px) {
 	.genderCategories {
 	  margin-top: 5%;
+      
 	}
     
 	

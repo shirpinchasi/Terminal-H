@@ -41,7 +41,7 @@ function Brands() {
                             <Link to={`/BrandPage/${brand.id}`} className="href">
                                 {console.log(brand.id)}
                                 <ul>
-                                    <li className="brandName">{brand.name}</li>
+                                    <div id="li">{brand.name}</div>
                                 </ul>
                             </Link>
                         </div>

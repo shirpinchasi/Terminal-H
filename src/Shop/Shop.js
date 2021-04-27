@@ -7,7 +7,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
+import config from "../config/config"
+import Search from "../Search/Search";
 
 function Shop() {
     const { id } = useParams();
@@ -17,25 +18,23 @@ function Shop() {
     const [page, setPage] = useState(0);
     const [itemsPerPage] = useState(30);
     const [sort, setSort] = useState("");
-    const [gender , setGender] = useState("")
+    const [gender, setGender] = useState([]);
 
 
     useEffect(() => {
         if (!id) {
             return;
         }
-
         GetShop(id);
 
-    }, [id, page, sort]);
+    }, [id, page, sort, gender]);
 
     console.log();
     async function GetShop(id) {
-        const fetchShop = await (await fetch(`https://terminal-h.herokuapp.com/api/products?name&gender&categorySectionId=${id}&projection=detailedProduct&page=${page}&size=${itemsPerPage}&sort=price,${sort}`,
-            {
-                method: "GET",
-            })).json();
-        const fetchPages = await (await fetch(`https://terminal-h.herokuapp.com/api/products?name&gender&categorySectionId=${id}&projection=detailedProduct&page=${page}&size=${itemsPerPage}&sort=price,${sort}`, {
+        const fetchShop = await (await fetch(config.apiShop + `&categorySectionId=${id}&page=${page}&size=${itemsPerPage}&sort=price,${sort}`, {
+            method: "GET",
+        })).json();
+        const fetchPages = await (await fetch(config.apiShop + `&categorySectionId=${id}&page=${page}&size=${itemsPerPage}&sort=price,${sort}`, {
             method: "GET"
         })).json();
         setShops(fetchShop._embedded.products);
@@ -60,10 +59,10 @@ function Shop() {
         });
     };
 
-  
-  
 
-    
+
+
+
 
     return (
         <div>
@@ -72,6 +71,10 @@ function Shop() {
                 <Loading />
             ) : (
                 <div>
+                    <div>
+
+                    </div>
+
                     <FormControl>
                         <InputLabel id="select">...הצג לפי</InputLabel>
                         <Select
@@ -115,8 +118,8 @@ function Shop() {
                         subContainerClassName={"pages pagination"}
                         activeClassName={"active"}
                         initialPage={0}
-                        
-                        
+
+
                     />
                 </div>
             )}

@@ -27,7 +27,8 @@
 }
 .pagination{
     display: flex;
-    width: 600px;
+    flex-wrap: wrap;
+    width: 1100px;
     .active{
         background-color:lightblue;
         border-radius: 50px;
@@ -37,8 +38,23 @@
         outline: none;
         text-decoration: none;
     }
+    li{
+    list-style: none;
+    color: #000;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 40px;
+    text-transform: uppercase;
+    width: 100px;
+    text-decoration: none;
+    }
 }
 .MuiFormControl-root{
     width: 130px;
     right: 40%;
 }
+ @media screen and (max-width : 750px) {
+     .MuiFormControl-root{
+         width: 130px;
+     }
+ }

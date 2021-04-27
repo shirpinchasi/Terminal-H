@@ -8,6 +8,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import config from "../../config/config";
+
+
 
 function BrandPage() {
     const { id } = useParams();
@@ -27,10 +30,10 @@ function BrandPage() {
 
 
     async function getBrandProduct(id) {
-        const fetchBrandProduct = await (await fetch(`https://terminal-h.herokuapp.com/api/products?brand=${id}&projection=detailedProduct&page=${page}&size=${itemsPerPage}&sort=price,${sort}`, {
+        const fetchBrandProduct = await (await fetch(config.apiShop + `&brand=${id}&page=${page}&size=${itemsPerPage}&sort=price,${sort}`, {
             method: "GET",
         })).json();
-        const fetchPages = await (await fetch(`https://terminal-h.herokuapp.com/api/products?brand=${id}&projection=detailedProduct&page=${page}&size=${itemsPerPage}&sort=price,${sort}`, {
+        const fetchPages = await (await fetch(config.apiShop + `&brand=${id}&page=${page}&size=${itemsPerPage}&sort=price,${sort}`, {
             method: "GET"
         })).json();
         setPages(fetchPages.page);

@@ -1,55 +1,65 @@
-// import React, { useEffect, useState } from "react";
-// import Loading from "../Loader/Loader"
-// import "./SearchRes.scss";
+import React, { useEffect, useState } from "react";
+import Loading from "../Loader/Loader"
+import "./SearchRes.scss";
+import ReactPaginate from "react-paginate";
 
 
 
-// function SearchResults(props) {
+function SearchResults(props) {
+    const [isLoading, setLoading] = useState(true);
 
-//     return (
-//         <div>
-//                 <div>
-//                 <div className="products">
+
+    return (
+        <div>
+            {/* {isLoading ?
+            <Loading/>
+            : */}
+            
+            
+        
+                <div>
+                <div className="products">
                 
-//                     <div>
-//                         <a href={`/ProductPage/${props.prod.id}`} id="Link">
-//                             <div className="ajustProducts">
-//                                 <img src={props.prod.pictureUrl} className="pictureUrlProducts" />
-//                                 <div className="brandProducts">{props.prod.brand.name}</div>
-//                                 <div>{props.prod.name}</div>
-//                                 <div>&#8362; {props.prod.price}</div>
+                    <div>
+                        <a href={`/ProductPage/${props.prod.id}`} id="Link">
+                            <div className="ajustProducts">
+                                <img src={props.prod.pictureUrl} className="pictureUrlProducts" />
+                                <div className="brandProducts">{props.prod.brand.name}</div>
+                                <div>{props.prod.name}</div>
+                                <div>&#8362; {props.prod.price}</div>
 
-//                             </div>
-//                         </a>
-//                     </div>
+                            </div>
+                        </a>
+                    </div>
                
-//                 {/* <ReactPaginate
-//                     className="pagination"
-//                     previousLabel={"prev"}
-//                     nextLabel={"next"}
-//                     breakLabel={"..."}
-//                     breakClassName={"break-me"}
-//                     pageCount={pages.totalPages}
-//                     marginPagesDisplayed={2}
-//                     pageRangeDisplayed={3}
-//                     onPageChange={handlePageClick}
-//                     containerClassName={"pagination"}
-//                     subContainerClassName={"pages pagination"}
-//                     activeClassName={"active"}
-//                     initialPage={0}
+                {/* <ReactPaginate
+                    className="pagination"
+                    previousLabel={"prev"}
+                    nextLabel={"next"}
+                    breakLabel={"..."}
+                    breakClassName={"break-me"}
+                    pageCount={props.pages.totalPages}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={3}
+                    // onPageChange={handlePageClick}
+                    containerClassName={"pagination"}
+                    subContainerClassName={"pages pagination"}
+                    activeClassName={"active"}
+                    initialPage={0}
 
-//                 /> */}
-//             </div>
-//  </div>
-// </div>
-
-
-//     )
+                /> */}
+            </div>
+ </div>
+{/* } */}
+</div>
 
 
-// }
+    )
 
-// export default SearchResults;
+
+}
+
+export default SearchResults;
 
 
 

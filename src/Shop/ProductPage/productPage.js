@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import {useParams } from 'react-router-dom';
 import Loading from "../../Loader/Loader";
 import "./ProductPage.scss";
-import Select from 'react-select'
 import RecommendedProducts from "../RecoProducts/Reco";
-import GetId from '../RecoProducts/getId';
 
 
 function ProductPage() {

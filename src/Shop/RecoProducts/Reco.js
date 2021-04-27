@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
-import { useParams } from "react-router";
+import { Link} from "react-router-dom";
 import "./Reco.scss";
-import GetId from "./getId";
+import Loading from "../../Loader/Loader";
+import config from "../../config/config"
 
 function RecommendedProducts(section , brand) {
     const [recoProducts, setRecoProducts] = useState([]);
@@ -10,7 +10,7 @@ function RecommendedProducts(section , brand) {
 
 
     useEffect(() => {
-        if (!brand, !section) {
+        if (!brand && !section) {
             return;
         }
         getProducts(section.brand , section.section);
@@ -18,7 +18,7 @@ function RecommendedProducts(section , brand) {
 console.log(section.section);
 console.log(section.brand);
     async function getProducts() {
-        const fetchedBrandId = await (await fetch(`https://terminal-h.herokuapp.com/api/products?projection=detailedProduct&brand=${section.brand}&categorySectionId=${section.section}&sort=id,desc`, {
+        const fetchedBrandId = await (await fetch(config.apiShop + `&brand=${section.brand}&categorySectionId=${section.section}&sort=id,desc`, {
             method: "GET"
         })).json();
         setRecoProducts(fetchedBrandId._embedded.products);
@@ -29,7 +29,7 @@ console.log(section.brand);
     return (
         <div >
             {isLoading ? (
-                <div className="flex"></div>
+                <Loading/>
             ) : (
 
                 <div className="flex">

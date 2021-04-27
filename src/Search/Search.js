@@ -4,8 +4,14 @@ import "./Search.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from "react-paginate";
-import {Redirect,useHistory, useLocation} from "react-router-dom";
-import history from "../history"
+import {Redirect,useHistory, withRouter } from "react-router-dom";
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import NativeSelect from '@material-ui/core/NativeSelect';
+import SearchResults from "./SearchRes";
+
 
 function Search() {
 
@@ -16,12 +22,14 @@ function Search() {
     const [pageNum, setPageNum] = useState(0);
     const [pages, setPages] = useState([]);
     const [itemsPerPage] = useState(30);
-    let history = useHistory()
- 
+    const history = useHistory();
+   
+   
 
 
     const handleChangeInput = (e) => {
         setSearchValue(e.target.value);
+        
     }
     const reset = () => {
         setProducts([]);
@@ -36,7 +44,8 @@ function Search() {
         resetLoading();
         onLoadProducts();
         setQuery(searchValue);
-        <Redirect to="/SearchResults"/>
+        
+        history.push("/SearchResults")
     };
     function onLoadProducts() {
         setLoading(true);
@@ -50,8 +59,9 @@ function Search() {
             return;
         };
         
-        getProducts();
+        getProducts(query);
     }, [query, pageNum]);
+    
 
     async function getProducts() {
         try {
@@ -63,7 +73,6 @@ function Search() {
             const pages = await result.json();
             setProducts(product._embedded.products)
             setPages(pages.page)
-            console.log(pages.page);
             setLoading(false)
 
         } catch (err) {
@@ -84,10 +93,15 @@ function Search() {
             behavior: "smooth"
         });
     };
+    function hasNoResults(){
+        return query && product.length === 0;
+    }
 
     return (
         <div >
             <div>
+           
+
                 <form className="form" onSubmit={CallSearchFunction}>
                     <input className="Search"
                         placeholder="search Product Here.."
@@ -96,7 +110,7 @@ function Search() {
                         type="text"
                         className="searchInput"
                     />
-
+                    
                     <FontAwesomeIcon icon={faSearch} className="far fa-search fa-sm" onClick={CallSearchFunction} onClick={onLoadProducts} />
 
                 </form>
@@ -109,7 +123,12 @@ function Search() {
                     <div>
                         <hr />
                         <div className="products">
-                            {product.map(prod => (
+                            {hasNoResults()
+                            ?<div>no results</div>
+                            :product.map(prod => <SearchResults prod={prod}/>)
+                            
+                            }
+                            {/* {product.map(prod => (
                                 <div>
                                     <a href={`/ProductPage/${prod.id}`} id="Link">
                                         <div className="ajustProducts">
@@ -121,7 +140,7 @@ function Search() {
                                         </div>
                                     </a>
                                 </div>
-                            ))}
+                            ))} */}
                         </div>
                         <ReactPaginate
                             className="pagination"
@@ -150,4 +169,4 @@ function Search() {
         </div>
     );
 };
-export default Search;
+export default withRouter(Search);

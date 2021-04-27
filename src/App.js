@@ -9,7 +9,7 @@ import Shop from "./Shop/Shop";
 import ProductPage from "./Shop/ProductPage/productPage"
 import Brands from "./Shop/Brands/Brands";
 import Search from "./Search/Search";
-import history from "./history"
+import SearchResults from "./Search/SearchRes"
 
 
 
@@ -17,22 +17,21 @@ function App() {
     return (
         <div className="App">
             <Menu />
-            <BrowserRouter history={history}>
+            <BrowserRouter>
                 <Switch>
                     <Route path="/Shop/:id?">
                         <Shop Component={Shop} />
                     </Route>
                     <Route path="/BrandPage/:id?">
                         <BrandPage Component={BrandPage} />
-                        
                     </Route>
                     <Route path="/ProductPage/:id?">
                         <ProductPage Component={ProductPage} />
                     </Route>
-                    <Route path="/Search">
-                        <Search Component={Search} />
-                    
+                    <Route path="/SearchResults" render={SearchResults}>
+                        <SearchResults/>
                     </Route>
+                    
                     <Route path="/Brands">
                         <Brands Component={Brands} />
                     </Route>
