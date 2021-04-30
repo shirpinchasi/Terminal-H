@@ -106,13 +106,13 @@ function Shop() {
                     </div>
                     <ReactPaginate
                         className="pagination"
-                        previousLabel={"prev"}
-                        nextLabel={"next"}
+                        previousLabel={"הקודם"}
+                        nextLabel={"הבא"}
                         breakLabel={"..."}
                         breakClassName={"break-me"}
                         pageCount={pages.totalPages}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={3}
+                        marginPagesDisplayed={1}
+                        pageRangeDisplayed={2}
                         onPageChange={handlePageClick}
                         containerClassName={"pagination"}
                         subContainerClassName={"pages pagination"}

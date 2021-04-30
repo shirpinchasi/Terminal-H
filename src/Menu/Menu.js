@@ -12,15 +12,11 @@ import List from '@material-ui/core/List';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import clsx from 'clsx';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -33,10 +29,11 @@ const useStyles = makeStyles((theme) => ({
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      width:0,
       background: "none",
-      right : 600,
-      position : "fixed"
+      top:0,
+      bottom:0,
+      left:0,
+      right:0,
     },
     appBarShift: {
       width: `calc(100% - ${drawerWidth}px)`,
@@ -174,10 +171,11 @@ const Menu = () => {
         <List>
           {sections.map(text => (
             <ListItem button key={text.name} >
-              {/* <ListItemText primary={text.name}/> */}
               <a href={`/Shop/${text.id}`} className="text">{text.name}</a>
+              
             </ListItem>
           ))}
+          <a href="/brands" className="mutag">מותגים</a>
         </List>
       </Drawer>
       <main
