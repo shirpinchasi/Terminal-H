@@ -12,11 +12,11 @@ import List from '@material-ui/core/List';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import clsx from 'clsx';
-
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -29,11 +29,13 @@ const useStyles = makeStyles((theme) => ({
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
+
       background: "none",
-      top:0,
-      bottom:0,
-      left:0,
-      right:0,
+      // top:0,
+      // bottom:0,
+      // left:0,
+      // right:0,
+
     },
     appBarShift: {
       width: `calc(100% - ${drawerWidth}px)`,
@@ -171,6 +173,7 @@ const Menu = () => {
         <List>
           {sections.map(text => (
             <ListItem button key={text.name} >
+              {/* <ListItemText primary={text.name}/> */}
               <a href={`/Shop/${text.id}`} className="text">{text.name}</a>
               
             </ListItem>

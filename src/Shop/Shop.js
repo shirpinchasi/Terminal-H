@@ -112,7 +112,7 @@ function Shop() {
                         breakClassName={"break-me"}
                         pageCount={pages.totalPages}
                         marginPagesDisplayed={1}
-                        pageRangeDisplayed={2}
+                        pageRangeDisplayed={1}
                         onPageChange={handlePageClick}
                         containerClassName={"pagination"}
                         subContainerClassName={"pages pagination"}
