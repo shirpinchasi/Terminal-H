@@ -17,6 +17,7 @@ function App() {
     return (
         <div className="App">
             <Menu />
+            <Search/>
             <BrowserRouter>
                 <Switch>
                     <Route path="/Shop/:id?">

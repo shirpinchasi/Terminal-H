@@ -69,7 +69,6 @@ function Shop() {
             ) : (
                 <div>
                     <div>
-
                     </div>
 
                     <FormControl>
@@ -86,6 +85,7 @@ function Shop() {
                             <MenuItem value={"desc"}> מחיר: מהגבוה לנמוך</MenuItem>
                         </Select>
                     </FormControl>
+                    
                     <div className="shop">
                         {shops.map(shop => (
                             <div >

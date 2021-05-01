@@ -52,11 +52,13 @@
 .MuiFormControl-root{
     width: 130px;
     right: 40%;
+    top: 60px;
 }
  @media screen and (max-width : 750px) {
      .MuiFormControl-root{
         width: 120px;
         left: 0;
+        top: 0;
      }
      .pagination{
         width: 300px;

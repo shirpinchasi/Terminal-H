@@ -121,7 +121,7 @@ function Search() {
                     <div></div>
                     :
                     <div>
-                        <hr />
+                        
                         <div className="products">
                             {hasNoResults()
                             ?<div>no results</div>
