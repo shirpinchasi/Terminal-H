@@ -47,21 +47,18 @@ function Shop() {
         const page = e.selected;
         setPage(page)
         scrollToTop();
+        
     };
     const handleChange = (e) => {
         setSort(e.target.value)
         setLoading(true)
     };
-    function scrollToTop() {
+    const scrollToTop = () => {
         window.scrollTo({
             top: 0,
             behavior: "smooth",
         });
     };
-
-
-
-
 
 
     return (
