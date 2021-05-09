@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css"
 import Feed from "./Feed/Feed";
-import {  BrowserRouter, BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
+import {  BrowserRouter, BrowserRouter as Router, Redirect, Route,useLocation, Switch,useRouteMatch } from "react-router-dom";
 import Menu from "./Menu/Menu"
 import './App.css';
 import BrandPage from "./Shop/Brands/BrandPage";
@@ -14,6 +14,8 @@ import SearchResults from "./Search/SearchRes"
 
 
 function App() {
+    const { search } = useLocation()
+
     return (
         <div className="App">
             <Menu />
@@ -29,10 +31,9 @@ function App() {
                     <Route path="/ProductPage/:id?">
                         <ProductPage Component={ProductPage} />
                     </Route>
-                    <Route path="/SearchResults" render={SearchResults}>
-                        <SearchResults/>
+                    <Route path="/SearchResults">
+                        <SearchResults Component={SearchResults}/>
                     </Route>
-                    
                     <Route path="/Brands">
                         <Brands Component={Brands} />
                     </Route>

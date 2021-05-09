@@ -24,6 +24,13 @@ console.log(section.brand);
         setRecoProducts(fetchedBrandId._embedded.products);
         setLoading(false)
     };
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    };
+
  
 
     return (
@@ -35,7 +42,7 @@ console.log(section.brand);
                 <div className="flex">
                     
                     {recoProducts.slice(0, 4).map(recom => (
-                        <div >
+                        <div onClick={scrollToTop}>
                             
                             <Link to={`/ProductPage/${recom.id}`} id="Link">
                                 <div className="ajustRecomm">
