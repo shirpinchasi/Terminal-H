@@ -40,8 +40,7 @@ console.log(section.brand);
             ) : (
 
                 <div className="flex">
-                    
-                    {recoProducts.slice(0, 4).map(recom => (
+                    {recoProducts.sort(()=> 0.5 - Math.random()).slice(0, 4).map(recom => (
                         <div onClick={scrollToTop}>
                             
                             <Link to={`/ProductPage/${recom.id}`} id="Link">

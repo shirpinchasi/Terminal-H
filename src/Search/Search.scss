@@ -22,9 +22,8 @@
 }
 
 form{
-    position: absolute;
-    margin-top: 11%;
-    height: 10px;
+    position: static;
+    margin-top: 8%;
     top: 0;
     bottom: 0;
     left: 0;
@@ -41,7 +40,7 @@ input:focus{
 }
 @media screen and (max-width: 625px) {
 	form {
-	  margin-top: 23%;
+	  margin-top: 1%;
 	}
 	
   }

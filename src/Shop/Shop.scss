@@ -49,11 +49,22 @@
     text-decoration: none;
     }
 }
-.MuiFormControl-root{
-    width: 130px;
-    right: 40%;
-    top: 60px;
+#gender{
+    left: 30%;
+    width: 80px;
 }
+#one{
+    width: 130px;
+    right: 30%;
+}
+#two{
+    width: 130px;
+    right: 25%;
+}
+// .MuiFormControl-root{
+//     width: 130px;
+//     right: 40%;
+// }
  @media screen and (max-width : 750px) {
      .MuiFormControl-root{
         width: 120px;

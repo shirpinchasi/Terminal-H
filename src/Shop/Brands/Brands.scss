@@ -1,24 +1,75 @@
 .Brands{
-    width: 90%;
-    margin-top: 15%;
+  
+    
+}
+.head{
+    font-weight: 100;
+    font-size: 30px;
+    border-bottom: 1px solid #dddada;
+    padding-bottom: 2%;
+}
+#abc{
+    border-bottom: 1px solid #e6e6e6;
+    font-size: 20px;
+    font-family: "Palatino, URW Palladio L, serif";
+    color: black;
+    font-weight: 300;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: center;
+    text-decoration: none;
+    padding:20px 0px 35px 0px;
     
+}
+.abc:hover{
+    text-decoration: underline;
+}
+li{
+    text-decoration: none;
+}
+.abc{
+    text-decoration: none;
+    color: black;
 }
 #li{
     list-style: none;
     color: #000;
-    font-size: 16px;
-    font-weight: 400;
+    font-size: 15px;
+    font-weight: 100;
     line-height: 40px;
-    padding-bottom: 15%;
+    padding-bottom: 5%;
     text-transform: uppercase;
     width: 200px;
     text-decoration: none;
+    font-family: "Palatino, URW Palladio L, serif";
+  
 }
-ul{
-    width: 200px;
+.letter{
+    grid-area: letter;
+    font-size: 30px;
+    width: 150px;
+    height: 50px;
+    font-weight: 600;
+    font-family: "Palatino, URW Palladio L, serif";
+    line-height: normal;
+    letter-spacing: normal;
+    margin-top: 1%;
+}
+#ul{
+    display: grid;
+    grid-template-columns: 0.5fr repeat(3,1fr);
+    gap: 15px 0px;
+    grid-template-areas:
+        "letter . . ."
+        "letter . . ."
+        "letter . . ."
+        "letter . . ."
+        "letter . . ."
+        "letter . . ."
+        "letter . . ."
+        "letter . . .";
+        border-bottom:  solid 1px #e6e6e6 ;
+        padding: 15px;
     
 }
 .href{

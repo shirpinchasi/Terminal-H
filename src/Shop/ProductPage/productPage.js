@@ -5,7 +5,7 @@ import "./ProductPage.scss";
 import RecommendedProducts from "../RecoProducts/Reco";
 
 
-function ProductPage() {
+export default function ProductPage() {
     const { id } = useParams();
     const [product, setProduct] = useState([]);
     const [isLoading, setLoading] = useState(true);
@@ -43,7 +43,7 @@ function ProductPage() {
                         {product.name}
                     </div>
                     <div >
-                        <img src={product.pictureUrl} className="pictureUrlProductPage" />
+                        <img alt="" src={product.pictureUrl} className="pictureUrlProductPage" />
                     </div>
                     <div className="productBrandName">
                         {product.brand.name}
@@ -75,8 +75,5 @@ function ProductPage() {
             
         </div>
     );
-}
-
-
-export default ProductPage;
+};
 

@@ -9,9 +9,6 @@
     .genderCategories{
         display: none  !important;
     }
-    // .MuiAppBar-root{
-    //     display: none !important;
-    // }
     #hide{
         display: none ;
     }
@@ -26,9 +23,6 @@
 .MuiAppBar-root{
     align-items: center;
 }
-.makeStyles-menuButton-114{
-    margin-right: 300px !important;
-}
 
 .text{
     color: black;
@@ -41,7 +35,9 @@
 //     box-shadow: none !important;
 // }
 .mutag{
-    margin-left: 65%;
+    left: 78%;
+    margin-top: 3%;
+    position: absolute;
     color: black;
     text-decoration: none;
 }
