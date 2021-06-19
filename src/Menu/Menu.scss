@@ -1,19 +1,20 @@
 
-@media screen and (max-width : 750px) {
+@media screen and (max-width : 795px) {
     #sidebar{
         display: block;
     }
     .menu{
-        display: none  !important;
+        display: none  ;
     }
     .genderCategories{
-        display: none  !important;
+        display: none  ;
     }
     #hide{
         display: none ;
     }
     
 }
+
 
 .MuiAppBar-colorPrimary{
     display: flex;
