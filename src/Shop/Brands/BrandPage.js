@@ -34,13 +34,9 @@ export default function BrandPage() {
         const fetchBrandProduct = await (await fetch(config.apiShop + `&brand=${id}&page=${page}&size=${sortCount}&sort=price,${sort}&gender=${value}`, {
             method: "GET",
         })).json();
-        const fetchPages = await (await fetch(config.apiShop + `&brand=${id}&page=${page}&size=${sortCount}&sort=price,${sort}&gender=${value}`, {
-            method: "GET"
-        })).json();
-        setPages(fetchPages.page);
+        setPages(fetchBrandProduct.page);
         setBrandProduct(fetchBrandProduct._embedded.products);
         setLoading(false);
-        console.log(fetchPages.page);
 
     }
     const handlePageClick = (e) => {

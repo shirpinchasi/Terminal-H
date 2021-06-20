@@ -17,40 +17,41 @@ export default function SearchResults() {
     const [pages, setPages] = useState([]);
     const { search } = useLocation();
     const [sort, setSort] = useState("");
-    const [sortCount, setSortCount] = useState(30)
-    
+    const [value, setValue] = useState('');
+    const [sortCount, setSortCount] = useState(30);
+
 
     useEffect(() => {
-
+        getProducts();
         if (!search) {
             return;
         };
-    }, [search, pages,sort , sortCount]);
+        
+    }, [search, pageNum,sort , sortCount,value]);
+
+// useEffect(()=>{
+
 
     async function getProducts() {
         try {
-            const res = await fetch(`https://terminal-h.herokuapp.com/api/products${search}&projection=detailedProduct&page=${pageNum}&size=${sortCount}&sort=price,${sort}`);
+            const res = await fetch(`https://terminal-h.herokuapp.com/api/products${search}&projection=detailedProduct&page=${pageNum}&size=${sortCount}&sort=price,${sort}&gender=${value}`);
             const product = await res.json();
-            const result = await fetch(`https://terminal-h.herokuapp.com/api/products${search}&projection=detailedProduct&page=${pageNum}&size=${sortCount}&sort=price,${sort}`, {
-                method: "GET"
-            })
-            const pages = await result.json();
             setProducts(product._embedded.products)
-            setPages(pages.page)
-
+            setPages(product.page)
             setLoading(false)
 
         } catch (err) {
             console.log(err);
-        };
-    };
+        }
+    }
 
-    getProducts();
+    
+
+    
 
     const handlePageClick = (e) => {
-        const page = e.selected;
-        setPageNum(page)
-        console.log(page);
+        const pageNum = e.selected;
+        setPageNum(pageNum)
         scrollToTop();
     };
     const handleSortChange = (e) => {
@@ -59,6 +60,10 @@ export default function SearchResults() {
     };
     const handleChange = (e) => {
         setSort(e.target.value)
+        setLoading(true)
+    };
+    const handleChangeGender = (event) => {
+        setValue(event.target.value);
         setLoading(true)
     };
 
@@ -76,7 +81,9 @@ export default function SearchResults() {
             ) : (
 
                 <div>
-                    <FormControl id="onee">
+                    <div className="products">
+                    <div className="filters">
+                        <FormControl id="one">
                         <InputLabel id="select">...הצג לפי</InputLabel>
                         <Select
                             labelId="select"
@@ -90,7 +97,8 @@ export default function SearchResults() {
                             <MenuItem value={"desc"}> מחיר: מהגבוה לנמוך</MenuItem>
                         </Select>
                     </FormControl>
-                    <FormControl id="twoo">
+                    <br/>
+                    <FormControl id="two">
                         <InputLabel id="select">כמות מוצרים</InputLabel>
                         <Select
                             labelId="select"
@@ -105,7 +113,23 @@ export default function SearchResults() {
                             <MenuItem value={"120"}> 120 </MenuItem>
                         </Select>
                     </FormControl>
-                    <div className="products">
+                    <br/>
+                    <FormControl id="gender">
+                        <InputLabel id="select">מגדר</InputLabel>
+                        <Select
+                            labelId="select"
+                            id="selectOption3"
+                            value={value}
+                            onChange={handleChangeGender}
+                            setLoading={false}
+                        >
+                            <MenuItem value={"WOMEN"}>נשים</MenuItem>
+                            <MenuItem value={"MEN"}> גברים </MenuItem>
+                            <MenuItem value={"KIDS"}> ילדים </MenuItem>
+                        </Select>
+                    </FormControl>
+                    
+                        </div>
                         {product.map(prod => (
                             <div>
                                 <a href={`/ProductPage/${prod.id}`} id="Link">

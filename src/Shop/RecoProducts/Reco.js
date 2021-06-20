@@ -15,8 +15,7 @@ function RecommendedProducts(section , brand) {
         }
         getProducts(section.brand , section.section);
     }, [section.brand , section.section]);
-console.log(section.section);
-console.log(section.brand);
+
     async function getProducts() {
         const fetchedBrandId = await (await fetch(config.apiShop + `&brand=${section.brand}&categorySectionId=${section.section}&sort=id,desc`, {
             method: "GET"

@@ -18,7 +18,7 @@ export default function Feed() {
 
         getData();
 
-    }, [page])
+    }, [page]);
 
 
     async function getData() {
@@ -27,12 +27,9 @@ export default function Feed() {
             method: "GET"
         })).json();
         setCategories(res._embedded.products);
-
-        const fetchPages = await (await fetch(config.apiShop + `&sort=id,desc&size=${itemsPerPage}&page=${page}`, {
-            method: "GET"
-        })).json();
-        setPages(fetchPages.page);
+        setPages(res.page);
         setLoading(false)
+        
     }
 
 

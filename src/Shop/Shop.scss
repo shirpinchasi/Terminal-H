@@ -1,8 +1,18 @@
 .shop{
-    margin-top: 10%;
+    margin-top: 7%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    width: 80%;
+    flex-direction: row-reverse;
+    
+}
+.filters{
+    width: 10%;
+    position: absolute;
+    right: 5%;
+
+    
 }
 .pictureUrlShop{
     border:2px solid rgba(235, 232, 232, 0.5);
@@ -11,7 +21,7 @@
     margin-bottom: 5%;
 }
 .ajustShop{
-    width: 350px;
+    width: 300px;
     margin-bottom: 10%;
 }
 .brandShop{
@@ -49,17 +59,53 @@
     text-decoration: none;
     }
 }
+.MuiAccordionDetails-root{
+    justify-content: space-evenly;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+.MuiAccordion-rounded:first-child{
+    width: auto;
+    justify-content: space-evenly;
+}
+.MuiTypography-body1{
+    justify-content: space-evenly;
+}
+
 #gender{
-    left: 30%;
-    width: 80px;
+    // left: 30%;
+    width: 130px;
+    padding-top: 40%;
+    label{
+        padding-top: 20%;
+        
+    }
 }
 #one{
     width: 130px;
-    right: 30%;
+    padding-top: 40%;
+    // right: 25%;
+    label{
+        padding-top: 20%;
+    }
 }
 #two{
     width: 130px;
-    right: 25%;
+    padding-top: 40%;
+    // right: 20%;
+    label{
+        padding-top: 40%;
+        font-size: 20px;
+    }
+}
+#four{
+    width: 130px;
+    padding-top: 40%;
+    label{
+        padding-top: 25%;
+    }
+    // right: 20%;
 }
 // .MuiFormControl-root{
 //     width: 130px;

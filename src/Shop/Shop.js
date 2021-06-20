@@ -2,16 +2,35 @@ import React, { useEffect, useState } from "react";
 import { Redirect, useParams } from "react-router";
 import Loading from "../Loader/Loader";
 import "./Shop.scss";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import ReactPaginate from "react-paginate";
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import config from "../config/config";
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
+import { makeStyles } from '@material-ui/core/styles';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormLabel from '@material-ui/core/FormLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+
+
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      width: '50%',
+      display : "flex",
+      flexDirection : "column",
+    },
+    heading: {
+      fontSize: theme.typography.pxToRem(15),
+      fontWeight: theme.typography.fontWeightRegular,
+     
+    },
+  }));
 
 
 export default function Shop(props) {
@@ -21,11 +40,14 @@ export default function Shop(props) {
     const [isLoading, setLoading] = useState(true);
     const [page, setPage] = useState(0);
     const [sort, setSort] = useState("");
-    const [gender, setGender] = useState("");
     const [sortCount, setSortCount] = useState(30);
-    // const [favorites, setFevorites] = useState("");
-    // const [savedFavorites] = useState(false)
     const [value, setValue] = useState('');
+    const [brands, setBrands] = useState([]);
+    const [brandid, setBrandId] = useState([]);
+    const classes = useStyles();
+
+    const [checked, setChecked] = React.useState(false);
+    
 
 
 
@@ -33,30 +55,25 @@ export default function Shop(props) {
         if (!id) {
             return;
         }
-
         GetShop(id);
 
-    }, [id, page, sort, gender, sortCount,value]);
+    }, [id, page, sort, sortCount,value, brandid]);
 
 
-    // useEffect(async () => {
-    //     let savedFavorites = await localStorage.getItem("_Fav");
-    //     if (savedFavorites) {
-    //         setFevorites(savedFavorites)
-    //     }
-    // })
 
     async function GetShop(id) {
-        const fetchShop = await (await fetch(config.apiShop + `&categorySectionId=${id}&page=${page}&size=${sortCount}&sort=price,${sort}&gender=${value}`, {
+        const fetchShop = await (await fetch(config.apiShop + `&categorySectionId=${id}&page=${page}&size=${sortCount}&sort=price,${sort}&gender=${value}&brand=${brandid}`, {
             method: "GET",
         })).json();
-        const fetchPages = await (await fetch(config.apiShop + `&categorySectionId=${id}&page=${page}&size=${sortCount}&sort=price,${sort}&gender=${value}`, {
-            method: "GET"
-        })).json();
+        const res = await fetch("https://terminal-h.herokuapp.com/api/brands?projection=detailedBrand&sort=name,asc", {
+                    method: "GET",
+                })
+        
         setShops(fetchShop._embedded.products);
-        setPages(fetchPages.page);
+        setPages(fetchShop.page);
+        const fetchedBrands = await res.json();
+        setBrands(fetchedBrands._embedded.brands);
         setLoading(false);
-
     };
 
     const handleChangeGender = (event) => {
@@ -68,6 +85,7 @@ export default function Shop(props) {
         const page = e.selected;
         setPage(page)
         scrollToTop();
+        
     };
     const handleSortChange = (e) => {
         setSortCount(e.target.value)
@@ -77,13 +95,24 @@ export default function Shop(props) {
         setSort(e.target.value)
         setLoading(true)
     };
+    const handleBrandIdChange = (e) => {
+        setBrandId(e.target.value)
+        setLoading(true)
+    };
     const scrollToTop = () => {
         window.scrollTo({
             top: 0,
             behavior: "smooth",
+            
         });
-
     };
+    const handleCheckChange = (event) => {
+        setChecked(event.target.checked);
+      };
+    
+    
+      
+   
 
 
     return (
@@ -93,10 +122,9 @@ export default function Shop(props) {
                 <Loading />
             ) : (
                 <div>
-                    <div>
-                    </div>
-
-                    <FormControl id="one">
+                    <div className="shop">
+                    <div className="filters">
+                        <FormControl id="one">
                         <InputLabel id="select">...הצג לפי</InputLabel>
                         <Select
                             labelId="select"
@@ -110,7 +138,7 @@ export default function Shop(props) {
                             <MenuItem value={"desc"}> מחיר: מהגבוה לנמוך</MenuItem>
                         </Select>
                     </FormControl>
-
+                    <br/>
                     <FormControl id="two">
                         <InputLabel id="select">כמות מוצרים</InputLabel>
                         <Select
@@ -126,6 +154,7 @@ export default function Shop(props) {
                             <MenuItem value={"120"}> 120 </MenuItem>
                         </Select>
                     </FormControl>
+                    <br/>
                     <FormControl id="gender">
                         <InputLabel id="select">מגדר</InputLabel>
                         <Select
@@ -140,17 +169,22 @@ export default function Shop(props) {
                             <MenuItem value={"KIDS"}> ילדים </MenuItem>
                         </Select>
                     </FormControl>
-                    {/* <FormControl id="gender" component="fieldset">
-                        <FormLabel component="legend">Gender</FormLabel>
-                        <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChangeGender}>
-                            <FormControlLabel value="WOMEN" control={<Radio />} label="WOMEN" />
-                            <FormControlLabel value="MEN" control={<Radio />} label="MEN" />
-                            <FormControlLabel value="KIDS" control={<Radio />} label="KIDS" />
-                            
-                        </RadioGroup>
-                    </FormControl> */}
-
-                    <div className="shop">
+                    <br/><FormControl id="four">
+                        <InputLabel id="select">מותג</InputLabel>
+                        <Select
+                        
+                            labelId="select"
+                            id="selectOption1"
+                            value={brandid}
+                            onChange={handleBrandIdChange}
+                            setLoading={false}
+                        >
+                            {brands.map((brand, index) =>
+                                <MenuItem key={index} value={brand.id}  className="abc" >{brand.name}</MenuItem>
+                            )}
+                        </Select>
+                    </FormControl>
+                        </div>
                         {shops.map((shop ,index) => (
                             <div key={index}>
                                 <a href={`/ProductPage/${shop.id}`} key={shop.id} id="Link">
@@ -173,16 +207,16 @@ export default function Shop(props) {
                         breakLabel={"..."}
                         breakClassName={"break-me"}
                         pageCount={pages.totalPages}
-                        marginPagesDisplayed={1}
-                        pageRangeDisplayed={1}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={2}
                         onPageChange={handlePageClick}
                         containerClassName={"pagination"}
                         subContainerClassName={"pages pagination"}
                         activeClassName={"active"}
                         initialPage={0}
-
-
                     />
+                    
+
                 </div>
             )}
 
