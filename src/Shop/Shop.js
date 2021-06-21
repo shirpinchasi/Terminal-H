@@ -19,18 +19,16 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
 
-  const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
     root: {
-      width: '50%',
-      display : "flex",
-      flexDirection : "column",
+        
     },
     heading: {
-      fontSize: theme.typography.pxToRem(15),
-      fontWeight: theme.typography.fontWeightRegular,
-     
+        fontSize: theme.typography.pxToRem(15),
+        fontWeight: theme.typography.fontWeightRegular,
+
     },
-  }));
+}));
 
 
 export default function Shop(props) {
@@ -45,9 +43,16 @@ export default function Shop(props) {
     const [brands, setBrands] = useState([]);
     const [brandid, setBrandId] = useState([]);
     const classes = useStyles();
+    const [filters, setFilters] = useState({
+        BrandIdFilter : [],
+        AscDescFilter : "",
+        SortCounFilter : "",
+        GenderFilter : ""
+
+    })
 
     const [checked, setChecked] = React.useState(false);
-    
+
 
 
 
@@ -57,7 +62,7 @@ export default function Shop(props) {
         }
         GetShop(id);
 
-    }, [id, page, sort, sortCount,value, brandid]);
+    }, [id, page, sort, sortCount, value, brandid,]);
 
 
 
@@ -66,9 +71,9 @@ export default function Shop(props) {
             method: "GET",
         })).json();
         const res = await fetch("https://terminal-h.herokuapp.com/api/brands?projection=detailedBrand&sort=name,asc", {
-                    method: "GET",
-                })
-        
+            method: "GET",
+        })
+
         setShops(fetchShop._embedded.products);
         setPages(fetchShop.page);
         const fetchedBrands = await res.json();
@@ -85,7 +90,7 @@ export default function Shop(props) {
         const page = e.selected;
         setPage(page)
         scrollToTop();
-        
+
     };
     const handleSortChange = (e) => {
         setSortCount(e.target.value)
@@ -103,16 +108,39 @@ export default function Shop(props) {
         window.scrollTo({
             top: 0,
             behavior: "smooth",
-            
+
         });
     };
-    const handleCheckChange = (event) => {
-        setChecked(event.target.checked);
-      };
     
+
+    // const onFilterClick = (e) =>{
+    //     handleBrandIdChange(e)
+    //     handleChangeGender(e)
+    //     handleSortChange(e)
+    //     handleChange(e)
+    //     const handleChangeGender = (event) => {
+    //         setValue(event.target.value);
+    //         setLoading(true)
+    //     };
+    //     const handleSortChange = (e) => {
+    //         setSortCount(e.target.value)
+    //         setLoading(true)
+    //     };
+    //     const handleChange = (e) => {
+    //         setSort(e.target.value)
+    //         setLoading(true)
+    //     };
+    //     const handleBrandIdChange = (e) => {
+    //         setBrandId(e.target.value)
+    //         setLoading(true)
+    //     };
+    //     setLoading(true)
+    // }
     
-      
-   
+
+
+
+
 
 
     return (
@@ -122,70 +150,154 @@ export default function Shop(props) {
                 <Loading />
             ) : (
                 <div>
-                    <div className="shop">
-                    <div className="filters">
-                        <FormControl id="one">
-                        <InputLabel id="select">...הצג לפי</InputLabel>
-                        <Select
-                            labelId="select"
-                            id="selectOption1"
-                            value={sort}
-                            onChange={handleChange}
-                            setLoading={false}
-                        >
-                            <MenuItem value={""}>...הצג לפי</MenuItem>
-                            <MenuItem value={"asc"}> מחיר: מהנמוך לגבוה</MenuItem>
-                            <MenuItem value={"desc"}> מחיר: מהגבוה לנמוך</MenuItem>
-                        </Select>
-                    </FormControl>
-                    <br/>
-                    <FormControl id="two">
-                        <InputLabel id="select">כמות מוצרים</InputLabel>
-                        <Select
-                            labelId="select"
-                            id="selectOption2"
-                            value={sortCount}
-                            onChange={handleSortChange}
-                            setLoading={false}
-                        >
-                            <MenuItem value={"30"}> 30 </MenuItem>
-                            <MenuItem value={"60"}> 60 </MenuItem>
-                            <MenuItem value={"90"}> 90 </MenuItem>
-                            <MenuItem value={"120"}> 120 </MenuItem>
-                        </Select>
-                    </FormControl>
-                    <br/>
-                    <FormControl id="gender">
-                        <InputLabel id="select">מגדר</InputLabel>
-                        <Select
-                            labelId="select"
-                            id="selectOption3"
-                            value={value}
-                            onChange={handleChangeGender}
-                            setLoading={false}
-                        >
-                            <MenuItem value={"WOMEN"}>נשים</MenuItem>
-                            <MenuItem value={"MEN"}> גברים </MenuItem>
-                            <MenuItem value={"KIDS"}> ילדים </MenuItem>
-                        </Select>
-                    </FormControl>
-                    <br/><FormControl id="four">
-                        <InputLabel id="select">מותג</InputLabel>
-                        <Select
-                        
-                            labelId="select"
-                            id="selectOption1"
-                            value={brandid}
-                            onChange={handleBrandIdChange}
-                            setLoading={false}
-                        >
-                            {brands.map((brand, index) =>
-                                <MenuItem key={index} value={brand.id}  className="abc" >{brand.name}</MenuItem>
-                            )}
-                        </Select>
-                    </FormControl>
+                    <div id="rootAccord" className={classes.root}>
+                            <Accordion id="accordion">
+                                <AccordionSummary
+                                    expandIcon={<FontAwesomeIcon icon={faFilter} />}
+                                    aria-controls="panel1a-content"
+                                    id="panel1a-header"
+                                >
+                                    <Typography className={classes.heading}>Filter</Typography>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <Typography>
+                                        <FormControl id="acordionone">
+                                            <InputLabel id="select">...הצג לפי</InputLabel>
+                                            <Select
+                                                labelId="select"
+                                                id="selectOption1"
+                                                value={sort}
+                                                onChange={handleChange}
+                                                setLoading={false}
+                                            >
+                                                <MenuItem value={""}>...הצג לפי</MenuItem>
+                                                <MenuItem value={"asc"}> מחיר: מהנמוך לגבוה</MenuItem>
+                                                <MenuItem value={"desc"}> מחיר: מהגבוה לנמוך</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </Typography>
+                                    <Typography>
+                                        <FormControl id="acordiontwo">
+                                            <InputLabel id="select">כמות מוצרים</InputLabel>
+                                            <Select
+                                                labelId="select"
+                                                id="selectOption2"
+                                                value={sortCount}
+                                                onChange={handleSortChange}
+                                                setLoading={false}
+                                            >
+                                                <MenuItem value={"30"}> 30 </MenuItem>
+                                                <MenuItem value={"60"}> 60 </MenuItem>
+                                                <MenuItem value={"90"}> 90 </MenuItem>
+                                                <MenuItem value={"120"}> 120 </MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </Typography>
+                                    <FormControl id="acordionGender">
+                                <InputLabel id="select">מגדר</InputLabel>
+                                <Select
+                                    labelId="select"
+                                    id="selectOption3"
+                                    value={value}
+                                    onChange={handleChangeGender}
+                                    setLoading={false}
+                                >
+                                    <MenuItem value={"WOMEN"}>נשים</MenuItem>
+                                    <MenuItem value={"MEN"}> גברים </MenuItem>
+                                    <MenuItem value={"KIDS"}> ילדים </MenuItem>
+                                </Select>
+                            </FormControl>
+                                    <Typography>
+
+                                    </Typography>
+                                    <Typography>
+                                    <FormControl id="acordionFour">
+                                <InputLabel id="select">מותג</InputLabel>
+                                <Select
+
+                                    labelId="select"
+                                    id="selectOption1"
+                                    value={brandid}
+                                    onChange={handleBrandIdChange}
+                                    setLoading={false}
+                                >
+                                    {brands.map((brand, index) =>
+                                        <MenuItem key={index} value={brand.id} className="abc" >{brand.name}</MenuItem>
+                                    )}
+                                </Select>
+                            </FormControl>
+                                    </Typography>
+                                    {/* <button onClick={onFilterClick} setLoading={false}>Filter</button> */}
+                                </AccordionDetails>
+                            </Accordion>
+                            
                         </div>
-                        {shops.map((shop ,index) => (
+                    <div className="shop">
+                        <div className="filters">
+                            <FormControl id="one">
+                                <InputLabel id="select">...הצג לפי</InputLabel>
+                                <Select
+                                    labelId="select"
+                                    id="selectOption1"
+                                    value={sort}
+                                    onChange={handleChange}
+                                    setLoading={false}
+                                >
+                                    <MenuItem value={""}>...הצג לפי</MenuItem>
+                                    <MenuItem value={"asc"}> מחיר: מהנמוך לגבוה</MenuItem>
+                                    <MenuItem value={"desc"}> מחיר: מהגבוה לנמוך</MenuItem>
+                                </Select>
+                            </FormControl>
+                            <br />
+                            <FormControl id="two">
+                                <InputLabel id="select">כמות מוצרים</InputLabel>
+                                <Select
+                                    labelId="select"
+                                    id="selectOption2"
+                                    value={sortCount}
+                                    onChange={handleSortChange}
+                                    setLoading={false}
+                                >
+                                    <MenuItem value={"30"}> 30 </MenuItem>
+                                    <MenuItem value={"60"}> 60 </MenuItem>
+                                    <MenuItem value={"90"}> 90 </MenuItem>
+                                    <MenuItem value={"120"}> 120 </MenuItem>
+                                </Select>
+                            </FormControl>
+                            <br />
+                            <FormControl id="gender">
+                                <InputLabel id="select">מגדר</InputLabel>
+                                <Select
+                                    labelId="select"
+                                    id="selectOption3"
+                                    value={value}
+                                    onChange={handleChangeGender}
+                                    setLoading={false}
+                                >
+                                    <MenuItem value={"WOMEN"}>נשים</MenuItem>
+                                    <MenuItem value={"MEN"}> גברים </MenuItem>
+                                    <MenuItem value={"KIDS"}> ילדים </MenuItem>
+                                </Select>
+                            </FormControl>
+                            <br />
+                            <FormControl id="four">
+                                <InputLabel id="select">מותג</InputLabel>
+                                <Select
+
+                                    labelId="select"
+                                    id="selectOption1"
+                                    value={brandid}
+                                    onChange={handleBrandIdChange}
+                                    setLoading={false}
+                                >
+                                    {brands.map((brand, index) =>
+                                        <MenuItem key={index} value={brand.id} className="abc" >{brand.name}</MenuItem>
+                                    )}
+                                </Select>
+                            </FormControl>
+                        </div>
+                        
+                        {shops.map((shop, index) => (
                             <div key={index}>
                                 <a href={`/ProductPage/${shop.id}`} key={shop.id} id="Link">
                                     <div className="ajustShop">
@@ -215,7 +327,7 @@ export default function Shop(props) {
                         activeClassName={"active"}
                         initialPage={0}
                     />
-                    
+
 
                 </div>
             )}

@@ -47,8 +47,7 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
     color: "black",
-    position : "static",
-    marginRight : 250
+    position : "absolute",
   },
   hide: {
     display: 'none',
@@ -60,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    
   },
   drawerHeader: {
     display: 'flex',
@@ -67,6 +67,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
+    
 
   },
   content: {
@@ -169,25 +170,28 @@ export default function HideAppBar(props) {
       </HideOnScroll>
       <div className={classes.root} id="sidebar">
         <CssBaseline />
-        <AppBar
+        <AppBar id="1"
+        width="100%"
           position="fixed"
           className={clsx(classes.appBar, {
             [classes.appBarShift]: open,
           })}
         >
-          <Toolbar>
-            <IconButton
+          <Toolbar id="MuiToolbar-regular">
+            
+            <IconButton id="3"
+              display="absolute"
               color="inherit"
               aria-label="open drawer"
               onClick={handleDrawerOpen}
               edge="start"
               className={clsx(classes.menuButton, open && classes.hide)}
             >
-              <MenuIcon />
+              <MenuIcon id="4" />
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Drawer
+        <Drawer id="5"
           className={classes.drawer}
           variant="persistent"
           anchor="left"
@@ -196,7 +200,7 @@ export default function HideAppBar(props) {
             paper: classes.drawerPaper,
           }}
         >
-          <div className={classes.drawerHeader}>
+          <div id="6" className={classes.drawerHeader}>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
@@ -213,7 +217,7 @@ export default function HideAppBar(props) {
             <a href="/brands" key="brand" className="mutag">מותגים</a>
           </List>
         </Drawer>
-        <main
+        <main id ="7"
           className={clsx(classes.content, {
             [classes.contentShift]: open,
           })}>

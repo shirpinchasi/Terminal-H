@@ -3,16 +3,18 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    width: 80%;
     flex-direction: row-reverse;
-    
+    width: 80%;
 }
 .filters{
-    width: 10%;
     position: absolute;
+    width: 10%;
     right: 5%;
 
-    
+}
+
+#accordion{
+    display: none;
 }
 .pictureUrlShop{
     border:2px solid rgba(235, 232, 232, 0.5);
@@ -38,7 +40,7 @@
 .pagination{
     display: flex;
     flex-wrap: wrap;
-    width: 1100px;
+    width: 1000px;
     .active{
         background-color:lightblue;
         border-radius: 50px;
@@ -59,6 +61,7 @@
     text-decoration: none;
     }
 }
+
 .MuiAccordionDetails-root{
     justify-content: space-evenly;
     display: flex;
@@ -112,11 +115,72 @@
 //     right: 40%;
 // }
  @media screen and (max-width : 750px) {
-     .MuiFormControl-root{
-        width: 120px;
-        left: 0;
-        top: 0;
-     }
+    //  .MuiFormControl-root{
+    //     width: 120px;
+    //     left: 0;
+    //     top: 0;
+    //  }
+    .filters{
+        display: none;
+    }
+    .shop{
+        width: 100%;
+    }
+    #accordion{
+        display: flex;
+        margin-right: 10px;
+        flex-direction: column;
+        align-items: center;
+        width: 50%;
+        margin-top: 2%;
+        right: 15%;
+        left: 30%;
+    }
+    
+    #acordionone{
+        display: flex;
+        position: relative;
+        width: 150px;
+        padding-bottom: 20px;
+        label{
+            position: relative;
+            padding-bottom: 10%;
+        }
+    }
+    #acordiontwo{
+        display: flex;
+        position: relative;
+        width: 150px;
+        padding-bottom: 50px;
+        label{
+            position: relative;
+            font-size: 20px;
+        }
+    }
+    #acordionGender{
+        display: flex;
+        position: relative;
+        width: 150px;
+        padding-bottom: 20px;
+        label{
+            position: relative;
+            padding-bottom: 10%;
+        }
+    }
+    #acordionFour{
+        display: flex;
+        position: relative;
+        width: 150px;
+        padding-bottom: 20px;
+        label{
+            position: relative;
+            padding-bottom: 10%;
+        }
+    }
+    
+    
+    
+     
      .pagination{
         width: 300px;
         display: inline-flex;
