@@ -17,6 +17,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Slide from '@material-ui/core/Slide';
+import Typography from '@material-ui/core/Typography';
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
@@ -33,21 +34,17 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-
-    background: "none",
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    marginRight: drawerWidth,
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    color: "black",
-    position : "absolute",
+  title: {
+    flexGrow: 1,
   },
   hide: {
     display: 'none',
@@ -55,20 +52,18 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    direction: "rtl"
+    direction:"rtl",
+    justifyContent:"flex-end",
   },
   drawerPaper: {
     width: drawerWidth,
-    
   },
   drawerHeader: {
     display: 'flex',
-    alignItems: 'center',
+    direction:"ltr",
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-    
-
+   
   },
   content: {
     flexGrow: 1,
@@ -77,14 +72,14 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: -drawerWidth,
+    marginRight: -drawerWidth,
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    marginLeft: 0,
+    marginRight: 0,
   },
 }));
 
@@ -171,35 +166,34 @@ export default function HideAppBar(props) {
       <div className={classes.root} id="sidebar">
         <CssBaseline />
         <AppBar id="1"
-        width="100%"
+          color="white"
           position="fixed"
           className={clsx(classes.appBar, {
             [classes.appBarShift]: open,
           })}
         >
           <Toolbar id="MuiToolbar-regular">
-            
-            <IconButton id="3"
-              display="absolute"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              className={clsx(classes.menuButton, open && classes.hide)}
-            >
+          
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="end"
+            onClick={handleDrawerOpen}
+            className={clsx(open && classes.hide)}
+          >
               <MenuIcon id="4" />
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Drawer id="5"
-          className={classes.drawer}
-          variant="persistent"
-          anchor="left"
-          open={open}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
+        <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="right"
+        open={open}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
           <div id="6" className={classes.drawerHeader}>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
@@ -217,11 +211,6 @@ export default function HideAppBar(props) {
             <a href="/brands" key="brand" className="mutag">מותגים</a>
           </List>
         </Drawer>
-        <main id ="7"
-          className={clsx(classes.content, {
-            [classes.contentShift]: open,
-          })}>
-        </main>
       </div>
       <Toolbar />
     </React.Fragment>

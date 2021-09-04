@@ -19,6 +19,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
 
+
 const useStyles = makeStyles((theme) => ({
     root: {
         
@@ -50,6 +51,7 @@ export default function Shop(props) {
         GenderFilter : ""
 
     })
+    console.log(pages.totalPages);
 
     const [checked, setChecked] = React.useState(false);
 
@@ -327,6 +329,15 @@ export default function Shop(props) {
                         activeClassName={"active"}
                         initialPage={0}
                     />
+                    <div>
+                        {page +1} / 
+                        <Select 
+                        value={pages.totalPages}>
+                        
+                        </Select>
+                    </div>
+                    
+                    
 
 
                 </div>

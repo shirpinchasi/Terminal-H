@@ -1,5 +1,5 @@
 
-@media screen and (max-width : 795px) {
+@media screen and (max-width : 794px) {
     #sidebar{
         display: block;
     }
@@ -15,13 +15,7 @@
     
 }
 
-
-.MuiAppBar-colorPrimary{
-    display: flex;
-    background-color: white !important;
-    color: black  !important;
-}
-.MuiAppBar-root{
+#hide{
     align-items: center;
 }
 
@@ -43,6 +37,10 @@
     text-decoration: none;
 }
 
+
+.MuiToolbar-regular{
+    justify-content: flex-end;
+}
 .menu{
     position: sticky;
 	top: 0;
@@ -78,6 +76,7 @@
         text-decoration: underline;
     }
 }
+
 .mutagim{
     height: 21px;
     margin-top: 24px;
@@ -90,9 +89,6 @@
 }
 .mutagim:hover{
     text-decoration: underline;
-}
-#MuiToolbar-regular{
-    width: 100%;
 }
 
 .terminalH{
@@ -123,16 +119,17 @@
         
     }
 }
-@media screen and (max-width: 625px) {
-	.ajustSections {
-	  margin-top: 45%;
-	  margin-left: 17%;
-      width: 100px;
-      height: 30px;
-	}
+
+// @media screen and (max-width: 625px) {
+// 	.ajustSections {
+// 	  margin-top: 45%;
+// 	  margin-left: 17%;
+//       width: 100px;
+//       height: 30px;
+// 	}
     
 	
-  }
+//   }
   @media screen and (max-width: 625px) {
 	.mutagim {
         margin-top: 7%;

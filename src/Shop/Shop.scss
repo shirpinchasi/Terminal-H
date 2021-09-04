@@ -4,12 +4,12 @@
     flex-wrap: wrap;
     justify-content: space-evenly;
     flex-direction: row-reverse;
-    width: 80%;
+    width: 90%;
 }
 .filters{
     position: absolute;
     width: 10%;
-    right: 5%;
+    right: 3%;
 
 }
 
@@ -114,7 +114,7 @@
 //     width: 130px;
 //     right: 40%;
 // }
- @media screen and (max-width : 750px) {
+ @media screen and (max-width : 792px) {
     //  .MuiFormControl-root{
     //     width: 120px;
     //     left: 0;
@@ -177,21 +177,20 @@
             padding-bottom: 10%;
         }
     }
-    
-    
-    
-     
-     .pagination{
-        width: 300px;
-        display: inline-flex;
-        margin-right: 20%;
-        justify-content: space-between;
-        li{
-            width: 38px;
-           
-        }
-        .active{
-            width: 20px;
-        }
+    .pagination{
+        display: none;
     }
- }
+    // .pagination{
+    //     width: 300px;
+    //     display: inline-flex;
+    //     margin-right: 20%;
+    //     justify-content: space-between;
+    //     li{
+    //         width: 38px;
+           
+    //     }
+    //     .active{
+    //         width: 20px;
+    //     }
+    // }
+}
