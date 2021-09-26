@@ -1,13 +1,12 @@
-.Brands{
-  
-    
-}
+
 .head{
     font-weight: 100;
     font-size: 30px;
+    margin-top: 7%;
     border-bottom: 1px solid #dddada;
     padding-bottom: 2%;
 }
+
 #abc{
     border-bottom: 1px solid #e6e6e6;
     font-size: 20px;
@@ -18,7 +17,7 @@
     flex-wrap: wrap;
     justify-content: center;
     text-decoration: none;
-    padding:20px 20px 35px 0px;
+    padding:0px 20px 10px 0px;
     
 }
 .abc:hover{
@@ -48,12 +47,12 @@ li{
     grid-area: letter;
     font-size: 30px;
     width: 150px;
-    height: 50px;
+    height: 10px;
     font-weight: 600;
     font-family: "Palatino, URW Palladio L, serif";
     line-height: normal;
     letter-spacing: normal;
-    margin-top: 1%;
+    margin-top: 0%;
 }
 #ul{
     display: grid;
@@ -72,22 +71,15 @@ li{
         padding: 15px;
     
 }
-@media screen  and (max-width: 750px){
-    .abc{
-        display: none;
-    }
-    
-}
 
 @media screen  and (max-width: 750px){
     #ul{
         display: flex;
         flex-direction: column;
-    
-        
         border-bottom:  solid 1px #e6e6e6 ;
         padding: 15px;
     }
+    
     
 }
 .href{

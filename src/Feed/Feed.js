@@ -43,7 +43,6 @@ export default function Feed() {
             top: 0,
             behavior: "smooth",
         });
-
     };
 
     return (

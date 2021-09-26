@@ -9,16 +9,13 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme)=> (({
     scrollspy : {
-        width:47,
+        width:48,
         transitionDelay : 1000,
         duration : 1000,
         transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration,
-        // duration : 1500,
-        // scrollBehavior : 'smooth',
-        // delay : 100,
-        // offset:50
+        
     })},
 })))
 

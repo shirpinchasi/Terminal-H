@@ -47,13 +47,13 @@ function Search(props) {
             <div>
                 <form className="form" onSubmit={CallSearchFunction}>
                     <input className="Search"
-                        placeholder="search Product Here.."
+                        placeholder=" חיפוש "
                         value={searchValue}
                         onChange={handleChangeInput}
                         type="text"
                         className="searchInput"
                     />
-                    <FontAwesomeIcon icon={faSearch} className="far fa-search fa-sm" onClick={CallSearchFunction} />
+                    <img src="https://www.factory54.co.il/on/demandware.static/Sites-factory54-Site/-/default/dw673bf99f/images/fill-19.svg" onClick={CallSearchFunction}/>
                 </form>
             </div>
         </div>

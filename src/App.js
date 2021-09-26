@@ -9,7 +9,9 @@ import Shop from "./Shop/Shop";
 import ProductPage from "./Shop/ProductPage/productPage"
 import Brands from "./Shop/Brands/Brands";
 import Search from "./Search/Search";
-import SearchResults from "./Search/SearchRes"
+import SearchResults from "./Search/SearchRes";
+import Favorites from "./Shop/Favorites/Favorites";
+import { CartProvider } from "react-use-cart";
 
 
 
@@ -18,12 +20,15 @@ export default function App() {
     return (
         <div className="App">
             
-
+            <CartProvider >
             <Menu />
-            <Search />
             <BrowserRouter>
+            
                 <Route path="/Shop/:id?">
                     <Shop Component={Shop} />
+                </Route>
+                <Route path="/Favorites">
+                    <Favorites Component={Favorites} />
                 </Route>
                 <Route path="/BrandPage/:id?">
                     <BrandPage Component={BrandPage} />
@@ -40,7 +45,9 @@ export default function App() {
                 <Route exact path="/">
                     <Feed Component={Feed} />
                 </Route>
+                
             </BrowserRouter>
+            </CartProvider>
 
 
         </div>

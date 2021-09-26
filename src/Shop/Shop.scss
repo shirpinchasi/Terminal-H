@@ -12,13 +12,21 @@
     right: 3%;
 
 }
+.prodView{
+    margin-bottom: 50px;
+}
 
 #accordion{
     display: none;
 }
+.relative{
+    position: relative;
+}
+// 
 .pictureUrlShop{
+    position: relative;
     border:2px solid rgba(235, 232, 232, 0.5);
-    width: 200px;
+    width: 230px;
     margin-top: 5%;
     margin-bottom: 5%;
 }
@@ -30,6 +38,29 @@
     font-weight: 500;
     font-size:15px;
 }
+#filterOptions{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    p{
+        padding-right: 10px;
+        font-size: 13px;
+    }
+    
+}
+
+.favoriteBorderIcon{
+    color: red;
+}
+.linkToSite{
+    direction: rtl;
+    padding-right: 5%;
+    font-size: 12px;
+}
+#buttonToSite{
+    display: flex;
+    flex-direction: row;
+}
 #Link{
     color: black;
     text-decoration: none;
@@ -40,7 +71,7 @@
 .pagination{
     display: flex;
     flex-wrap: wrap;
-    width: 1000px;
+    
     .active{
         background-color:lightblue;
         border-radius: 50px;
@@ -57,7 +88,7 @@
     font-weight: 400;
     line-height: 40px;
     text-transform: uppercase;
-    width: 100px;
+    width: 70px;
     text-decoration: none;
     }
 }
@@ -75,6 +106,29 @@
 .MuiTypography-body1{
     justify-content: space-evenly;
 }
+.categoryName{
+    margin-top: 8%;
+}
+.FILTERS{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    direction: rtl;
+    border-top: solid 1px #e6e6e6;
+    border-bottom: solid 1px #e6e6e6;
+}
+#filterBy{
+    direction: ltr;
+    left: 15px;
+    width: 130px;
+    label{
+        font-size: 15px;
+    }
+
+}
+.filterButton{
+    border: 1px solid black;
+}
 
 #gender{
     // left: 30%;
@@ -87,19 +141,20 @@
 }
 #one{
     width: 130px;
-    padding-top: 40%;
-    // right: 25%;
-    label{
-        padding-top: 20%;
-    }
+    margin-top: 8%;
 }
-#two{
+#ProdCount{
     width: 130px;
-    padding-top: 40%;
     // right: 20%;
     label{
-        padding-top: 40%;
         font-size: 20px;
+    }
+}
+#category{
+    width: 130px;
+    padding-top: 40%;
+    label{
+        padding-top: 25%;
     }
 }
 #four{
@@ -110,21 +165,59 @@
     }
     // right: 20%;
 }
+#phonePagination{
+    display: none;
+}
 // .MuiFormControl-root{
 //     width: 130px;
 //     right: 40%;
 // }
+
  @media screen and (max-width : 792px) {
     //  .MuiFormControl-root{
     //     width: 120px;
     //     left: 0;
     //     top: 0;
     //  }
+    #filterBy{
+        display: none ;
+        label{
+            display: none;
+        }
+    }
+    .pagination{
+        display: none;
+    }
+    #phonePagination{
+        display: flex;
+    justify-content: center;
+    align-items: baseline;
+    font-size: 16.7px;
+        
+    }
+
+
+    
+    .FILTERS{
+        height: 60px;
+    }
+    
     .filters{
         display: none;
     }
     .shop{
         width: 100%;
+        
+    }
+    .totalElements{
+        display: flex;
+        height: 10px;
+    }
+    #ProdCount{
+        display: none;
+    }
+    #one{
+        display: none;
     }
     #accordion{
         display: flex;
@@ -177,20 +270,5 @@
             padding-bottom: 10%;
         }
     }
-    .pagination{
-        display: none;
-    }
-    // .pagination{
-    //     width: 300px;
-    //     display: inline-flex;
-    //     margin-right: 20%;
-    //     justify-content: space-between;
-    //     li{
-    //         width: 38px;
-           
-    //     }
-    //     .active{
-    //         width: 20px;
-    //     }
-    // }
+    
 }

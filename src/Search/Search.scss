@@ -22,16 +22,18 @@
 
 }
 
-form{
-    position: static;
-    margin-top: 8%;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
+// form{
+//     position: static;
+//     top: 0;
+//     bottom: 0;
+//     left: 0;
+//     right: 0;
+// }
 .searchInput{
     border: none;
+    font-size: 15px;
+    direction: rtl;
+    background-color: transparent;
 }
 .searchInput:focus{
     border-bottom: solid;
@@ -39,11 +41,17 @@ form{
 input:focus{
     outline: none;
 }
-@media screen and (max-width: 625px) {
-	form {
-	  margin-top: 1%;
-	}
-	
-  }
+
+@media screen and (max-width : 794px) {
+    .products{
+        margin-top: 7%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        width: 100%;
+        
+    }
+    
+}
 
 

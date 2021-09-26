@@ -7,6 +7,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFrown } from "@fortawesome/free-solid-svg-icons";
 
 
 export default function SearchResults() {
@@ -29,7 +31,7 @@ export default function SearchResults() {
         
     }, [search, pageNum,sort , sortCount,value]);
 
-// useEffect(()=>{
+
 
 
     async function getProducts() {
@@ -73,15 +75,29 @@ export default function SearchResults() {
             behavior: "smooth"
         });
     };
+    function hasNoResults(){
+        return search && product.length === 0;
+    }
 
     return (
         <div>
             {isLoading ? (
                 <Loading />
             ) : (
-
+                <div className="noRes">
+                {hasNoResults()?
+                <h1><FontAwesomeIcon icon={faFrown}/>
+                <i class="far fa-frown"></i>
+                    אין תוצאות</h1>
+                :
                 <div>
+                   {console.log(decodeURI(window.location.search.split("=")[1].split("%20").join(" ")))}
+                   <div>
+                        <div id="resultsFor">תוצאות לחיפוש "{decodeURI(window.location.search.split("=")[1].split("%20").join(" "))}"</div>
+                        </div>
+                    
                     <div className="products">
+                        
                     <div className="filters">
                         <FormControl id="one">
                         <InputLabel id="select">...הצג לפי</InputLabel>
@@ -98,7 +114,7 @@ export default function SearchResults() {
                         </Select>
                     </FormControl>
                     <br/>
-                    <FormControl id="two">
+                    <FormControl id="twoo">
                         <InputLabel id="select">כמות מוצרים</InputLabel>
                         <Select
                             labelId="select"
@@ -130,7 +146,9 @@ export default function SearchResults() {
                     </FormControl>
                     
                         </div>
+                        
                         {product.map(prod => (
+                            
                             <div>
                                 <a href={`/ProductPage/${prod.id}`} id="Link">
                                     <div className="ajustProducts">
@@ -142,6 +160,7 @@ export default function SearchResults() {
                                     </div>
                                 </a>
                             </div>
+                            
                         ))}
 
 
@@ -161,6 +180,9 @@ export default function SearchResults() {
                             initialPage={0}
                         />
                     </div>
+            
+                </div>
+            }
                 </div>
             )}
         </div>
