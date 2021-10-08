@@ -50,7 +50,7 @@ export default function BrandPage() {
 
 
     async function getBrandProduct(id) {
-        const fetchBrandProduct = await (await fetch(config.apiShop + `&brand=${id}&page=${page}&size=${sortCount}&sort=${sort}&gender=${gender}`, {
+        const fetchBrandProduct = await (await fetch(config.apiShop + `&brand=${id}&page=${page}&size=${sortCount}&sort=${sort}&sort=id,desc&gender=${gender}`, {
             method: "GET",
         })).json();
         setPages(fetchBrandProduct.page);

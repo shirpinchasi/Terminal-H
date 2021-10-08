@@ -27,7 +27,7 @@ export default function Feed() {
 
     async function getData() {
 
-        const res = await (await fetch(config.apiShop + `&sort=discount,desc&size=${itemsPerPage}&page=${page}`, {
+        const res = await (await fetch(config.apiShop + `&sort=discount,desc&sort=id,desc&size=${itemsPerPage}&page=${page}`, {
             method: "GET"
         })).json();
         setCategories(res._embedded.products);

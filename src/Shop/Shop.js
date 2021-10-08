@@ -115,7 +115,7 @@ const Shop = () => {
 
 
     async function GetShop(id) {
-        const fetchShop = await (await fetch(config.apiShop + `&categorySectionId=${id}&page=${page}&size=${sortCount}&sort=${sort}&gender=${gender}&brand=${brandid}&categoryId=${catNames}`, {
+        const fetchShop = await (await fetch(config.apiShop + `&categorySectionId=${id}&page=${page}&size=${sortCount}&sort=${sort}&sort=id,desc&gender=${gender}&brand=${brandid}&categoryId=${catNames}`, {
             method: "GET",
         })).json();
         const fetchCategories = await (await fetch(`https://terminal-h.herokuapp.com/api/sections/${id}/categories`, {
