@@ -1,16 +1,17 @@
 .brandProduct{
-    margin-top: 8%;
-    width: 90%;
+    margin-top: 6%;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    flex-direction: row-reverse;
+
 }
 .pictureUrlProBrands{
+    height: 300px;
+    display: block;
+    object-fit: cover;
     border:2px solid rgba(235, 232, 232, 0.5);
-    width: 200px;
-    margin-top: 5%;
-    margin-bottom: 5%;
+    width: 270px;
 }
 .ajustProductBrands{
     width: 350px;
@@ -19,4 +20,7 @@
 .brandProBrands{
     font-weight: 500;
     font-size:15px;
+}
+.ShopFilters{
+    margin-top: 10%;
 }

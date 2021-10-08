@@ -17,7 +17,7 @@ const Favorites = () => {
     useEffect(() => {
        
         getFavorites()
-    }, []);
+    }, [removeItem]);
 
 
     async function getFavorites(){
@@ -27,9 +27,7 @@ const Favorites = () => {
         console.log(err);
     }
 }
-function refreshPage() {
-    window.location.reload(false);
-}
+
 
 
 

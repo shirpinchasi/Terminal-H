@@ -3,15 +3,18 @@ import { useParams } from "react-router";
 import Loading from "../../Loader/Loader";
 import { Link } from "react-router-dom";
 import "./BrandPage.scss";
-import ReactPaginate from "react-paginate"
+import Pagination from "../Pagination/Pagination";
+import config from "../../config/config";
+import { Button, Toolbar } from "@material-ui/core";
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import { useCart } from "react-use-cart";
+import LaunchIcon from '@mui/icons-material/Launch';
+import 'react-dropdown/style.css';
+import FilterMenu from "../../Menu/FilterMenu";
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import config from "../../config/config";
-import OutlinedInput from '@mui/material/OutlinedInput';
-import ListItemText from '@mui/material/ListItemText';
-import Checkbox from '@mui/material/Checkbox';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -29,28 +32,31 @@ export default function BrandPage() {
     const [brandProduct, setBrandProduct] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const [sort, setSort] = useState("");
+    const [gender, setGender] = useState('');
     const [page, setPage] = useState(0);
+    const [brandid,setBrandId] = useState('')
     const [sortCount, setSortCount] = useState(30)
-    const [pages, setPages] = useState([]);
-    const [value, setValue] = useState('');
- 
+    const [totalPages, setPages] = useState([]);
+    const { addItem, inCart, removeItem } = useCart();
+    const [totalElem, setTotalElem] = useState([]);
+
 
     useEffect(() => {
         if (!id) {
             return;
         }
         getBrandProduct(id);
-    }, [id, page, sort, sortCount, value]);
+    }, [id, page, sort, sortCount, gender]);
 
 
     async function getBrandProduct(id) {
-        const fetchBrandProduct = await (await fetch(config.apiShop + `&brand=${id}&page=${page}&size=${sortCount}&sort=price,${sort}&gender=${value}`, {
+        const fetchBrandProduct = await (await fetch(config.apiShop + `&brand=${id}&page=${page}&size=${sortCount}&sort=${sort}&gender=${gender}`, {
             method: "GET",
         })).json();
-        console.log(fetchBrandProduct._embedded.products);
         setPages(fetchBrandProduct.page);
         setBrandProduct(fetchBrandProduct._embedded.products);
         setLoading(false);
+        setTotalElem(fetchBrandProduct.page.totalElements)
 
     }
     const handlePageClick = (e) => {
@@ -59,7 +65,7 @@ export default function BrandPage() {
         scrollToTop();
     };
     const handleChangeGender = (event) => {
-        setValue(event.target.value);
+        setGender(event.target.value);
         setLoading(true)
     };
     const handleSortChange = (e) => {
@@ -76,7 +82,26 @@ export default function BrandPage() {
             behavior: "smooth",
         });
     };
-
+    const pageOptions = []
+    for (let i = 0; i < totalPages.totalPages; i++) {
+        pageOptions.push({
+            value: i + 1,
+            label: `page ${i + 1}`
+        })
+    };
+    const handlePageChange = (e) => {
+        setPage(e.target.value)
+        scrollToTop();
+    };
+    const handleChangeMultiple = (event) => {
+        const {
+            target: {value },
+        } = event;
+        setBrandId(
+            typeof value === 'string' ? value.split(',') : value,
+        );
+        console.log(value);
+    };
 
 
 
@@ -86,158 +111,100 @@ export default function BrandPage() {
             {isLoading ? (
                 <Loading />
             ) : (
-                <div className="brandProduct">
-                     <div className="filters">
-                            
-                           
-                            <FormControl id="two">
-                                <InputLabel id="select">כמות מוצרים</InputLabel>
-                                <Select
-                                    labelId="select"
-                                    id="selectOption2"
-                                    value={sortCount}
-                                    onChange={handleSortChange}
-                                    setLoading={false}
-                                >
-                                    <MenuItem value={"30"}> 30 </MenuItem>
-                                    <MenuItem value={"60"}> 60 </MenuItem>
-                                    <MenuItem value={"90"}> 90 </MenuItem>
-                                    <MenuItem value={"120"}> 120 </MenuItem>
-                                </Select>
-                            </FormControl>
-                            <br />
-                            <FormControl id="gender">
-                                <InputLabel id="select">מגדר</InputLabel>
-                                <Select
-                                    labelId="select"
-                                    id="selectOption3"
-                                    value={value}
-                                    onChange={handleChangeGender}
-                                    setLoading={false}
-                                >
-                                    <MenuItem value={"WOMEN"}>נשים</MenuItem>
-                                    <MenuItem value={"MEN"}> גברים </MenuItem>
-                                    <MenuItem value={"KIDS"}> ילדים </MenuItem>
-                                </Select>
-                            </FormControl>
-                            <br />
-                            {/* <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
-        <Select
-          labelId="demo-multiple-checkbox-label"
-          id="demo-multiple-checkbox"
-          multiple
-          value={personName}
-          onChange={handleChangeNew}
-          input={<OutlinedInput label="Tag" />}
-          renderValue={(selected) => selected.join(', ')}
-          MenuProps={MenuProps}
-        >
-          {names.map((name) => (
-            <MenuItem key={name} value={name}>
-              <Checkbox checked={personName.indexOf(name) > -1} />
-              <ListItemText primary={name} />
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </div> */}
-                            {/* <FormControl id="four">
-                                <InputLabel id="select">מותג</InputLabel>
-                                <Select
-
-                                    labelId="select"
-                                    id="selectOption1"
-                                    value={brandid}
-                                    onChange={handleBrandIdChange}
-                                    setLoading={false}
-                                >
-                                    {brands.map((brand, index) =>
-                                        <MenuItem key={index} value={brand.id} className="abc" >{brand.name}</MenuItem>
-                                    )}
-                                </Select>
-                            </FormControl> */}
-                            
-                        </div>
-                    {/* <FormControl id="oneee">
-                        <InputLabel id="select">...הצג לפי</InputLabel>
-                        <Select
-                            labelId="select"
-                            id="selectOption"
-                            value={sort}
-                            onChange={handleChange}
-                            setLoading={false}
-                        >
-                            <MenuItem value={""}>...הצג לפי</MenuItem>
-                            <MenuItem value={"asc"}> מחיר: מהנמוך לגבוה</MenuItem>
-                            <MenuItem value={"desc"}> מחיר: מהגבוה לנמוך</MenuItem>
-                        </Select>
-                    </FormControl>
-                    <FormControl id="twooo">
-                        <InputLabel id="select">כמות מוצרים</InputLabel>
-                        <Select
-                            labelId="select"
-                            id="selectOption2"
-                            value={sortCount}
-                            onChange={handleSortChange}
-                            setLoading={false}
-                        >
-                            <MenuItem value={"30"}> 30 </MenuItem>
-                            <MenuItem value={"60"}> 60 </MenuItem>
-                            <MenuItem value={"90"}> 90 </MenuItem>
-                            <MenuItem value={"120"}> 120 </MenuItem>
-                        </Select>
-                    </FormControl>
-                    <FormControl id="genderr">
-                        <InputLabel id="select">מגדר</InputLabel>
-                        <Select
-                            labelId="select"
-                            id="selectOption3"
-                            value={value}
-                            onChange={handleChangeGender}
-                            setLoading={false}
-                        >
-                            <MenuItem value={"WOMEN"}>נשים</MenuItem>
-                            <MenuItem value={"MEN"}> גברים </MenuItem>
-                            <MenuItem value={"KIDS"}> ילדים </MenuItem>
-                        </Select>
-                    </FormControl> */}
-                    
+                <>
+                <div className="ShopFilters">
+                
                         
-                        {brandProduct.map(brandPro => (
+                <FilterMenu brands={brandProduct} brandid={id} handleChangeMultiple={handleChangeMultiple} gender={gender} setGender={setGender}  handleSetGender={handleChangeGender}  handleSetCount={handleSortChange} sortCount={sortCount}/>
+                
+                
+                
+                
+                <div className="totalElements">
+                    {totalElem} תוצאות
+                </div>
+                <div>
+
+                    <FormControl id="category">
+                        <InputLabel id="select">מיין לפי : </InputLabel>
+                        <Select
+
+                            labelId="select"
+                            id="selectOption1"
+                            value={sortCount}
+                            onChange={(e) => setSort(e.target.value)}
+
+                        >
+                            <MenuItem key={sortCount} value="" className="all" >מיין לפי</MenuItem>
+                            <MenuItem key={sortCount} value="discount,desc" className="desc">הנחות : גבוה לנמוך</MenuItem>
+                            <MenuItem key={sortCount} value="price,asc" className="asc" >מחיר: נמוך לגבוה</MenuItem>
+                            <MenuItem key={sortCount} value="price,desc" className="desc" >מחיר: גבוה לנמוך</MenuItem>
+                        </Select>
+                    </FormControl>
+                </div>
+            </div>
+                <div className="brandProduct">
+                    
+                        {brandProduct.map(brandProduct => (
                             <div >
-                                <Link to={`/ProductPage/${brandPro.id}`} id="Link">
-                                    <div className="ajustProductBrands">
-                                        <img src={brandPro.pictureUrl} alt="" className="pictureUrlProBrands" />
-                                        <div className="brandProBrands">{brandPro.brand.name}</div>
-                                        <div>{brandPro.name}</div>
-                                        <div>&#8362;{brandPro.price}</div>
+                                <Link to={`/ProductPage/${brandProduct.id}`} id="Link">
+                                <div className="ajustShop">
+                                        <div id="image">
+                                            <img src={brandProduct.pictureUrl} key={brandProduct.pictureUrl} className="pictureUrlShop" />
+                                            <div className="hoverItems">
+                                                {inCart(brandProduct.id) ?
+                                                    <Button id="favorite" onClickCapture={(e)=> e.preventDefault()} onClick={() => inCart(brandProduct.id) ? removeItem(brandProduct.id) : addItem({ id: brandProduct.id, name: brandProduct.name, price: brandProduct.price, img: brandProduct.pictureUrl, brand: brandProduct.brand.name })} value={brandProduct.id}>
+                                                        <FavoriteBorder  className="favoriteBorderIcon" />
+                                                    </Button>
+                                                    :
+                                                    <Button id="favorite" onClickCapture={(e)=> e.preventDefault()} onClick={() =>   addItem({ id: brandProduct.id, name: brandProduct.name, price: brandProduct.price, img: brandProduct.pictureUrl, brand: brandProduct.brand.name })} value={brandProduct.id}>
+                                                        <FavoriteBorder  />
+                                                    </Button>
+                                                }
+
+                                                <Button href={brandProduct.url} target="_blank" rel="noopener noreferrer" id="buttonToSite">
+                                                    <p className="linkToSite"> ראה מוצר באתר <b>{brandProduct.shop.name}</b></p>
+                                                    <LaunchIcon />
+                                                </Button>
+                                            </div>
+                                        </div>
+                                        <div className="descPrice">
+                                        <div>
+                                                {!brandProduct.discount ? 
+                                                        <div className="originalPriceWithNoDiscount" >&#8362;{brandProduct.originalPrice}</div>
+                                                        :
+                                                    <div> 
+                                                        <div className="originalPriceWithDiscount" >&#8362;{brandProduct.originalPrice}</div>
+                                                        <div className="price" key={brandProduct.price}>&#8362;{brandProduct.price}</div>
+                                                        <div className="discount">{Number(brandProduct.discount.toFixed(1))}%</div>
+                                                        
+                                                       
+                                                </div>
+
+                                                }
+                                                
+                                                
+                                            </div>
+                                            <div className="ajustNames">
+                                            <div className="brandShop" key={brandProduct.brand.name}>{brandProduct.brand.name}</div>
+                                            <div className="shopName" key={brandProduct.name}>{brandProduct.name}</div>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                            
+                                            
+                                       
+                                        
                                     </div>
                                 </Link>
                             </div>
                         ))}
-
-                    
-                    <ReactPaginate
-                        className="pagination"
-                        previousLabel={"הקודם"}
-                        nextLabel={"הבא"}
-                        breakLabel={"..."}
-                        breakClassName={"break-me"}
-                        pageCount={pages.totalPages}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={3}
-                        onPageChange={handlePageClick}
-                        containerClassName={"pagination"}
-                        subContainerClassName={"pages pagination"}
-                        activeClassName={"active"}
-                        initialPage={0}
-                        setLoading={false}
-                    />
                 </div>
+                <Pagination totalPages={totalPages.totalPages} page={page} totalNumbers={totalPages.number} pageOptions={pageOptions} handlePageClick={handlePageClick} handlePageChange={handlePageChange}  />
+                </>
+            
             )}
-
         </div>
     )
 }

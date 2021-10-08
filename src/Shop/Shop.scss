@@ -1,10 +1,9 @@
 .shop{
-    margin-top: 7%;
+    margin-top: 6%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    flex-direction: row-reverse;
-    width: 90%;
+    width: 100%;
 }
 .filters{
     position: absolute;
@@ -24,19 +23,30 @@
 }
 // 
 .pictureUrlShop{
-    position: relative;
+    height: 300px;
+    display: block;
+    object-fit: cover;
     border:2px solid rgba(235, 232, 232, 0.5);
-    width: 230px;
-    margin-top: 5%;
-    margin-bottom: 5%;
+    width: 270px;
+    
 }
 .ajustShop{
     width: 300px;
     margin-bottom: 10%;
 }
+#image{
+    position: relative;
+    margin: 5%;
+    
+    
+
+    
+    
+}
 .brandShop{
     font-weight: 500;
     font-size:15px;
+    font-family:sans-serif;
 }
 #filterOptions{
     display: flex;
@@ -48,6 +58,27 @@
     }
     
 }
+.hoverItems{
+    display: none;
+}
+#image:hover .hoverItems{
+    position: absolute;
+    display: flex;
+    left: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .4);
+    width: 100%;
+    align-items: center;
+    width: 270px;
+}
+.discount{
+    background-color: black;
+    color: white;
+}
+.originalPrice{
+    text-decoration: line-through;
+}
+
 
 .favoriteBorderIcon{
     color: red;
@@ -60,10 +91,18 @@
 #buttonToSite{
     display: flex;
     flex-direction: row;
+    color: white;
 }
 #Link{
     color: black;
     text-decoration: none;
+}
+.shopName{
+    font-family: "system-ui";
+    direction: rtl;
+    display: flex;
+    margin-top: 15px;
+    font-size: 12px;
 }
 .shopName:hover{
     text-decoration: underline;
@@ -107,10 +146,12 @@
     justify-content: space-evenly;
 }
 .categoryName{
+    align-items: center;
     margin-top: 8%;
 }
-.FILTERS{
+.ShopFilters{
     display: flex;
+    height: 50px;
     justify-content: space-around;
     align-items: center;
     direction: rtl;
@@ -126,12 +167,21 @@
     }
 
 }
+.descPrice{
+    display: flex;
+    width: 270px;
+    justify-content: space-between;
+    margin: auto;
+
+}
 .filterButton{
     border: 1px solid black;
 }
+.price{
+    font-size: 15px;
+}
 
 #gender{
-    // left: 30%;
     width: 130px;
     padding-top: 40%;
     label{
@@ -145,17 +195,13 @@
 }
 #ProdCount{
     width: 130px;
-    // right: 20%;
     label{
         font-size: 20px;
     }
 }
 #category{
-    width: 130px;
-    padding-top: 40%;
-    label{
-        padding-top: 25%;
-    }
+    margin-bottom: 10px;
+    width: 100px;
 }
 #four{
     width: 130px;
@@ -163,22 +209,18 @@
     label{
         padding-top: 25%;
     }
-    // right: 20%;
 }
+
 #phonePagination{
     display: none;
 }
-// .MuiFormControl-root{
-//     width: 130px;
-//     right: 40%;
-// }
+.totalElements{
+    margin-top: 10px;
+}
+
 
  @media screen and (max-width : 792px) {
-    //  .MuiFormControl-root{
-    //     width: 120px;
-    //     left: 0;
-    //     top: 0;
-    //  }
+ 
     #filterBy{
         display: none ;
         label{
@@ -198,7 +240,7 @@
 
 
     
-    .FILTERS{
+    .ShopFilters{
         height: 60px;
     }
     
@@ -270,5 +312,19 @@
             padding-bottom: 10%;
         }
     }
+    
+}
+@media screen and(max-width:343px) {
+    .totalElements{
+        font-size: 12px;
+    }
+    #category{
+        width: 55px;
+        label{
+            font-size: 11px;
+        }
+    }
+    
+
     
 }

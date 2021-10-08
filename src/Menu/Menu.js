@@ -24,6 +24,7 @@ import Box from '@mui/material/Box';
 import Badge from '@mui/material/Badge';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import { useCart } from "react-use-cart";
+import { FavoriteBorderOutlined } from "@mui/icons-material";
 
 
 
@@ -125,9 +126,9 @@ export default function HideAppBar(props) {
         <AppBar id="hide" color="white">
 
           <Toolbar id="navbar">
-            <Badge id="badge" badgeContent={totalUniqueItems ? totalUniqueItems : "0"} color="primary">
-              <a href="/Favorites" alt="Favorites">
-                <StarBorderOutlinedIcon fontSize="large" color="action" />
+            <Badge id="badge" badgeContent={totalUniqueItems ? totalUniqueItems : totalUniqueItems} color="primary">
+              <a href="/Favorites" alt="Favorites"> 
+                <FavoriteBorderOutlined fontSize="large" color="action" />
               </a>
             </Badge>
             <a className="terminalH" href="/" alt="Feed" >Terminal H </a>
