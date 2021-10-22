@@ -122,7 +122,7 @@ function FilterMenu(props){
                                                             </MenuItem>
                                                         ))}
                                                     </Select> */}
-                                                    {console.log(props)}
+                                                    
                                                     <Select
                                                         labelId="demo-multiple-checkbox-label"
                                                         id="demo-multiple-checkbox"

@@ -1,17 +1,18 @@
 import { Button } from "@material-ui/core";
-import { list, quantity, remove } from "cart-localstorage";
+import { get, list, quantity, remove } from "cart-localstorage";
 import React, { useEffect, useState } from "react";
 import { useLocation,useParams } from "react-router-dom";
-import { withRouter } from "react-router-dom";
+import { withRouter,Link } from "react-router-dom";
 import "./Favorites.scss";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useCart,onItemRemove } from "react-use-cart";
 
 
-const Favorites = () => {
+const Favorites = ({group}) => {
 
     const [getLocal, setLocal] = useState([])
     const { items, isEmpty,removeItem } = useCart();
+
 
 
     useEffect(() => {
@@ -28,9 +29,7 @@ const Favorites = () => {
     }
 }
 
-
-
-
+const some = getLocal
 
     return (
         <div>
@@ -41,16 +40,19 @@ const Favorites = () => {
     <div>
         <p className="h1">הרשימה שלי</p>
         <div className="favorites">
-            
+        
+        
             {getLocal.map(prod => (
-                
-
-                <div  key={prod.id} >
+                <div  key={prod.id}>
+                     
+                    
                 
                             <div >
                                 <a href={`/ProductPage/${prod.id}`} id="Link">
                                     <div className="ajustProducts">
-                                        <img src={prod.img} className="pictureUrlProducts" />
+                                        <div id="IMAGE">
+                                            <img src={prod.img} className="pictureUrlProducts" />
+                                        </div>
                                         <div className="brandProducts">{prod.brand}</div>
                                         <div>{prod.name}</div>
                                         <div>&#8362; {prod.price}</div>

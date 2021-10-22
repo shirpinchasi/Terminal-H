@@ -10,10 +10,12 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Button } from '@material-ui/core';
-import { createMuiTheme} from "@material-ui/core/styles";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; 
+import { createMuiTheme } from "@material-ui/core/styles";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import { ChevronRightRounded, ChevronLeftRounded } from '@mui/icons-material';
+import ImageGallery from 'react-image-gallery';
+
 
 
 
@@ -24,19 +26,20 @@ export default function ProductPage() {
     const classes = useStyles();
     const theme = createMuiTheme({
         breakpoints: {
-          values: {
-            xs: 0,
-            sm: 450,
-            md: 600,
-            lg: 900,
-            xl: 1200
-          }
+            values: {
+                xs: 0,
+                sm: 450,
+                md: 600,
+                lg: 900,
+                xl: 1200
+            }
         }
-      });
+    });
 
-      const arrayOfPics = product.extraPictureUrls
-      
-      
+
+    const arrayOfPics = product.extraPictureUrls
+
+
 
 
     useEffect(() => {
@@ -57,68 +60,79 @@ export default function ProductPage() {
         setLoading(false);
     }
 
-
     return (
         <div>
             {isLoading ? (
                 <Loading />
             ) : (
                 <>
-                
-                {/* <Carousel
-        next={ () => console.log("next") }
-        prev={ () => console.log("prev")}
-        NextIcon={ChevronRightRounded}
-    PrevIcon={ChevronLeftRounded}
-    >
-        {/* {arrayOfPics.map((pic, key)=>(
-                                <img alt ="" src={pic} key={key}/>
-                                
-                    ))} */}
-        
-    {/* </Carousel> */} 
-                <div className={classes.productPage}>
-                    {/* <div className={classes.pictureProduct}>
-                        <img  alt="" src={product.pictureUrl} className="pictureUrlProductPage" />
-                    </div> */}
-                    
-                        {/* <div className = {classes.arrayOfPics}>
-                            {arrayOfPics.map((pic, key)=>(
-                                <img alt ="" src={pic} key={key}/>
-                            ))}
-                            
-                        </div> */}
-                        <Carousel 
-                        infiniteLoop={true}
-                        autoPlay={false}
-                        width={"50%"}
-                        >
-                {arrayOfPics.map((pic, key)=>(
-                                <img className={classes.pictureProduct}  alt ="" src={pic} key={key}/>
-                            ))}
-                </Carousel>
-                    
 
-                    <div className={classes.ajustDetails}>
-                        <div className={classes.productHeader}>
-                            {product.name}
-                        </div>
-                        <div className={classes.pictureProductHiddenOnMd}>
-                        <img  alt="" src={product.pictureUrl} className="pictureUrlProductPage" />
-                    </div>
+                    <div className={classes.productPage}>
+                    {arrayOfPics.length ?
+                                    <Carousel
+                                    infiniteLoop={true}
+                                    autoPlay={false}
+                                    width={"300px"}
+                                    showStatus={false}
+                                    thumbWidth="100px"
+                                   
+                                    
+                                >
+                                    
+                                        {arrayOfPics.map((pic, key) => (
+                                            <img className={classes.pictureProduct} alt="" src={pic.split("?")[0]} key={key} />
+                                        ))
+                                        
+                                        }
+                                </Carousel>
+                                :
+                                <img alt="" src={product.pictureUrl} className="pictureUrlProductPage" />
+                    }
+                        <div>
 
-                        <div className={classes.productName}>
-                            {product.brand.name}
                         </div>
-                        <div className={classes.margin}>
-                            &#8362;{product.price}
-                        </div>
-                        <div className="productShop">
-                            <Button target="_blank" rel="noopener noreferrer" className={classes.direction}  href={product.url}>
-                            <p> ראה מוצר באתר <b> {product.shop.name}</b> </p></Button>
+                        {/* <Carousel
+                            infiniteLoop={true}
+                            autoPlay={false}
+                            width={"300px"}
+                            showStatus={false}
+                            thumbWidth="100px"
                            
-                        </div>
-                        
+                            
+                        >
+                            {arrayOfPics.length ?
+                                arrayOfPics.map((pic, key) => (
+                                    <img className={classes.pictureProduct} alt="" src={pic.split("?")[0]} key={key} />
+                                ))
+                                :
+                                <img alt="" src={product.pictureUrl} className="pictureUrlProductPage" />
+                            }
+                        </Carousel> */}
+                        <div className={classes.ajustDetails}>
+                            <div className={classes.productHeader}>
+                                {product.name}
+                            </div>
+                            {/* <div className={classes.pictureProductHiddenOnMd}>
+                                <img alt="" src={product.pictureUrl} className="pictureUrlProductPage" />
+                            </div> */}
+
+                            <div className={classes.productName}>
+                                {product.brand.name}
+                            </div>
+                            <div className={classes.margin}>
+                                &#8362;{product.price}
+                            </div>
+                            <div className="productShop">
+                                <Button target="_blank" rel="noopener noreferrer" className={classes.direction} href={product.url}>
+                                    <p> ראה מוצר באתר <b> {product.shop.name}</b> </p></Button>
+
+                            </div>
+                            <div className="ajustSizes">
+                                {product.sizes.map((size)=>(
+                                    <div className="sizes">{size}</div>
+                                ))}
+                            </div>
+
                             <Accordion className={classes.accordion}>
                                 <AccordionSummary
                                     className={classes.direction}
@@ -130,27 +144,29 @@ export default function ProductPage() {
                                 </AccordionSummary>
                                 <AccordionDetails className={classes.accordionDetails}>
                                     <Typography >
-                                     {product.description}
+                                        {product.description}
                                     </Typography>
                                 </AccordionDetails>
                             </Accordion>
                             <div>
-                           
-                </div>
-                           
-                       
-                    </div>
-                   
-                </div>
-                <div className={classes.recommendedProducts}>
-                        <div >
-                        <div className={classes.alsoLikeText}>More From The Same Brand</div>
-                        <RecommendedProducts  section={product.categorySection.id} brand={product.brand.id} />
+
+                            </div>
+
+
                         </div>
-                </div>
+
+                    </div>
+                    <div className={classes.recommendedProducts}>
+                        <div >
+                            <div className={classes.alsoLikeText}>More From The Same Brand</div>
+
+                            <RecommendedProducts section={product.category.id} brand={product.brand.id} />
+
+                        </div>
+                    </div>
 
 
-</>
+                </>
             )
 
             }
@@ -163,73 +179,73 @@ export default function ProductPage() {
 
 
 const useStyles = makeStyles((theme) => ({
-    accordion : {
-        marginTop : "30%",
+    accordion: {
+        top: "10%",
     },
-    ajustDetails : {
-        width : "40%"
+    ajustDetails: {
+        width: "40%"
     },
-    productHeader : {
-        paddingRight :"5%",
-        fontSize : "30px",
-        fontWeight : "bold"
+    productHeader: {
+        paddingRight: "5%",
+        fontSize: "30px",
+        fontWeight: "bold"
     },
-    pictureProductHiddenOnMd : {
-        display : "none",
-            [theme.breakpoints.down("sm")]: {
-                display : "block",
-                width : "300px"
+    pictureProductHiddenOnMd: {
+        display: "none",
+        [theme.breakpoints.down("sm")]: {
+            display: "block",
+            width: "300px"
         }
-        
+
     },
 
-    direction : {
-        direction : "rtl"
+    direction: {
+        direction: "rtl"
     },
-    productPage : {
-        justifyContent:"space-between" ,
-        display :"flex",
-        marginTop : "7%",
+    productPage: {
+        justifyContent: "space-between",
+        display: "flex",
+        marginTop: "7%",
     },
-    accordionDetails :{
-        width : "100%"
+    accordionDetails: {
+        width: "100%"
     },
-    recommendedProducts : {
-        display : "flex",
-        marginTop : "15%",
-        flexDirection : "column",
-        textAlign :"center",
+    recommendedProducts: {
+        display: "flex",
+        marginTop: "15%",
+        flexDirection: "column",
+        textAlign: "center",
         [theme.breakpoints.down("sm")]: {
-            display : "flex",
-            flexDirection:"row",
-            justifyContent : "center"
-          }
-        
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center"
+        }
+
     },
-    alsoLikeText : {
-        marginBottom : "5%",
-        fontSize :"25px",        
-        fontWeight : "bold"
+    alsoLikeText: {
+        marginBottom: "5%",
+        fontSize: "25px",
+        fontWeight: "bold"
     },
-    productName : {
-        fontWeight : "bold",
-        marginTop : "5%",
-        fontSize : "20px"
+    productName: {
+        fontWeight: "bold",
+        marginTop: "5%",
+        fontSize: "20px"
     },
-    pictureProduct : {
-        width : "50px",
+    pictureProduct: {
+        width: "50px",
         [theme.breakpoints.down("sm")]: {
-            display : "none",
-            
-            
-          }
+            display: "none",
+
+
+        }
     },
-    margin :{
-        marginTop :"5%",
-        fontWeight :"bold",
-        fontSize :"16px"
+    margin: {
+        marginTop: "5%",
+        fontWeight: "bold",
+        fontSize: "16px"
     },
- 
+
     // root: {
     //     ...theme.typography.display1,
     //     padding: theme.spacing.unit * 4,
@@ -254,5 +270,5 @@ const useStyles = makeStyles((theme) => ({
     //       }
     //     }
     //   }
-    
+
 }));

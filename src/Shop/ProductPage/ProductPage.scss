@@ -38,4 +38,17 @@
 .productUrl:hover{
     text-decoration: underline;
 }
-
+.carousel-root{
+    margin-top: 5px;
+    padding-left: 5%;
+    align-items: center;
+}
+.sizes{
+    border: 1px solid black;
+    margin-right: 10px;
+    width: 90px;
+}
+.ajustSizes{
+    display: flex;
+    justify-content: center;
+}

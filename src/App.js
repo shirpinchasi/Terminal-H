@@ -12,6 +12,7 @@ import Search from "./Search/Search";
 import SearchResults from "./Search/SearchRes";
 import Favorites from "./Shop/Favorites/Favorites";
 import { CartProvider } from "react-use-cart";
+import Footer from "./Footer/Footer";
 
 
 

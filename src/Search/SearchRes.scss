@@ -1,17 +1,22 @@
-#onee{
-    width: 130px;
-    right: 30%;
-}
-#twoo{
-    width: 130px;
-    margin-top: 30%;
-    
-}
 #resultsFor{
     direction: rtl;
     font-size: 30px;
-    margin-top: 100px;
+    margin-top: 10%;
+}
+.products{
+    width: 100%;
+
 }
 .noRes{
     margin-top: 10%;
+}
+.ShopFilters {
+    display: flex;
+    height: 50px;
+    justify-content: space-around;
+    align-items: center;
+    direction: rtl;
+    border-top: solid 1px #e6e6e6;
+    border-bottom: solid 1px #e6e6e6;
+    margin-top: 2%;
 }

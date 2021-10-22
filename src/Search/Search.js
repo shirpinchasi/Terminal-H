@@ -15,10 +15,6 @@ function Search(props) {
         setSearchValue(e.target.value);
 
     }
-
-
-
-
     const CallSearchFunction = (e) => {
         e.preventDefault();
         setQuery(searchValue);

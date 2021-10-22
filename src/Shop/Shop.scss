@@ -4,6 +4,7 @@
     flex-wrap: wrap;
     justify-content: space-evenly;
     width: 100%;
+    -webkit-tap-highlight-color: transparent;
 }
 .filters{
     position: absolute;
@@ -21,14 +22,12 @@
 .relative{
     position: relative;
 }
-// 
 .pictureUrlShop{
     height: 300px;
     display: block;
     object-fit: cover;
     border:2px solid rgba(235, 232, 232, 0.5);
     width: 270px;
-    
 }
 .ajustShop{
     width: 300px;
@@ -36,12 +35,7 @@
 }
 #image{
     position: relative;
-    margin: 5%;
-    
-    
-
-    
-    
+    margin: 5%; 
 }
 .brandShop{
     font-weight: 500;
@@ -70,6 +64,7 @@
     width: 100%;
     align-items: center;
     width: 270px;
+    
 }
 .discount{
     background-color: black;
@@ -189,6 +184,9 @@
         
     }
 }
+.showLike{
+    display: none;
+}
 #one{
     width: 130px;
     margin-top: 8%;
@@ -237,9 +235,6 @@
     font-size: 16.7px;
         
     }
-
-
-    
     .ShopFilters{
         height: 60px;
     }
@@ -258,61 +253,23 @@
     #ProdCount{
         display: none;
     }
-    #one{
+    .favoriteBorderIcon{
+        color: red;
+    }
+    .showLike{
+        position: absolute;
+    display: flex;
+    left: 0;
+    top: 0;
+    width: 100%;
+    align-items: center;
+    width: 270px;
+    outline: none;
+    }
+    #image:hover .hoverItems{
         display: none;
     }
-    #accordion{
-        display: flex;
-        margin-right: 10px;
-        flex-direction: column;
-        align-items: center;
-        width: 50%;
-        margin-top: 2%;
-        right: 15%;
-        left: 30%;
-    }
-    
-    #acordionone{
-        display: flex;
-        position: relative;
-        width: 150px;
-        padding-bottom: 20px;
-        label{
-            position: relative;
-            padding-bottom: 10%;
-        }
-    }
-    #acordiontwo{
-        display: flex;
-        position: relative;
-        width: 150px;
-        padding-bottom: 50px;
-        label{
-            position: relative;
-            font-size: 20px;
-        }
-    }
-    #acordionGender{
-        display: flex;
-        position: relative;
-        width: 150px;
-        padding-bottom: 20px;
-        label{
-            position: relative;
-            padding-bottom: 10%;
-        }
-    }
-    #acordionFour{
-        display: flex;
-        position: relative;
-        width: 150px;
-        padding-bottom: 20px;
-        label{
-            position: relative;
-            padding-bottom: 10%;
-        }
-    }
-    
+
 }
 @media screen and(max-width:343px) {
     .totalElements{

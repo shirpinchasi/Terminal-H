@@ -17,3 +17,11 @@
         margin: 10px;
     }
 }
+.pictureUrlProducts{
+        height: 320px;
+        display: block;
+        object-fit: cover;
+        border:2px solid rgba(235, 232, 232, 0.5);
+        width: 270px;
+        margin: 5%;
+}

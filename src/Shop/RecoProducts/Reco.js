@@ -28,11 +28,12 @@ function RecommendedProducts(section , brand) {
         if (!brand && !section) {
             return;
         }
+       
         getProducts(section.brand , section.section);
     }, [section.brand , section.section]);
 
     async function getProducts() {
-        const fetchedBrandId = await (await fetch(config.apiShop + `&brand=${section.brand}&categorySectionId=${section.section}&sort=id,desc`, {
+        const fetchedBrandId = await (await fetch(config.apiShop + `&brand=${section.brand}&category=${section.section}&sort=id,desc`, {
             method: "GET"
         })).json();
         setRecoProducts(fetchedBrandId._embedded.products);
@@ -45,14 +46,11 @@ function RecommendedProducts(section , brand) {
         });
     };
 
- 
-
     return (
         <div >
             {isLoading ? (
                 <Loading/>
             ) : (
-
                 <div className={classes.flex}>
                     {recoProducts.sort(()=> 0.5 - Math.random()).slice(0, 4).map(recom => (
                         <div onClick={scrollToTop}>

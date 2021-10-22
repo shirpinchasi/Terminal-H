@@ -16,6 +16,7 @@ import 'react-dropdown/style.css';
 import purple from '@material-ui/core/colors/purple';
 import Pagination from "./Pagination/Pagination";
 import FilterMenu from "../Menu/FilterMenu";
+import Footer from "../Footer/Footer";
 
 
 
@@ -59,7 +60,7 @@ const Shop = () => {
         right: false,
     });
     const [checked, setChecked] = React.useState(true);
-
+  
 
     const toggleDrawer = (anchor, openDrawer) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -121,10 +122,10 @@ const Shop = () => {
         const fetchCategories = await (await fetch(`https://terminal-h.herokuapp.com/api/sections/${id}/categories`, {
             method: "GET"
         })).json();
-        const fetchedBrands = await (await fetch("https://terminal-h.herokuapp.com/api/brands?projection=detailedBrand&sort=name,asc", {
+        const fetchedBrands = await (await fetch(config.apiBrands, {
             method: "GET",
         })).json();
-        const categoryNameFetch = await (await fetch(`https://terminal-h.herokuapp.com/api/sections/${id}`, {
+        const categoryNameFetch = await (await fetch(config.apiSections +`&${id}`, {
             method: "GET"
         })).json();
  
@@ -137,9 +138,6 @@ const Shop = () => {
         setLoading(false);
         setCategories(fetchCategories._embedded.categories)
     };
-
-
-
     const handlePageClick = (e) => {
         const page = e.selected;
         setPage(page)
@@ -149,8 +147,6 @@ const Shop = () => {
     const handlePageChange = (e) => {
         setPage(e.target.value)
         scrollToTop();
-
-
     };
     const handleSetGender = (e) => {
         setGender(e.target.value)
@@ -183,6 +179,7 @@ const Shop = () => {
             {isLoading ? (
                 <Loading />
             ) : (
+            <>
                 <div>
                     
                     <h1 className="categoryName">{categoryName}</h1>
@@ -228,13 +225,24 @@ const Shop = () => {
                                     <div className="ajustShop">
                                         <div id="image">
                                             <img src={shop.pictureUrl} key={shop.pictureUrl} className="pictureUrlShop" />
-                                            <div className="hoverItems">
-                                                {inCart(shop.id) ?
-                                                    <Button id="favorite" onClickCapture={(e)=> e.preventDefault()} onClick={() => inCart(shop.id) ? removeItem(shop.id) : addItem({ id: shop.id, name: shop.name, price: shop.price, img: shop.pictureUrl, brand: shop.brand.name })} value={shop.id}>
+                                            <div className="showLike">
+                                            {inCart(shop.id) ?
+                                                    <Button id="favorite" onClickCapture={(e)=> e.preventDefault()} onClick={() => inCart(shop.id) ? removeItem(shop.id) : addItem({ id: shop.id, name: shop.name, price: shop.price, img: shop.pictureUrl, brand: shop.brand.name, shopName : shop.shop.name })} value={shop.id}>
                                                         <FavoriteBorder  className="favoriteBorderIcon" />
                                                     </Button>
                                                     :
-                                                    <Button id="favorite" onClickCapture={(e)=> e.preventDefault()} onClick={() =>   addItem({ id: shop.id, name: shop.name, price: shop.price, img: shop.pictureUrl, brand: shop.brand.name })} value={shop.id}>
+                                                    <Button id="favorite" onClickCapture={(e)=> e.preventDefault()} onClick={() =>   addItem({ id: shop.id, name: shop.name, price: shop.price, img: shop.pictureUrl, brand: shop.brand.name,shopName : shop.shop.name })} value={shop.id}>
+                                                        <FavoriteBorder  />
+                                                    </Button>
+                                                }
+                                            </div>
+                                            <div className="hoverItems">
+                                                {inCart(shop.id) ?
+                                                    <Button id="favorite" onClickCapture={(e)=> e.preventDefault()} onClick={() => inCart(shop.id) ? removeItem(shop.id) : addItem({ id: shop.id, name: shop.name, price: shop.price, img: shop.pictureUrl, brand: shop.brand.name, shopName : shop.shop.name })} value={shop.id}>
+                                                        <FavoriteBorder  className="favoriteBorderIcon" />
+                                                    </Button>
+                                                    :
+                                                    <Button id="favorite" onClickCapture={(e)=> e.preventDefault()} onClick={() =>   addItem({ id: shop.id, name: shop.name, price: shop.price, img: shop.pictureUrl, brand: shop.brand.name,shopName : shop.shop.name })} value={shop.id}>
                                                         <FavoriteBorder  />
                                                     </Button>
                                                 }
@@ -284,7 +292,8 @@ const Shop = () => {
                     
 
                 </div>
-
+                <Footer/>
+</>
             )}
 
         </div>

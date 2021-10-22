@@ -2,25 +2,33 @@ import React, { useEffect, useState } from "react";
 import Loading from "../Loader/Loader"
 import "./SearchRes.scss";
 import { useLocation } from "react-router-dom";
-import ReactPaginate from "react-paginate";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFrown } from "@fortawesome/free-solid-svg-icons";
+import Pagination from "../Shop/Pagination/Pagination";
+import { Button, Toolbar } from "@material-ui/core";
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import { useCart } from "react-use-cart";
+import LaunchIcon from '@mui/icons-material/Launch';
+import 'react-dropdown/style.css';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFrown } from "@fortawesome/free-solid-svg-icons";
+import FilterMenu from "../Menu/FilterMenu";
 
 
 export default function SearchResults() {
 
     const [isLoading, setLoading] = useState(true);
     const [product, setProducts] = useState([]);
-    const [pageNum, setPageNum] = useState(0);
-    const [pages, setPages] = useState([]);
     const { search } = useLocation();
     const [sort, setSort] = useState("");
     const [value, setValue] = useState('');
+    const [page, setPage] = useState(0)
+    const [totalPages, setTotalPages] = useState([]);
     const [sortCount, setSortCount] = useState(30);
+    const { addItem, inCart, removeItem } = useCart();
+    const [totalElem, setTotalElem] = useState([]);
 
 
     useEffect(() => {
@@ -29,45 +37,45 @@ export default function SearchResults() {
             return;
         };
         
-    }, [search, pageNum,sort , sortCount,value]);
+    }, [search, page,sort ,value,sortCount]);
 
 
 
 
     async function getProducts() {
         try {
-            const res = await fetch(`https://terminal-h.herokuapp.com/api/products${search}&projection=detailedProduct&page=${pageNum}&size=${sortCount}&sort=price,${sort}&gender=${value}`);
+            const res = await fetch(`https://terminal-h.herokuapp.com/api/products${search}&projection=detailedProduct&page=${page}&size=${sortCount}&sort=${sort}&gender=${value}`);
             const product = await res.json();
             setProducts(product._embedded.products)
-            setPages(product.page)
+            setTotalPages(product.page)
             setLoading(false)
+            setTotalElem(product.page.totalElements)
 
         } catch (err) {
             console.log(err);
         }
     }
+    const pageOptions = []
+    for (let i = 0; i < totalPages.totalPages; i++) {
+        pageOptions.push({
+            value: i + 1,
+            label: `page ${i + 1}`
+        })
+    }
 
-    
+    const handlePageChange = (e) => {
+        setPage(e.target.value)
+        scrollToTop();
 
-    
+
+    };
 
     const handlePageClick = (e) => {
-        const pageNum = e.selected;
-        setPageNum(pageNum)
+        const page = e.selected;
+        setPage(page)
         scrollToTop();
     };
-    const handleSortChange = (e) => {
-        setSortCount(e.target.value)
-        setLoading(true)
-    };
-    const handleChange = (e) => {
-        setSort(e.target.value)
-        setLoading(true)
-    };
-    const handleChangeGender = (event) => {
-        setValue(event.target.value);
-        setLoading(true)
-    };
+
 
     function scrollToTop() {
         window.scrollTo({
@@ -91,63 +99,92 @@ export default function SearchResults() {
                     אין תוצאות</h1>
                 :
                 <div>
-                   {console.log(decodeURI(window.location.search.split("=")[1].split("%20").join(" ")))}
                    <div>
                         <div id="resultsFor">תוצאות לחיפוש "{decodeURI(window.location.search.split("=")[1].split("%20").join(" "))}"</div>
                         </div>
+                        <div className="ShopFilters">
+                        <div className="totalElements">
+                            {totalElem} תוצאות
+                        </div>
+                        <div>
+
+                            <FormControl id="category">
+                                <InputLabel id="select">מיין לפי : </InputLabel>
+                                <Select
+
+                                    labelId="select"
+                                    id="selectOption1"
+                                    value={sort}
+                                    onChange={(e) => setSort(e.target.value)}
+
+                                >
+                                    <MenuItem key={sort} value="" className="all" >מיין לפי</MenuItem>
+                                    <MenuItem key={sort} value="discount,desc" className="desc">הנחות : גבוה לנמוך</MenuItem>
+                                    <MenuItem key={sort} value="price,asc" className="asc" >מחיר: נמוך לגבוה</MenuItem>
+                                    <MenuItem key={sort} value="price,desc" className="desc" >מחיר: גבוה לנמוך</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </div>
+                    </div>
                     
                     <div className="products">
-                        
-                    <div className="filters">
-                        <FormControl id="one">
-                        <InputLabel id="select">...הצג לפי</InputLabel>
-                        <Select
-                            labelId="select"
-                            id="selectOption1"
-                            value={sort}
-                            onChange={handleChange}
-                            setLoading={false}
-                        >
-                            <MenuItem value={""}>...הצג לפי</MenuItem>
-                            <MenuItem value={"asc"}> מחיר: מהנמוך לגבוה</MenuItem>
-                            <MenuItem value={"desc"}> מחיר: מהגבוה לנמוך</MenuItem>
-                        </Select>
-                    </FormControl>
-                    <br/>
-                    <FormControl id="twoo">
-                        <InputLabel id="select">כמות מוצרים</InputLabel>
-                        <Select
-                            labelId="select"
-                            id="selectOption2"
-                            value={sortCount}
-                            onChange={handleSortChange}
-                            setLoading={false}
-                        >
-                            <MenuItem value={"30"}> 30 </MenuItem>
-                            <MenuItem value={"60"}> 60 </MenuItem>
-                            <MenuItem value={"90"}> 90 </MenuItem>
-                            <MenuItem value={"120"}> 120 </MenuItem>
-                        </Select>
-                    </FormControl>
-                    <br/>
-                    <FormControl id="gender">
-                        <InputLabel id="select">מגדר</InputLabel>
-                        <Select
-                            labelId="select"
-                            id="selectOption3"
-                            value={value}
-                            onChange={handleChangeGender}
-                            setLoading={false}
-                        >
-                            <MenuItem value={"WOMEN"}>נשים</MenuItem>
-                            <MenuItem value={"MEN"}> גברים </MenuItem>
-                            <MenuItem value={"KIDS"}> ילדים </MenuItem>
-                        </Select>
-                    </FormControl>
-                    
-                        </div>
-                        
-                        {product.map(prod => (
+                    {product.map((shop) => (
+                            <div key={shop.id}>
+                                <a href={`/ProductPage/${shop.id}`} key={shop.id} id="Link">
+                                    <div className="ajustShop">
+                                        <div id="image">
+                                            <img src={shop.pictureUrl} key={shop.pictureUrl} className="pictureUrlShop" />
+                                            <div className="hoverItems">
+                                                {inCart(shop.id) ?
+                                                    <Button id="favorite" onClickCapture={(e)=> e.preventDefault()} onClick={() => inCart(shop.id) ? removeItem(shop.id) : addItem({ id: shop.id, name: shop.name, price: shop.price, img: shop.pictureUrl, brand: shop.brand.name })} value={shop.id}>
+                                                        <FavoriteBorder  className="favoriteBorderIcon" />
+                                                    </Button>
+                                                    :
+                                                    <Button id="favorite" onClickCapture={(e)=> e.preventDefault()} onClick={() =>   addItem({ id: shop.id, name: shop.name, price: shop.price, img: shop.pictureUrl, brand: shop.brand.name })} value={shop.id}>
+                                                        <FavoriteBorder  />
+                                                    </Button>
+                                                }
+
+                                                <Button href={shop.url} target="_blank" rel="noopener noreferrer" id="buttonToSite">
+                                                    <p className="linkToSite"> ראה מוצר באתר <b>{shop.shop.name}</b></p>
+                                                    <LaunchIcon />
+                                                </Button>
+                                            </div>
+                                        </div>
+                                        <div className="descPrice">
+                                        <div>
+                                                {!shop.discount ? 
+                                                        <div className="originalPriceWithNoDiscount" >&#8362;{shop.originalPrice}</div>
+                                                        :
+                                                    <div> 
+                                                        <div className="originalPriceWithDiscount" >&#8362;{shop.originalPrice}</div>
+                                                        <div className="price" key={shop.price}>&#8362;{shop.price}</div>
+                                                        <div className="discount">{Number(shop.discount.toFixed(1))}%</div>
+                                                        
+                                                       
+                                                </div>
+
+                                                }
+                                                
+                                                
+                                            </div>
+                                            <div className="ajustNames">
+                                            <div className="brandShop" key={shop.brand.name}>{shop.brand.name}</div>
+                                            <div className="shopName" key={shop.name}>{shop.name}</div>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                            
+                                            
+                                       
+                                        
+                                    </div>
+                                </a>
+
+                            </div>
+                        ))}
+                        {/* {product.map(prod => (
                             
                             <div>
                                 <a href={`/ProductPage/${prod.id}`} id="Link">
@@ -161,28 +198,15 @@ export default function SearchResults() {
                                 </a>
                             </div>
                             
-                        ))}
+                        ))} */}
 
 
-                        <ReactPaginate
-                            className="pagination"
-                            previousLabel={"prev"}
-                            nextLabel={"next"}
-                            breakLabel={"..."}
-                            breakClassName={"break-me"}
-                            pageCount={pages.totalPages}
-                            marginPagesDisplayed={2}
-                            pageRangeDisplayed={3}
-                            onPageChange={handlePageClick}
-                            containerClassName={"pagination"}
-                            subContainerClassName={"pages pagination"}
-                            activeClassName={"active"}
-                            initialPage={0}
-                        />
+                        
                     </div>
             
                 </div>
             }
+            <Pagination totalPages={totalPages.totalPages} page={page}  pageOptions={pageOptions} totalNumbers={totalPages.number} handlePageClick={handlePageClick} handlePageChange={handlePageChange} />
                 </div>
             )}
         </div>

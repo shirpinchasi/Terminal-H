@@ -27,6 +27,7 @@ export default function Brands() {
     const classes = useStyles();
 
 
+
     useEffect(() => {
         async function getBrands() {
             try {
@@ -70,7 +71,7 @@ export default function Brands() {
                         <div key={brands}>
                             <ul id="ul">
                                 <h2 id={letterKey} className="letter" key={letterKey}>{letterKey}</h2>
-                                {brands.map(brand => <Link to={`/BrandPage/${brand.id}`} key={brand.id} className="href">
+                                {brands.map(brand => <Link to={`/brandPage/${brand.id}`} key={brand.id} className="href">
                                     <div id="li">{brand.name}</div>
 
                                 </Link>
