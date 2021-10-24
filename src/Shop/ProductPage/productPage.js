@@ -46,6 +46,7 @@ export default function ProductPage() {
         if (!id) {
             return;
         }
+        
         getProduct(id);
 
     }, [id]);
@@ -91,30 +92,12 @@ export default function ProductPage() {
                         <div>
 
                         </div>
-                        {/* <Carousel
-                            infiniteLoop={true}
-                            autoPlay={false}
-                            width={"300px"}
-                            showStatus={false}
-                            thumbWidth="100px"
-                           
-                            
-                        >
-                            {arrayOfPics.length ?
-                                arrayOfPics.map((pic, key) => (
-                                    <img className={classes.pictureProduct} alt="" src={pic.split("?")[0]} key={key} />
-                                ))
-                                :
-                                <img alt="" src={product.pictureUrl} className="pictureUrlProductPage" />
-                            }
-                        </Carousel> */}
+                        
                         <div className={classes.ajustDetails}>
                             <div className={classes.productHeader}>
                                 {product.name}
                             </div>
-                            {/* <div className={classes.pictureProductHiddenOnMd}>
-                                <img alt="" src={product.pictureUrl} className="pictureUrlProductPage" />
-                            </div> */}
+                           
 
                             <div className={classes.productName}>
                                 {product.brand.name}

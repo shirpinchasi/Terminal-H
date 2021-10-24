@@ -1,0 +1,43 @@
+.pagination{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+    .active{
+        background-color:lightblue;
+        border-radius: 50px;
+        width: 40px;
+    }
+    a{
+        outline: none;
+        text-decoration: none;
+    }
+    li{
+    list-style: none;
+    color: #000;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 40px;
+    text-transform: uppercase;
+    width: 70px;
+    text-decoration: none;
+    }
+}
+#phonePagination{
+    display: none;
+}
+@media screen and (max-width : 792px) {
+
+    .pagination{
+        display: none;
+    }
+    #phonePagination{
+        display: flex;
+    justify-content: center;
+    align-items: baseline;
+    font-size: 16.7px;
+        
+    }
+    
+
+}

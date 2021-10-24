@@ -5,6 +5,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import "./Pagination.scss"
 
 
 
@@ -26,7 +27,7 @@ function Pagination (props) {
                         containerClassName={"pagination"}
                         subContainerClassName={"pages pagination"}
                         activeClassName={"active"}
-                        initialPage={0}
+                        initialPage={props.page}
                     />
         </div>
          <div id="phonePagination">

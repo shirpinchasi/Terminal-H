@@ -45,6 +45,9 @@ export default function BrandPage() {
         if (!id) {
             return;
         }
+        if(page){
+            setLoading(true)
+        }
         getBrandProduct(id);
     }, [id, page, sort, sortCount, gender]);
 
@@ -62,7 +65,6 @@ export default function BrandPage() {
     const handlePageClick = (e) => {
         const page = e.selected;
         setPage(page)
-        scrollToTop();
     };
     const handleChangeGender = (event) => {
         setGender(event.target.value);
@@ -76,12 +78,7 @@ export default function BrandPage() {
         setSort(e.target.value)
         setLoading(true)
     };
-    function scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-        });
-    };
+
     const pageOptions = []
     for (let i = 0; i < totalPages.totalPages; i++) {
         pageOptions.push({
@@ -91,7 +88,6 @@ export default function BrandPage() {
     };
     const handlePageChange = (e) => {
         setPage(e.target.value)
-        scrollToTop();
     };
     const handleChangeMultiple = (event) => {
         const {
@@ -145,61 +141,63 @@ export default function BrandPage() {
             </div>
                 <div className="brandProduct">
                     
-                        {brandProduct.map(brandProduct => (
-                            <div >
-                                <Link to={`/ProductPage/${brandProduct.id}`} id="Link">
-                                <div className="ajustShop">
-                                        <div id="image">
-                                            <img src={brandProduct.pictureUrl} key={brandProduct.pictureUrl} className="pictureUrlShop" />
-                                            <div className="hoverItems">
-                                                {inCart(brandProduct.id) ?
-                                                    <Button id="favorite" onClickCapture={(e)=> e.preventDefault()} onClick={() => inCart(brandProduct.id) ? removeItem(brandProduct.id) : addItem({ id: brandProduct.id, name: brandProduct.name, price: brandProduct.price, img: brandProduct.pictureUrl, brand: brandProduct.brand.name })} value={brandProduct.id}>
-                                                        <FavoriteBorder  className="favoriteBorderIcon" />
-                                                    </Button>
-                                                    :
-                                                    <Button id="favorite" onClickCapture={(e)=> e.preventDefault()} onClick={() =>   addItem({ id: brandProduct.id, name: brandProduct.name, price: brandProduct.price, img: brandProduct.pictureUrl, brand: brandProduct.brand.name })} value={brandProduct.id}>
-                                                        <FavoriteBorder  />
-                                                    </Button>
-                                                }
-
-                                                <Button href={brandProduct.url} target="_blank" rel="noopener noreferrer" id="buttonToSite">
-                                                    <p className="linkToSite"> ראה מוצר באתר <b>{brandProduct.shop.name}</b></p>
-                                                    <LaunchIcon />
-                                                </Button>
-                                            </div>
-                                        </div>
-                                        <div className="descPrice">
-                                        <div>
-                                                {!brandProduct.discount ? 
-                                                        <div className="originalPriceWithNoDiscount" >&#8362;{brandProduct.originalPrice}</div>
+                {brandProduct.map((brand) => (
+                                <div key={brand.id}>
+                                    <a href={`/ProductPage/${brand.id}`} key={brand.id} id="Link">
+                                        <div className="ajustShop">
+                                            <div id="image">
+                                                <img src={brand.pictureUrl} key={brand.pictureUrl} className="pictureUrlShop" />
+                                                <div className="showLike">
+                                                    {inCart(brand.id) ?
+                                                        <Button id="favorite" onClickCapture={(e) => e.preventDefault()} onClick={() => inCart(brand.id) ? removeItem(brand.id) : addItem({ id: brand.id, name: brand.name, price: brand.price, img: brand.pictureUrl, brand: brand.brand.name, shopName: brand.shop.name })} value={brand.id}>
+                                                            <FavoriteBorder className="favoriteBorderIcon" />
+                                                        </Button>
                                                         :
-                                                    <div> 
-                                                        <div className="originalPriceWithDiscount" >&#8362;{brandProduct.originalPrice}</div>
-                                                        <div className="price" key={brandProduct.price}>&#8362;{brandProduct.price}</div>
-                                                        <div className="discount">{Number(brandProduct.discount.toFixed(1))}%</div>
-                                                        
-                                                       
+                                                        <Button id="favorite" onClickCapture={(e) => e.preventDefault()} onClick={() => addItem({ id: brand.id, name: brand.name, price: brand.price, img: brand.pictureUrl, brand: brand.brand.name, shopName: brand.shop.name })} value={brand.id}>
+                                                            <FavoriteBorder />
+                                                        </Button>
+                                                    }
                                                 </div>
+                                                <div className="hoverItems">
+                                                    {inCart(brand.id) ?
+                                                        <Button id="favorite" onClickCapture={(e) => e.preventDefault()} onClick={() => inCart(brand.id) ? removeItem(brand.id) : addItem({ id: brand.id, name: brand.name, price: brand.price, img: brand.pictureUrl, brand: brand.brand.name, shopName: brand.shop.name })} value={brand.id}>
+                                                            <FavoriteBorder className="favoriteBorderIcon" />
+                                                        </Button>
+                                                        :
+                                                        <Button id="favorite" onClickCapture={(e) => e.preventDefault()} onClick={() => addItem({ id: brand.id, name: brand.name, price: brand.price, img: brand.pictureUrl, brand: brand.brand.name, shopName: brand.shop.name })} value={brand.id}>
+                                                            <FavoriteBorder />
+                                                        </Button>
+                                                    }
 
-                                                }
-                                                
-                                                
+                                                    <Button href={brand.url} target="_blank" rel="noopener noreferrer" id="buttonToSite">
+                                                        <p className="linkToSite"> ראה מוצר באתר <b>{brand.shop.name}</b></p>
+                                                        <LaunchIcon />
+                                                    </Button>
+                                                </div>
                                             </div>
-                                            <div className="ajustNames">
-                                            <div className="brandShop" key={brandProduct.brand.name}>{brandProduct.brand.name}</div>
-                                            <div className="shopName" key={brandProduct.name}>{brandProduct.name}</div>
+                                            <div className="descPrice">
+                                                <div>
+                                                    {!brand.discount
+                                                        ?
+                                                        <div className="originalPriceWithNoDiscount" >&#8362;{brand.originalPrice}</div>
+                                                        :
+                                                        <div>
+                                                            <div className="originalPriceWithDiscount" >&#8362;{brand.originalPrice}</div>
+                                                            <div className="price" key={brand.price}>&#8362;{brand.price}</div>
+                                                            <div className="discount">{Number(brand.discount.toFixed(1))}%</div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div className="ajustNames">
+                                                    <div className="brandShop" key={brand.brand.name}>{brand.brand.name}</div>
+                                                    <div className="shopName" key={brand.name}>{brand.name}</div>
+                                                </div>
                                             </div>
                                         </div>
-                                        
-                                        
-                                            
-                                            
-                                       
-                                        
-                                    </div>
-                                </Link>
-                            </div>
-                        ))}
+                                    </a>
+
+                                </div>
+                            ))}
                 </div>
                 <Pagination totalPages={totalPages.totalPages} page={page} totalNumbers={totalPages.number} pageOptions={pageOptions} handlePageClick={handlePageClick} handlePageChange={handlePageChange}  />
                 </>

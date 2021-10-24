@@ -15,6 +15,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import FilterMenu from "../Menu/FilterMenu";
+import config from "../config/config";
 
 
 export default function SearchResults() {
@@ -36,6 +37,9 @@ export default function SearchResults() {
         if (!search) {
             return;
         };
+        if(page){
+            setLoading(true)
+        }
         
     }, [search, page,sort ,value,sortCount]);
 
@@ -44,7 +48,7 @@ export default function SearchResults() {
 
     async function getProducts() {
         try {
-            const res = await fetch(`https://terminal-h.herokuapp.com/api/products${search}&projection=detailedProduct&page=${page}&size=${sortCount}&sort=${sort}&gender=${value}`);
+            const res = await fetch(` https://terminal-h.herokuapp.com/api/products${search}&projection=detailedProduct&page=${page}&size=${sortCount}&sort=${sort}&gender=${value}`);
             const product = await res.json();
             setProducts(product._embedded.products)
             setTotalPages(product.page)
@@ -65,24 +69,13 @@ export default function SearchResults() {
 
     const handlePageChange = (e) => {
         setPage(e.target.value)
-        scrollToTop();
-
-
     };
 
     const handlePageClick = (e) => {
         const page = e.selected;
         setPage(page)
-        scrollToTop();
     };
 
-
-    function scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    };
     function hasNoResults(){
         return search && product.length === 0;
     }
@@ -136,7 +129,7 @@ export default function SearchResults() {
                                             <img src={shop.pictureUrl} key={shop.pictureUrl} className="pictureUrlShop" />
                                             <div className="hoverItems">
                                                 {inCart(shop.id) ?
-                                                    <Button id="favorite" onClickCapture={(e)=> e.preventDefault()} onClick={() => inCart(shop.id) ? removeItem(shop.id) : addItem({ id: shop.id, name: shop.name, price: shop.price, img: shop.pictureUrl, brand: shop.brand.name })} value={shop.id}>
+                                                    <Button id="favorite" onClickCapture={(e)=> e.preventDefault()} onClick={() => inCart(shop.id) ? removeItem(shop.id) : addItem({ id: shop.id, name: shop.name, price: shop.price, img: shop.pictureUrl, brand: shop.brand.name, shopName:shop.shop.name })} value={shop.id}>
                                                         <FavoriteBorder  className="favoriteBorderIcon" />
                                                     </Button>
                                                     :

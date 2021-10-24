@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import "./Menu.scss";
 import config from "../config/config";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -9,17 +9,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import ListItem from '@material-ui/core/ListItem';
-import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Slide from '@material-ui/core/Slide';
 import Search from "../Search/Search";
 import Typography from '@mui/material/Typography';
-import Tooltip from '@mui/material/Tooltip';
 import Box from '@mui/material/Box';
 import Badge from '@mui/material/Badge';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
@@ -59,10 +54,6 @@ export default function HideAppBar(props) {
   const [sections, setSections] = useState([]);
   const classes = useStyles();
   const theme = useTheme();
-  const [clickWomen, setClickWomen] = useState("WOMEN")
-  const [clickKids, setClickKids] = useState("KIDS")
-  const [clickMen, setClickMen] = useState("MEN")
-  const [clickAll, setClickAll] = useState("")
   const [open, setOpen] = React.useState(false);
   const [openNestedList, setOpenNestedList] = React.useState(true);
   const [value, setValue] = React.useState(0);
@@ -86,16 +77,9 @@ export default function HideAppBar(props) {
 
     setState({ ...state, [anchor]: openDrawer });
   };
-
-
-
-
-
-
-
   useEffect(() => {
     getSections();
-  }, [clickWomen, clickMen, clickKids])
+  }, [])
 
   async function getSections() {
 
@@ -127,7 +111,7 @@ export default function HideAppBar(props) {
 
           <Toolbar id="navbar">
             <Badge id="badge" badgeContent={totalUniqueItems ? totalUniqueItems : totalUniqueItems} color="primary">
-              <a href="/Favorites" alt="Favorites"> 
+              <a href="/Favorites" alt="Favorites">
                 <FavoriteBorderOutlined fontSize="large" color="action" />
               </a>
             </Badge>
@@ -180,15 +164,15 @@ export default function HideAppBar(props) {
                   <Drawer
                     anchor={anchor}
                     open={state[anchor]}
-                    // onClose={toggleDrawer(anchor, false)}
+                  // onClose={toggleDrawer(anchor, false)}
                   >
                     <Box
                       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
                       role="presentation"
-                      // onClick={toggleDrawer(anchor, false)}
-                      
+                    // onClick={toggleDrawer(anchor, false)}
+
                     >
-                      <ChevronLeftIcon onClick={toggleDrawer(anchor, false)} id="ChevronLeft"/>
+                      <ChevronLeftIcon onClick={toggleDrawer(anchor, false)} id="ChevronLeft" />
                       <List direction="rtl">
                         {sections.map((section, index) => (
                           <div key={index}>

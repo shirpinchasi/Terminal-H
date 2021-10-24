@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import Scrollspy from 'react-scrollspy';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import config from '../../config/config';
 
 
 const useStyles = makeStyles((theme)=> (({
@@ -31,7 +32,7 @@ export default function Brands() {
     useEffect(() => {
         async function getBrands() {
             try {
-                const res = await fetch("https://terminal-h.herokuapp.com/api/brands?projection=detailedBrand&sort=name,asc", {
+                const res = await fetch(config.apiBrands, {
                     method: "GET",
                 })
                 const fetchedBrands = await res.json();

@@ -23,12 +23,21 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import 'react-dropdown/style.css';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import purple from '@material-ui/core/colors/purple';
+import { InputLabel } from "@mui/material";
+import Multiselect from 'multiselect-react-dropdown';
+import "./FilterMenu.scss"
 
-function FilterMenu(props){
+function FilterMenu(props) {
     const [state, setState] = React.useState({
         right: false,
     });
     const classes = useStyles();
+
+
+    const newArr = props.brands.map((b) => {
+        return b;
+    })
+
 
 
 
@@ -39,7 +48,7 @@ function FilterMenu(props){
 
         setState({ ...state, [anchor]: openDrawer });
     };
-    
+
     const ITEM_HEIGHT = 48;
     const ITEM_PADDING_TOP = 8;
     const MenuProps = {
@@ -50,80 +59,112 @@ function FilterMenu(props){
             },
         },
     };
-
-    return(
+    console.log(props);
+    function handleChange(e){
+        props.onChange(e.target.value)
+    }
+    return (
 
         <Toolbar>
-        {['right'].map((anchor) => (
-            <React.Fragment key={anchor}>
-                {/* <Button onClick={toggleDrawer(anchor, true)}></Button> */}
-                <IconButton
-                    color="black"
-                    aria-label="open drawer"
-                    edge="end"
-                    onClick={toggleDrawer(anchor, true)}
-                >
-                    <div id="filterOptions">
-                        <FilterListIcon fontSize="small" />
-                        <p>פילטרים</p>
-                    </div>
-                </IconButton>
-                <Drawer
-                    anchor={anchor}
-                    open={state[anchor]}
+            {['right'].map((anchor) => (
+                <React.Fragment key={anchor}>
 
-                >
-                    <Box
-                        sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 240 }}
-                        role="presentation"
-
+                    <IconButton
+                        color="black"
+                        aria-label="open drawer"
+                        edge="end"
+                        onClick={toggleDrawer(anchor, true)}
+                    >
+                        <div id="filterOptions">
+                            <FilterListIcon fontSize="small" />
+                            <p>פילטרים</p>
+                        </div>
+                    </IconButton>
+                    <Drawer
+                        anchor={anchor}
+                        open={state[anchor]}
 
                     >
-                        <ChevronLeftIcon onClick={toggleDrawer(anchor, false)} id="ChevronLeft" />
-                        <List direction="rtl">
-                            <div className={classes.root}>
-                                <Accordion>
-                                    <AccordionSummary
-                                        expandIcon={<KeyboardArrowDownIcon />}
-                                        aria-controls="panel1a-content"
-                                        id="panel1a-header"
-
-                                    >
-                                        <Typography className={classes.heading}>מותגים</Typography>
-                                    </AccordionSummary>
-                                    <AccordionDetails>
-                                        <Typography>
+                        <Box
+                            sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 240 }}
+                            role="presentation"
 
 
-                                            <div>
-                                                <FormControl sx={{ m: 1, width: 300 }}>
-                                                    {/* <Select
-                                                        multiple
-                                                        displayEmpty
-                                                        value={brandid}
-                                                        onChange={handleChangeMultiple}
-                                                        renderValue={
-                                                            brandid.length > 0
-                                                                ? undefined
-                                                                : () =>   <InputLabel id="demo-multiple-checkbox-label">מותגים</InputLabel>
-                                                        }
-                                                        MenuProps={MenuProps}
-                                                    >
-                                                        <MenuItem disabled value="">
-                                                            <em>Placeholder</em>
-                                                        </MenuItem>
-                                                        {brands.map(brand => (
-                                                            <MenuItem
-                                                                key={brand.id}
-                                                                value={brand.id}
-                                                            >
-                                                                <Checkbox checked={brandid.indexOf(brand.id) > -1}/>
-                                                                {brand.name}
+                        >
+                            <ChevronLeftIcon onClick={toggleDrawer(anchor, false)} id="ChevronLeft" />
+                            <List direction="rtl">
+                                <div className={classes.root}>
+                                    <Accordion>
+                                        <AccordionSummary
+                                            expandIcon={<KeyboardArrowDownIcon />}
+                                            aria-controls="panel1a-content"
+                                            id="panel1a-header"
+
+                                        >
+                                            <Typography className={classes.heading}>מותגים</Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                            <Typography>
+
+
+                                                <div>
+                                                    <div>
+                                                        <Multiselect
+                                                            options={newArr} // Options to display in the dropdown
+                                                            selectedValues={newArr.id} // Preselected value to persist in dropdown
+                                                            displayValue={newArr.name}
+                                                            value={newArr.id}
+                                                            showCheckbox={true}
+                                                            id={newArr.id}
+                                                            onChange={handleChange}
+                                                            onSelect={props.onSelect}
+                                                            // onSelect={this.onSelect} // Function will trigger on select event
+                                                            // onRemove={this.onRemove} // Function will trigger on remove event
+                                                            displayValue="name" 
+                                                        />
+
+
+
+
+
+                                                    </div>
+                                                    {/* <FormControl sx={{ m: 1, width: 300 }}>
+                                                        <Select
+                                                            multiple
+                                                            displayEmpty
+                                                            value={props.brandid}
+                                                            onChange={props.handleChangeMultiple}
+                                                            renderValue={
+                                                                props.brandid.length > 0
+                                                                    ? undefined
+                                                                    : () => <InputLabel id="demo-multiple-checkbox-label">מותגים</InputLabel>
+                                                            }
+                                                            MenuProps={MenuProps}
+                                                        >
+                                                            <MenuItem disabled value="">
+
                                                             </MenuItem>
-                                                        ))}
-                                                    </Select> */}
+                                                            {/* {Object.entries(props.brands).map((brand) => (
+                                                                Object.values(brand).map((b) => (
+                                                                    <MenuItem
+                                                                        key={b.name}
+                                                                        value={b.id}
+                                                                    >
+                                                                        <Checkbox checked={props.brandid.indexOf(b.id) > -1} />
+                                                                        <ListItemText primary={b.name} />
+                                                                    </MenuItem>
+
+                                                                ))
+
+                                                            ))
+                                                            } */}
+
+                                                    {/* {props.brands.map(brand => (
                                                     
-                                                    <Select
+                                                ))} */}
+                                                    {/* </Select> */}
+
+                                                    {/* <Select
                                                         labelId="demo-multiple-checkbox-label"
                                                         id="demo-multiple-checkbox"
                                                         multiple
@@ -141,74 +182,74 @@ function FilterMenu(props){
 
                                                             </MenuItem>
                                                         ))}
-                                                    </Select>
+                                                    </Select> */}
+                                                    {/* </FormControl> */}
+                                                </div>
+
+                                            </Typography>
+                                        </AccordionDetails>
+                                    </Accordion>
+                                    <Accordion>
+                                        <AccordionSummary
+                                            expandIcon={<KeyboardArrowDownIcon />}
+                                            aria-controls="panel1a-content"
+                                            id="panel1a-header"
+
+                                        >
+                                            <Typography className={classes.heading}>כמות מוצרים בדף</Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                            <Typography>
+                                                <FormControl component="fieldset" style={{ width: 200 }} id="radioSortBy">
+                                                    <RadioGroup
+                                                        aria-label="itemsPerPage"
+                                                        name="controlled-radio-buttons-group"
+                                                        value={props.sortCount}
+                                                        defaultValue="30"
+                                                        onChange={props.handleSetCount}
+
+                                                    >
+                                                        <FormControlLabel style={{ fontSize: 30 }} value="30" control={<Radio />} label="30" />
+                                                        <FormControlLabel value="60" control={<Radio />} label="60" />
+                                                        <FormControlLabel value="90" control={<Radio />} label="90" />
+                                                        <FormControlLabel value="120" control={<Radio />} label="120" />
+                                                    </RadioGroup>
                                                 </FormControl>
-                                            </div>
 
-                                        </Typography>
-                                    </AccordionDetails>
-                                </Accordion>
-                                <Accordion>
-                                    <AccordionSummary
-                                        expandIcon={<KeyboardArrowDownIcon />}
-                                        aria-controls="panel1a-content"
-                                        id="panel1a-header"
+                                            </Typography>
+                                        </AccordionDetails>
+                                    </Accordion>
+                                    <Accordion>
+                                        <AccordionSummary
+                                            expandIcon={<KeyboardArrowDownIcon />}
+                                            aria-controls="panel1a-content"
+                                            id="panel1a-header"
 
-                                    >
-                                        <Typography className={classes.heading}>כמות מוצרים בדף</Typography>
-                                    </AccordionSummary>
-                                    <AccordionDetails>
-                                        <Typography>
-                                            <FormControl component="fieldset" style={{ width: 200 }} id="radioSortBy">
-                                                <RadioGroup
-                                                    aria-label="itemsPerPage"
-                                                    name="controlled-radio-buttons-group"
-                                                    value={props.sortCount}
-                                                    defaultValue="30"
-                                                    onChange={props.handleSetCount}
+                                        >
+                                            <Typography className={classes.heading}>מגדר</Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                            <Typography>
+                                                <FormControl component="fieldset" style={{ width: 200 }} id="radioSortBy">
+                                                    <RadioGroup
+                                                        aria-label="gender"
+                                                        name="controlled-radio-buttons-group"
+                                                        value={props.gender}
+                                                        defaultValue="30"
+                                                        onChange={props.handleSetGender}
 
-                                                >
-                                                    <FormControlLabel style={{ fontSize: 30 }} value="30" control={<Radio />} label="30" />
-                                                    <FormControlLabel value="60" control={<Radio />} label="60" />
-                                                    <FormControlLabel value="90" control={<Radio />} label="90" />
-                                                    <FormControlLabel value="120" control={<Radio />} label="120" />
-                                                </RadioGroup>
-                                            </FormControl>
+                                                    >
+                                                        <FormControlLabel style={{ fontSize: 30 }} value="" control={<Radio />} label="הכל" />
+                                                        <FormControlLabel value="WOMEN" control={<Radio />} label="נשים" />
+                                                        <FormControlLabel value="MEN" control={<Radio />} label="גברים" />
+                                                        <FormControlLabel value="KIDS" control={<Radio />} label="ילדים" />
+                                                    </RadioGroup>
+                                                </FormControl>
 
-                                        </Typography>
-                                    </AccordionDetails>
-                                </Accordion>
-                                <Accordion>
-                                    <AccordionSummary
-                                        expandIcon={<KeyboardArrowDownIcon />}
-                                        aria-controls="panel1a-content"
-                                        id="panel1a-header"
-
-                                    >
-                                        <Typography className={classes.heading}>מגדר</Typography>
-                                    </AccordionSummary>
-                                    <AccordionDetails>
-                                        <Typography>
-                                            <FormControl component="fieldset" style={{ width: 200 }} id="radioSortBy">
-                                                <RadioGroup
-                                                    aria-label="gender"
-                                                    name="controlled-radio-buttons-group"
-                                                    value={props.gender}
-                                                    defaultValue="30"
-                                                    onChange={props.handleSetGender}
-
-                                                >
-                                                    <FormControlLabel style={{ fontSize: 30 }} value="" control={<Radio />} label="הכל" />
-                                                    <FormControlLabel value="WOMEN" control={<Radio />} label="נשים" />
-                                                    <FormControlLabel value="MEN" control={<Radio />} label="גברים" />
-                                                    <FormControlLabel value="KIDS" control={<Radio />} label="ילדים" />
-                                                </RadioGroup>
-                                            </FormControl>
-
-                                        </Typography>
-                                    </AccordionDetails>
-                                </Accordion>
-                                {/* <Accordion id="accordion">
+                                            </Typography>
+                                        </AccordionDetails>
+                                    </Accordion>
+                                    {/* <Accordion id="accordion">
                                         <AccordionSummary
                                             expandIcon={<FontAwesomeIcon icon={faFilter} />}
                                             aria-controls="panel1a-content"
@@ -238,16 +279,16 @@ function FilterMenu(props){
                                                 </FormControl>
                                             </Typography>
                                             {/* <button onClick={onFilterClick} setLoading={false}>Filter</button>  */}
-                                {/* </AccordionDetails>
+                                    {/* </AccordionDetails>
                                     </Accordion> */}
 
-                            </div>
-                        </List>
-                    </Box>
-                </Drawer>
-            </React.Fragment>
-        ))}
-    </Toolbar>
+                                </div>
+                            </List>
+                        </Box>
+                    </Drawer>
+                </React.Fragment>
+            ))}
+        </Toolbar>
     )
 }
 
