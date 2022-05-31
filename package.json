@@ -20,7 +20,7 @@
     "cart-localstorage": "^1.1.5",
     "clsx": "^1.1.1",
     "multiselect-react-dropdown": "^2.0.7",
-    "node-sass": "^5.0.0",
+    "node-sass": "^7.0.0",
     "query-string": "^7.0.0",
     "react": "^17.0.2",
     "react-data-bouncer": "^2.0.0",
