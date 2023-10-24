@@ -13,6 +13,7 @@ import SearchResults from "./Search/SearchRes";
 import Favorites from "./Shop/Favorites/Favorites";
 import { CartProvider } from "react-use-cart";
 import Footer from "./Footer/Footer";
+import RecipeProvider from "./Context/Context";
 
 
 
@@ -20,34 +21,32 @@ export default function App() {
 
     return (
         <div className="App">
-            
+
             <CartProvider >
-            <Menu />
-            <BrowserRouter>
-            
-                <Route path="/Shop/:id?">
-                    <Shop Component={Shop} />
-                </Route>
-                <Route path="/Favorites">
-                    <Favorites Component={Favorites} />
-                </Route>
-                <Route path="/BrandPage/:id?">
-                    <BrandPage Component={BrandPage} />
-                </Route>
-                <Route path="/ProductPage/:id?">
-                    <ProductPage Component={ProductPage} />
-                </Route>
-                <Route path="/SearchResults">
-                    <SearchResults Component={SearchResults} />
-                </Route>
-                <Route path="/Brands">
-                    <Brands Component={Brands} />
-                </Route>
-                <Route exact path="/">
-                    <Feed Component={Feed} />
-                </Route>
-                
-            </BrowserRouter>
+                <Menu />
+                <BrowserRouter>
+                    <Route path="/Shop/:id?">
+                        <Shop Component={Shop} />
+                    </Route>
+                    <Route path="/Favorites">
+                        <Favorites Component={Favorites} />
+                    </Route>
+                    <Route path="/BrandPage/:id?">
+                        <BrandPage Component={BrandPage} />
+                    </Route>
+                    <Route path="/ProductPage/:id?">
+                        <ProductPage Component={ProductPage} />
+                    </Route>
+                    <Route path="/SearchResults">
+                        <SearchResults Component={SearchResults} />
+                    </Route>
+                    <Route path="/Brands">
+                        <Brands Component={Brands} />
+                    </Route>
+                    <Route exact path="/">
+                        <Feed Component={Feed} />
+                    </Route>
+                </BrowserRouter>
             </CartProvider>
 
 

@@ -80,17 +80,6 @@ export default function Brands() {
                             </ul>
                         </div>
                     ))}
-                    {/* {brands.map(brand => (
-                        <div>
-                            <Link to={`/BrandPage/${brand.id}`} className="href">
-                                
-                                <ul>
-                                    <div id="li">{brand.name}</div>
-                                </ul>
-                            </Link>
-                        </div>
-                    ))} */}
-
                 </div>
             )
             }

@@ -1,31 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import Loading from "../../Loader/Loader";
-import { Link } from "react-router-dom";
 import "./BrandPage.scss";
 import Pagination from "../Pagination/Pagination";
 import config from "../../config/config";
-import { Button, Toolbar } from "@material-ui/core";
-import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
-import { useCart } from "react-use-cart";
-import LaunchIcon from '@mui/icons-material/Launch';
-import 'react-dropdown/style.css';
-import FilterMenu from "../../Menu/FilterMenu";
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import Main from "../../Main/Main";
+import Footer from "../../Footer/Footer";
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
 
 export default function BrandPage() {
     const { id } = useParams();
@@ -35,9 +16,10 @@ export default function BrandPage() {
     const [gender, setGender] = useState('');
     const [page, setPage] = useState(0);
     const [brandid,setBrandId] = useState('')
+    const [brands, setBrands] = useState([]);
     const [sortCount, setSortCount] = useState(30)
+    const [catNames, setCatNames] = useState([])
     const [totalPages, setPages] = useState([]);
-    const { addItem, inCart, removeItem } = useCart();
     const [totalElem, setTotalElem] = useState([]);
 
 
@@ -98,16 +80,37 @@ export default function BrandPage() {
         );
         console.log(value);
     };
+    const handleSetGender = (e) => {
+        setGender(e.target.value)
+    };
+    const handleSetCount = (e) => {
+        setSortCount(e.target.value)
+    };
+    const handleChangeCategory = (e) => {
+        setCatNames(e.target.value)
+    };
 
 
 
 
     return (
-        <div>
-            {isLoading ? (
+        <>
+        {isLoading ? (
+            <Loading/>
+        ):(
+            <>
+            <Main brandid={brandid} brands={brands} gender={gender} setGender={setGender} handleChangeMultiple={handleChangeMultiple} handleSetGender={handleSetGender} handleSetCount={handleSetCount} sortCount={sortCount} isLoading={isLoading} categoryName={""} totalElem={totalElem} sort={sort} setSort={setSort} shops={brandProduct} />
+            <Pagination totalPages={totalPages.totalPages} page={page} totalNumbers={totalPages.number} pageOptions={pageOptions} handlePageClick={handlePageClick} handlePageChange={handlePageChange} />
+            <Footer />
+        </>
+        )}
+            {/* {isLoading ? (
                 <Loading />
             ) : (
                 <>
+                <Main brandid={brandid} brands={brands} gender={gender} setGender={setGender} handleChangeMultiple={handleChangeMultiple} handleSetGender={handleSetGender} handleSetCount={handleSetCount} sortCount={sortCount} isLoading={isLoading} categoryName={""} totalElem={totalElem} sort={sort} setSort={setSort} shops={categories} />
+                    <Pagination totalPages={totalPages.totalPages} page={page} totalNumbers={totalPages.number} pageOptions={pageOptions} handlePageClick={handlePageClick} handlePageChange={handlePageChange} />
+                    <Footer />
                 <div className="ShopFilters">
                 
                         
@@ -149,22 +152,22 @@ export default function BrandPage() {
                                                 <img src={brand.pictureUrl} key={brand.pictureUrl} className="pictureUrlShop" />
                                                 <div className="showLike">
                                                     {inCart(brand.id) ?
-                                                        <Button id="favorite" onClickCapture={(e) => e.preventDefault()} onClick={() => inCart(brand.id) ? removeItem(brand.id) : addItem({ id: brand.id, name: brand.name, price: brand.price, img: brand.pictureUrl, brand: brand.brand.name, shopName: brand.shop.name })} value={brand.id}>
+                                                        <Button id="favorite" onClickCapture={(e) => e.preventDefault()} onClick={() => inCart(brand.id) ? removeItem(brand.id) : addItem({ id: brand.id, name: brand.name, price: brand.price, img: brand.pictureUrl, brand: brand.brand.name, shopName: brand.shop.name ,originalPrice: brand.originalPrice })} value={brand.id}>
                                                             <FavoriteBorder className="favoriteBorderIcon" />
                                                         </Button>
                                                         :
-                                                        <Button id="favorite" onClickCapture={(e) => e.preventDefault()} onClick={() => addItem({ id: brand.id, name: brand.name, price: brand.price, img: brand.pictureUrl, brand: brand.brand.name, shopName: brand.shop.name })} value={brand.id}>
+                                                        <Button id="favorite" onClickCapture={(e) => e.preventDefault()} onClick={() => addItem({ id: brand.id, name: brand.name, price: brand.price, img: brand.pictureUrl, brand: brand.brand.name, shopName: brand.shop.name, originalPrice: brand.originalPrice  })} value={brand.id}>
                                                             <FavoriteBorder />
                                                         </Button>
                                                     }
                                                 </div>
                                                 <div className="hoverItems">
                                                     {inCart(brand.id) ?
-                                                        <Button id="favorite" onClickCapture={(e) => e.preventDefault()} onClick={() => inCart(brand.id) ? removeItem(brand.id) : addItem({ id: brand.id, name: brand.name, price: brand.price, img: brand.pictureUrl, brand: brand.brand.name, shopName: brand.shop.name })} value={brand.id}>
+                                                        <Button id="favorite" onClickCapture={(e) => e.preventDefault()} onClick={() => inCart(brand.id) ? removeItem(brand.id) : addItem({ id: brand.id, name: brand.name, price: brand.price, img: brand.pictureUrl, brand: brand.brand.name, shopName: brand.shop.name, originalPrice: brand.originalPrice })} value={brand.id}>
                                                             <FavoriteBorder className="favoriteBorderIcon" />
                                                         </Button>
                                                         :
-                                                        <Button id="favorite" onClickCapture={(e) => e.preventDefault()} onClick={() => addItem({ id: brand.id, name: brand.name, price: brand.price, img: brand.pictureUrl, brand: brand.brand.name, shopName: brand.shop.name })} value={brand.id}>
+                                                        <Button id="favorite" onClickCapture={(e) => e.preventDefault()} onClick={() => addItem({ id: brand.id, name: brand.name, price: brand.price, img: brand.pictureUrl, brand: brand.brand.name, shopName: brand.shop.name,originalPrice: brand.originalPrice  })} value={brand.id}>
                                                             <FavoriteBorder />
                                                         </Button>
                                                     }
@@ -202,7 +205,7 @@ export default function BrandPage() {
                 <Pagination totalPages={totalPages.totalPages} page={page} totalNumbers={totalPages.number} pageOptions={pageOptions} handlePageClick={handlePageClick} handlePageChange={handlePageChange}  />
                 </>
             
-            )}
-        </div>
+            )} */}
+        </>
     )
 }

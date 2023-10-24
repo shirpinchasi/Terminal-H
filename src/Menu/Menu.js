@@ -143,7 +143,7 @@ export default function HideAppBar(props) {
             <Toolbar>
               <Badge id="badge" badgeContent={totalUniqueItems ? totalUniqueItems : "0"} color="primary">
                 <a href="/Favorites" alt="Favorites">
-                  <StarBorderOutlinedIcon fontSize="large" color="action" />
+                <FavoriteBorderOutlined fontSize="large" color="action" />
                 </a>
               </Badge>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import { Toolbar } from "@material-ui/core";
 import Checkbox from '@mui/material/Checkbox';
 import { makeStyles } from '@material-ui/core/styles';
@@ -24,20 +23,16 @@ import 'react-dropdown/style.css';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import purple from '@material-ui/core/colors/purple';
 import { InputLabel } from "@mui/material";
-import Multiselect from 'multiselect-react-dropdown';
-import "./FilterMenu.scss"
+// import Multiselect from 'multiselect-react-dropdown';
+import { Select } from "@mui/material";
+import "./FilterMenu.scss";
+import config from "../config/config";
 
 function FilterMenu(props) {
     const [state, setState] = React.useState({
         right: false,
     });
     const classes = useStyles();
-
-
-    const newArr = props.brands.map((b) => {
-        return b;
-    })
-
 
 
 
@@ -59,10 +54,9 @@ function FilterMenu(props) {
             },
         },
     };
-    console.log(props);
-    function handleChange(e){
-        props.onChange(e.target.value)
-    }
+
+
+
     return (
 
         <Toolbar>
@@ -109,62 +103,8 @@ function FilterMenu(props) {
 
                                                 <div>
                                                     <div>
-                                                        <Multiselect
-                                                            options={newArr} // Options to display in the dropdown
-                                                            selectedValues={newArr.id} // Preselected value to persist in dropdown
-                                                            displayValue={newArr.name}
-                                                            value={newArr.id}
-                                                            showCheckbox={true}
-                                                            id={newArr.id}
-                                                            onChange={handleChange}
-                                                            onSelect={props.onSelect}
-                                                            // onSelect={this.onSelect} // Function will trigger on select event
-                                                            // onRemove={this.onRemove} // Function will trigger on remove event
-                                                            displayValue="name" 
-                                                        />
-
-
-
-
-
-                                                    </div>
-                                                    {/* <FormControl sx={{ m: 1, width: 300 }}>
+                                                        <FormControl sx={{ m: 1, width: 300 }}>
                                                         <Select
-                                                            multiple
-                                                            displayEmpty
-                                                            value={props.brandid}
-                                                            onChange={props.handleChangeMultiple}
-                                                            renderValue={
-                                                                props.brandid.length > 0
-                                                                    ? undefined
-                                                                    : () => <InputLabel id="demo-multiple-checkbox-label">מותגים</InputLabel>
-                                                            }
-                                                            MenuProps={MenuProps}
-                                                        >
-                                                            <MenuItem disabled value="">
-
-                                                            </MenuItem>
-                                                            {/* {Object.entries(props.brands).map((brand) => (
-                                                                Object.values(brand).map((b) => (
-                                                                    <MenuItem
-                                                                        key={b.name}
-                                                                        value={b.id}
-                                                                    >
-                                                                        <Checkbox checked={props.brandid.indexOf(b.id) > -1} />
-                                                                        <ListItemText primary={b.name} />
-                                                                    </MenuItem>
-
-                                                                ))
-
-                                                            ))
-                                                            } */}
-
-                                                    {/* {props.brands.map(brand => (
-                                                    
-                                                ))} */}
-                                                    {/* </Select> */}
-
-                                                    {/* <Select
                                                         labelId="demo-multiple-checkbox-label"
                                                         id="demo-multiple-checkbox"
                                                         multiple
@@ -176,14 +116,19 @@ function FilterMenu(props) {
                                                     >
 
                                                         {props.brands.map((brand) => (
-                                                            <MenuItem key={brand.id} value={brand.id}>
-                                                                <Checkbox checked={props.brandid.indexOf(brand.id) > -1} />
+                                                            <MenuItem key={brand.name} value={brand.id}>
+                                                                <Checkbox checked={props.brandid.indexOf(brand.name) > -1} />
                                                                 <ListItemText primary={brand.name} />
 
                                                             </MenuItem>
                                                         ))}
-                                                    </Select> */}
-                                                    {/* </FormControl> */}
+                                                    </Select>
+
+                                                        
+                                                       </FormControl>
+                                                    </div>
+                                                   
+                                                    
                                                 </div>
 
                                             </Typography>

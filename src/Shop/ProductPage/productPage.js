@@ -13,8 +13,7 @@ import { Button } from '@material-ui/core';
 import { createMuiTheme } from "@material-ui/core/styles";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
-import { ChevronRightRounded, ChevronLeftRounded } from '@mui/icons-material';
-import ImageGallery from 'react-image-gallery';
+
 
 
 
@@ -71,6 +70,7 @@ export default function ProductPage() {
                     <div className={classes.productPage}>
                     {arrayOfPics.length ?
                                     <Carousel
+                                    className={classes.carousel}
                                     infiniteLoop={true}
                                     autoPlay={false}
                                     width={"300px"}
@@ -173,15 +173,6 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "30px",
         fontWeight: "bold"
     },
-    pictureProductHiddenOnMd: {
-        display: "none",
-        [theme.breakpoints.down("sm")]: {
-            display: "block",
-            width: "300px"
-        }
-
-    },
-
     direction: {
         direction: "rtl"
     },
@@ -189,6 +180,11 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "space-between",
         display: "flex",
         marginTop: "7%",
+        [theme.breakpoints.down("sm")]: {
+            display:"flex",
+            flexDirection:"column",
+            justifyContent: "center"
+        }
     },
     accordionDetails: {
         width: "100%"
@@ -222,6 +218,10 @@ const useStyles = makeStyles((theme) => ({
 
 
         }
+    },
+
+    carousel:{
+        showThumbs:false
     },
     margin: {
         marginTop: "5%",
